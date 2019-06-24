@@ -1,9 +1,9 @@
 module.exports = {
-  title: "notes",
-  description: "notes",
+  title: "notebook",
+  description: "记事本",
   dest: "./dist", // 设置输出目录
-  base: "/notes/",
-  repo: "https://github.com/Relieved-hai/css_tricks", // 添加 github 链接
+  base: "/notebook/",
+  repo: "https://github.com/Relieved-hai/notebook", // 添加 github 链接
   themeConfig: {
     themeConfig: {
       lastUpdated: "Last Updated"
