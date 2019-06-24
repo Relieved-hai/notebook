@@ -20,11 +20,18 @@ module.exports = {
     ],
     sidebar: [
       {
-        title: "工具",
+        title: "Js",
         collapsable: false,
         children: [
-          ["/test/", "test"],
-          ["/test2/", "test"]
+          ["/js/test/", "j"]
+        ]
+      },
+      {
+        title: "Css",
+        collapsable: false,
+        children: [
+          ["/css/loading/", "加载动画"],
+          ["/test/", "test"]
         ]
       }
     ]

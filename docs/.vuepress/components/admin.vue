@@ -1,6 +1,6 @@
 <template>
   <div>
-    123
+    <el-button>默认按钮</el-button>
   </div>
 </template>
 
