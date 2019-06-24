@@ -20,7 +20,7 @@ module.exports = {
     ],
     sidebar: [
       {
-        title: "Js",
+        title: "Javascript",
         collapsable: false,
         children: [
           ["/js/test/", "j"]
@@ -30,8 +30,8 @@ module.exports = {
         title: "Css",
         collapsable: false,
         children: [
-          ["/css/loading/", "加载动画"],
-          ["/test/", "test"]
+          ["/css/resetcss/", "清除默认样式"],
+          ["/css/loading/", "加载动画"]
         ]
       }
     ]

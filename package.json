@@ -6,7 +6,7 @@
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "deploy:build": "npm run docs:build && deploy.sh"
+    "deploy:build": "deploy.sh"
   },
   "repository": {
     "type": "git",
