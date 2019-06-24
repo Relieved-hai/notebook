@@ -1,0 +1,24 @@
+{
+  "name": "notebook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Relieved-hai/notebook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Relieved-hai/notebook/issues"
+  },
+  "homepage": "https://github.com/Relieved-hai/notebook#readme",
+  "devDependencies": {
+    "vuepress": "^1.0.1"
+  }
+}
