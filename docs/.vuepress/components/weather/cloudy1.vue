@@ -1,0 +1,190 @@
+<template>
+  <div>
+    <div style="position: relative;height: 300px;">
+      <div class="cloudy"></div>
+    </div>
+
+    <el-collapse v-model="activeNames" @change="handleChange">
+      <el-collapse-item title="查看 css" name="1">
+        <div class="code" style="position:relative;">
+          <pre class="language-css">
+            <code ref="code"></code>
+          </pre>
+        </div>
+      </el-collapse-item>
+    </el-collapse>
+  </div>
+</template>
+
+<script>
+  import Prism from "prismjs"
+
+  export default {
+    methods: {
+      handleChange(val) {
+        console.log(val);
+      },
+      setCode() {
+        const code = `
+  .cloudy {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 260px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 200%;
+    color: #fff;
+    background: #2EB5E5;
+    border-radius: 5px;
+  }
+
+  .cloudy:before {
+    content: "";
+    text-indent: 23px;
+    font-size: 22px;
+    line-height: 40px;
+    color: #333;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background: #FFFFFF;
+    left: 30%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    box-shadow: #FFFFFF 65px -15px 0 -5px,
+    #FFFFFF 25px -25px,
+    #FFFFFF 30px 10px,
+    #FFFFFF 60px 15px 0 -10px,
+    #FFFFFF 85px 5px 0 -5px,
+    #C8C8C8 35px -35px,
+    #C8C8C8 66px -27px 0 -5px,
+    #C8C8C8 91px -10px 0 -8px;
+    animation: cloudy 5s ease-in-out infinite;
+  }
+
+  .cloudy:after {
+    content: "";
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    height: 15px;
+    width: 120px;
+    background: rgba(0, 0, 0, .5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: cloudy_shadow 5s ease-in-out infinite;
+  }
+
+  @keyframes cloudy {
+    50% {
+      transform: translate(-50%, -70%);
+    }
+    100% {
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  @keyframes cloudy_shadow {
+    50% {
+      transform: translate(-50%, -50%) scale(0.8);
+      background: rgba(0, 0, 0, .2);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      background: rgba(0, 0, 0, .5);
+    }
+  }
+`
+        this.$refs['code'].innerHTML = Prism.highlight(code, Prism.languages.css)
+      }
+    },
+    mounted() {
+      this.setCode();
+    },
+    data() {
+      return {
+        activeNames: ['0'],
+        dialogVisible: false
+      }
+    },
+    name: "cloudy1"
+  }
+</script>
+
+<style scoped>
+  .cloudy {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 260px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 200%;
+    color: #fff;
+    background: #2EB5E5;
+    border-radius: 5px;
+  }
+
+  .cloudy:before {
+    content: "";
+    text-indent: 23px;
+    font-size: 22px;
+    line-height: 40px;
+    color: #333;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background: #FFFFFF;
+    left: 30%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    box-shadow: #FFFFFF 65px -15px 0 -5px,
+    #FFFFFF 25px -25px,
+    #FFFFFF 30px 10px,
+    #FFFFFF 60px 15px 0 -10px,
+    #FFFFFF 85px 5px 0 -5px,
+    #C8C8C8 35px -35px,
+    #C8C8C8 66px -27px 0 -5px,
+    #C8C8C8 91px -10px 0 -8px;
+    animation: cloudy 5s ease-in-out infinite;
+  }
+
+  .cloudy:after {
+    content: "";
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    height: 15px;
+    width: 120px;
+    background: rgba(0, 0, 0, .5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: cloudy_shadow 5s ease-in-out infinite;
+  }
+
+  @keyframes cloudy {
+    50% {
+      transform: translate(-50%, -70%);
+    }
+    100% {
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  @keyframes cloudy_shadow {
+    50% {
+      transform: translate(-50%, -50%) scale(0.8);
+      background: rgba(0, 0, 0, .2);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      background: rgba(0, 0, 0, .5);
+    }
+  }
+
+</style>

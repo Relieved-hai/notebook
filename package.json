@@ -1,0 +1,32 @@
+{
+  "name": "notebook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "vuepress dev docs",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "deploy:build": "deploy.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Relieved-hai/notebook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Relieved-hai/notebook/issues"
+  },
+  "homepage": "https://github.com/Relieved-hai/notebook#readme",
+  "devDependencies": {
+    "vuepress": "^1.0.1",
+    "element-ui": "^2.9.2",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0"
+  },
+  "dependencies": {
+    "vuepress-plugin-nprogress": "^1.1.1"
+  }
+}
