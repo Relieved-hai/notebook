@@ -109,6 +109,13 @@ module.exports = {
             ["/javascript/prototype/know/", "构造函数、原型、原型链"],
             ["/javascript/prototype/understand/", "原型链及其继承优缺点"],
           ]
+        },
+        {
+          title: "其他",
+          collapsable: true,
+          children: [
+            ["/javascript/other/event_loop/", "Event Loop"],
+          ]
         }
       ],
 
@@ -137,7 +144,7 @@ module.exports = {
 
       '/flutter/': [
         {
-          title: "常见",
+          title: "flutter",
           collapsable: true,
           children: [
             ["/flutter/practical_skills/name_icon/", "图标、名字"],
@@ -147,7 +154,6 @@ module.exports = {
           ]
         },
       ],
-
 
       '/other/': [
         {
@@ -166,6 +172,15 @@ module.exports = {
             ["/other/java/inheritance/", "继承"],
             ["/other/java/polymorphism/", "多态"],
             // ["/other/java/design_pattern/", "设计模式"],
+          ]
+        },
+        {
+          title: "MySQL",
+          collapsable: true,
+          children: [
+            ["/other/mysql/one/", "one"],
+            ["/other/mysql/two/", "two"],
+            ["/other/mysql/three/", "three"],
           ]
         },
         {

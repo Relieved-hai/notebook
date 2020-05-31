@@ -215,6 +215,12 @@ loggingIdentity({length: 10, value: 3}) // OK
 你可以声明一个类型参数，且它被另一个类型参数所约束。 比如，现在我们想要用属性名从对象里获取这个属性。 并且我们想要确保这个属性存在于对象 obj 上，因此我们需要在这两个类型之间使用约束。
 
 ```ts
+// 可以简单理解为：keyof T => 就相当于遍历了 T (传进来的对象)
+// 第一次遍历，相当于
+// K extends keyof T    => type K = 'a'
+// key: K               => key = 'a'
+// obj[key]             => obj['a']
+
 function getProperty<T, K extends keyof T> (obj: T, key: K ) {
   return obj[key]
 }
@@ -224,7 +230,6 @@ let x = {a: 1, b: 2, c: 3, d: 4}
 getProperty(x, 'a') // okay
 getProperty(x, 'm') // error
 ```
-
 
 <br/>
 <br/>

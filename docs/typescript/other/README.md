@@ -355,19 +355,331 @@ declare module 'jquery' {
 ```
 
 
+<br/>
+<br/>
+<br/>
+
+## 装饰器
+
+> Decorator 是 ES7 的一个新语法，正如其“装饰器”的叫法所表达的，他可以对一些对象进行装饰包装然后返回一个被包装过的对象，可以装饰的对象包括：类，属性，方法等。Decorator 的写法与 Java 里的注解（Annotation）非常类似，但是一定不要把 JS 中的装饰器叫做是“注解”，因为这两者的原理和实现的功能还是有所区别的，在 Java 中，注解主要是对某个对象进行标注，然后在运行时或者编译时，可以通过例如反射这样的机制拿到被标注的对象，对其进行一些逻辑包装。而 Decorator 的原理和作用则更为简单，就是包装对象，然后返回一个新的对象描述（descriptor），其作用也非常单一简单，基本上就是获取包装对象的宿主、键值几个有限的信息。
+
+> 相关知识 [Object.defineProperty()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
+
+> 装饰器本身是一个函数，通过 @ 符号来使用。
+
+<br/>
+<br/>
+
+### 一、类的装饰器
+
+**接受的参数：**
+
+- `constructor`: 构造方法
+
+<br/>
+
+🌰一：
+
+```ts
+// 装饰器本身就是一个函数，构造方法 作为参数传递
+function testDecorator(constructor: any) {
+  constructor.prototype.getName = () => {
+    console.log('getName');
+  }
+}
+
+// 通过 @ 符号来使用
+@testDecorator
+class Test {
+}
+
+// 实例化
+const test = new Test();
+
+// 直接在实例上获取方式，会报错的
+// 原因是，test 是创建的实例，Test 这个类上本身是没有这个方法的，而是后装饰上来的，所以 ts 是无法分析出来的
+(test as any).getName();
+
+// log: getName
+```
+
+这里通过装饰器来给类添加了一个 `getName` 的方法
+
+<br/>
+
+🌰二：
+
+```ts
+// 将上面代码，改造一下，返回出去
+function testDecorator(name: string) {
+  return function (constructor: any) {
+    constructor.prototype.getName = () => {
+      console.log(name);
+    }
+  }
+}
+
+@testDecorator('装饰器')
+class Test {
+}
+
+const test = new Test();
+
+(test as any).getName();
+
+// log: 装饰器
+```
+
+到这里为止，上面的写法很直观，但却是不严谨的。
+
+- 1、`constructor` 的类型是 `any`，我们需要将其类型进行具体定义，不然 `typescript` 就会变为 `anyscript`。
+- 2、我们在使用 `.getName()` 时，`test` 还需要使用断言。
+
+
+<br/>
+
+🌰三：优化
+
+```ts
+/*
+* 类装饰器
+* @Description 这里明确指出 constructor 的类型就是一个构造函数，而不是能是 any
+*   (...arg: any[]) => any   : 一个函数需要一个参数（类型 any[]，这里将任意多个参数合并到一起），最后返回一个 any 类型的值
+*   new                      : 意思它是一个构造函数
+*   T extends                : T extends 构造函数，也就是说 T 可以被上面这个类型构造函数给实例化出来
+*   constructor: T           : 所以 T 可以理解为一个类，或者一个包含构造函数的东西
+* */
+function testDecorator<T extends new (...arg: any[]) => any>(constructor: T) {
+  // 返回一个继承 constructor 的类
+  return class extends constructor {
+    name = '666';
+
+    getName() {
+      return this.name;
+    }
+  }
+}
+
+
+@testDecorator
+class Test{
+  constructor(public name: string) {
+  }
+}
+
+const test = new Test('123');
+
+console.log(test.name);
+console.log((test as any).getName());
+
+// log: 666
+// log: 666
+```
+
+这里，将 constructor 的类型给定义了，还剩下 `.getName()` 的问题了。
+
+<br/>
+<br/>
+
+```ts
+// 仿照 🌰二 的方式，我们将类传入，并返回
+function testDecorator() {
+  return function <T extends new (...arg: any[]) => any>(constructor: T) {
+    return class extends constructor {
+      name = '666';
+
+      getName() {
+        return this.name;
+      }
+    }
+  }
+}
+
+// 这里就不是当做一个装饰器来用了，而是当做一个函数来用
+const Test = testDecorator()(
+  class {
+    constructor(public name: string) {
+    }
+  }
+)
+
+const test = new Test('123');
+
+// 这个时候的 Test 则是被装饰后返回的，那么这里 ts 能判断其中的方法
+console.log(test.getName());
+```
+
+<br/>
+<br/>
+<br/>
+
+
+### 二、方法的装饰器
+
+<br/>
+
+**普通方法：接收的参数**
+- `target`      : 对应的是类的原型 prototype
+- `key`         : 对应方法的名字
+- `descriptor`  : 参考 [Object.defineProperty()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) 中的 descriptor
+
+**静态方法：接收的参数**
+- `target`      : 对应的是类的构造函数
+- `key`         : 对应方法的名字
+- `descriptor`  : 参考 [Object.defineProperty()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) 中的 descriptor
+
+<br/>
+
+🌰一：
+
+```ts
+function getNameDecorator(target: any, key: string, descriptor: PropertyDescriptor) {
+  // 类外部不可修改
+  // descriptor.writable = false;
+
+  descriptor.value = function () {
+    return 'descriptor';
+  }
+}
+
+class Test {
+  constructor(public name: string) {
+  }
+
+  @getNameDecorator
+  getName() {
+    return this.name;
+  }
+}
+
+const test = new Test('name');
+
+console.log(test.getName());
+
+// log: descriptor
+```
+
+<br/>
+<br/>
+<br/>
+
+
+### 三、访问器的装饰器
+
+
+**接收的参数**
+- `target`     :  Prototype
+- `key`        :  访问器名字
+- `descriptor` :  参考 [Object.defineProperty()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) 中的 descriptor。
+
+```ts
+function visitDecorator(target: any, key: string, descriptor: PropertyDescriptor) {
+  return {
+    ...descriptor,
+    get() {
+      return '999';
+    }
+  }
+}
+
+class Test {
+  private _name: string;
+
+  constructor(name: string) {
+    this._name = name
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  @visitDecorator
+  set name(name: string) {
+    this._name = name;
+  }
+}
+
+const test = new Test('name');
+console.log(test.name);
+
+// log: 999
+```
 
 
 
+<br/>
+<br/>
+<br/>
 
 
+### 四、属性的装饰器
+
+**接收的参数**
+
+- `target`:  原型 prototype
+- `key`:     key
+- `descrioptor`: 需要单独创建
+
+```ts
+function visitDecorator(target: any, key: string): any {
+  // 这里的修改并不是实例上的 name，而是原型上的 name
+  target[key] = 'test';
+
+  // 这里创建一个 descrioptor，并返回
+  const descrioptor: PropertyDescriptor = {
+    writable: true
+  }
+  return descrioptor;
+}
 
 
+class Test {
+  @visitDecorator
+  name = '123';
+}
+
+const test = new Test();
+console.log(test.name);
+console.log((test as any).__proto__.name);
+console.log(Test.prototype.name);
+
+// log: 123
+// log: test
+// log: test
+```
 
 
+<br/>
+<br/>
+<br/>
+
+### 五、参数的装饰器
+
+**接收的参数**
+
+- `target`:       原型
+- `key`:          参数所在方法名字
+- `paramIndex`:   参数索引
+
+```ts
+function paramDecorator(target: any, key: string, paramIndex: number): any {
+  console.log(target, key, paramIndex);
+}
+
+class Test {
+  getInfo(@paramDecorator name: string, age: number) {
+    console.log(name, age);
+  }
+}
+
+const test = new Test();
+test.getInfo('name', 18)
+
+// log: Test { getInfo: [Function] } 'getInfo' 0
+// log: name 18
+```
 
 
-
-
-
-
-
+<br/>
+<br/>
+<br/>
