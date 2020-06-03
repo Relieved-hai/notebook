@@ -284,7 +284,7 @@ MySQL 的比较运算符
 
 
     **第二种左外关联**：查询出只存在于 A 表中，而不存在于 B 表中的数据，我们只需要在原有的左外关联基础上，在增加一个 `WHERE B.KEY IS NULL` 过滤条件，过滤出来所有 B 表中数据为空的数据就可以了。实际上就实现了 B 集合对于 A 集合的补集的查询，也就是实现了数据不存在于某一个表中的一种查询方式。
-
+    
     ![left_join_01](./images/left_join_01.png) ![left_join_02](./images/left_join_02.png)
 
 
@@ -992,6 +992,819 @@ SET col_name1={expr1|DEFAULT}
 ![](./images/4.svg)
 
 <other-mysql-three-one/>
+
+
+
+
+
+<br/>
+
+<br/>
+
+<br/>
+
+
+
+## 系统函数
+
+
+
+## 常用的时间函数
+
+
+
+| 函数名                             | 说明                                                         |
+| ---------------------------------- | ------------------------------------------------------------ |
+| CURDATE()/CURTIME()                | 返回当前日期/返回当前时间                                    |
+| NOW()                              | 返回当前的日期和时间                                         |
+| DATE_FORMAT(date, fmt)             | 按照 fmt 的格式，对日期 date 进行格式化                      |
+| SEC_TO_TIME(seconds)               | 把秒数转换为（ 小时：分：秒 ）                               |
+| TIME_TO_SEC(time)                  | 把时间(小时：分：秒)转换为秒数                               |
+| DATEDIFF(date1, date2)             | 返回 date1 和 date2 两个日期相差的天数                       |
+| DATE_ADD(date, INTERVAL expr unit) | 对给定的日期增加或减少指定的时间单位(unit：DAY天/HOER小时/MINUTES分钟/SECOND秒) |
+| EXTRACT(unit FROM date)            | 返回日期 date 的指定部分                                     |
+| UNIX_TIMESTAMP()                   | 返回 unix 时间戳                                             |
+| FROM_UNIXTIME()                    | 把 Unix 时间戳转换为日期时间                                 |
+
+<br/>
+
+在日常工作中，经常能看到，为了可以按照一定的格式来显示时间数据，而把时间存储成字符串的格式，其实这是一种非常错误的方法，且不说字符串的存储空间会比时间类型大，就字符串无法对时间数据进行有效的检测，以及无法利用到时间函数，如果要安装一定的格式去输出数据，`MYSQL`  提供了  `DATE_FORMAT` 函数。
+
+
+
+> DATE_FORMAT(date, fmt)
+
+
+
+![](./images/date_01.svg)
+
+
+
+<br/>
+
+<br/>
+
+
+
+> SEC_TO_TIME(seconds) & TIME_TO_SEC(time)
+
+
+
+```mysql
+SELECT
+	SEC_TO_TIME( 60 ),
+	TIME_TO_SEC( '1:00:00' )
+	
+-- SEC_TO_TIME( 60 )        -> 00:01:00
+-- TIME_TO_SEC( '1:00:00' ) -> 3600
+```
+
+
+
+<br/>
+
+<br/>
+
+
+
+>DATEDIFF(date1, date2)
+
+
+
+```mysql
+-- 计算每门课程，上线时间距当前时间的天数
+-- ORDER BY 2 DESC：按照 SELECT 第二个参数倒排。或者给对比时间起个 AS 别名，使用别名进行倒排
+SELECT
+	title,
+	DATEDIFF( NOW(), online_time ) 
+FROM
+	imc_course 
+ORDER BY
+	2 DESC
+```
+
+
+
+<br/>
+
+<br/>
+
+
+
+> DATE_ADD(date, INTERVAL expr unit)
+
+
+
+```mysql
+SELECT
+	NOW(),
+	DATE_ADD( NOW(), INTERVAL 1 DAY ), -- 当前时间加一天
+	DATE_ADD( NOW(), INTERVAL 1 YEAR ), -- 当前时间加一年
+	DATE_ADD( NOW(), INTERVAL -1 DAY ), -- 当前时间减一天
+	DATE_ADD( NOW(), INTERVAL '-1:30' HOUR_MINUTE ) -- 当前时间减1:30:00
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+
+
+> EXTRACT(unit FROM date)
+
+```mysql
+	SELECT NOW()
+  ,EXTRACT(YEAR FROM NOW()) -- 提取当前时间的年份
+	,EXTRACT(MONTH FROM NOW()) -- 提取当前时间的月份
+	,EXTRACT(DAY FROM NOW()) -- 提取当前时间的天
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+
+
+> UNIX_TIMESTAMP() & FROM_UNIXTIME()
+
+
+
+现在已经不建议使用 unix 时间戳来保存数据了，这里就不在给例子了。
+
+
+
+
+
+<br/>
+
+<br/>
+
+<br/>
+
+
+
+## 常用的字符串函数
+
+
+
+| 函数名                             | -                                                     |
+| ---------------------------------- | ----------------------------------------------------- |
+| CONCAT(str1, str2, ...)            | 把字符串 str1，str2 连接成一个字符串                  |
+| CONCAT_WS(sep, str1, str2, ...)    | 用指定的分隔符 sep 连接字符串                         |
+| CHAR_LENGTH(str)                   | 返回字符串 str 的字符个数                             |
+| LENGTH(str)                        | 返回字符串 str 的字节个数                             |
+| FORMAT(X, D [,locale])             | 将数字 N 格式化，如 '#,###,###,##'，并舍入到 D 位小数 |
+| LEFT(str/len)/RIGHT(str,len)       | 从字符串的左/右边起返回 len 长度的子字符串            |
+| SUBSTRING(str,pos,[len])           | 从字符串 str 的 pos 位置起返回长度为 len 的子串       |
+| SUBSTRING_INDEX(str, delim, count) | 返回字符串 str 按 delim 分割的钱 count 个子字符串     |
+| LOCATE(substr, str)                | 在字符串 str 中返回子串 substr 第一次出现的位置       |
+| TRIM([remstr FROM] str)            | 从字符串 str 两端删除不需要的字符串 remstr            |
+
+
+
+
+
+<br/>
+
+<br/>
+
+
+
+> CONCAT(str1, str2, ...) & CONCAT_WS(sep, str1, str2, ...)
+
+```mysql
+-- 出于 SEO 优化的目的，我们需要合并显示课程分类名称和课程标题
+-- 将 class_name 和 title 合并成一个字符串
+SELECT
+	CONCAT( class_name, title ) 
+FROM
+	imc_course a
+	JOIN imc_class b ON b.class_id = a.class_id
+	
+	
+	
+-- 使用指定的字符串进行拼接
+SELECT
+	CONCAT_WS( '-', class_name, title ) 
+FROM
+	imc_course a
+	JOIN imc_class b ON b.class_id = a.class_id
+
+```
+
+
+
+<br/>
+
+<br/>
+
+
+
+>CHAR_LENGTH(str) & LENGTH(str)
+
+
+
+```mysql
+-- CHAR_LENGTH：字符个数
+-- LENGTH：字节个数
+SELECT
+	class_name,
+	LENGTH( class_name ),
+	CHAR_LENGTH( class_name ) 
+FROM
+	imc_class
+```
+
+
+
+<br/>
+
+<br/>
+
+
+
+> FORMAT(X, D [,locale])
+
+```mysql
+SELECT FORMAT( 1111123456.789, 4 )
+
+-- 四位小数，不足补上
+-- 1,111,123,456.7890
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+
+
+> LEFT(str/len)/RIGHT(str,len)
+
+```mysql
+SELECT LEFT('www.test.com', 3)
+      ,RIGHT('www.test.com', 3)
+
+-- left:  www
+-- right: com
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+
+
+```mysql
+SELECT SUBSTRING('www.test.com', 5)
+
+-- test.com
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+
+
+> SUBSTRING_INDEX(str, delim, count)
+
+
+
+```mysql
+-- 按 delim 来截取 str，从第 count 开始; 正数从左开始，负数从右开始
+SELECT
+	SUBSTRING_INDEX( '192.168.0.100', '.', -2 );
+	
+-- 0.100
+```
+
+
+
+<br/>
+
+<br/>
+
+
+
+> LOCATE(substr, str)
+
+```mysql
+-- 截取课程标题里中横线之前的部分
+-- 1、先定位 - 出现在什么位置
+-- 2、截取 title，从第一位到 - 出现的地方
+-- 3、截取 title，从第一位到 - 出现的地方，由于不需要 - ，所以减一位
+-- 4。
+SELECT
+	title,
+	LOCATE( '-', title ),
+	SUBSTRING( title, 1, LOCATE( '-', title ) ),
+	SUBSTRING( title, 1, LOCATE( '-', title )- 1 ),
+	SUBSTRING_INDEX( title, '-', 1 ) 
+FROM
+	imc_course;
+```
+
+
+
+<br/>
+
+<br/>
+
+
+
+> TRIM([remstr FROM] str)
+
+```mysql
+-- 去除空格
+-- 也可以去除指定的字符
+SELECT
+	TRIM( '  test   ' ),
+	TRIM( 'x' FROM 'xxxxxxtestxxxxxx' );
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+<br/>
+
+
+
+## 其他常用函数
+
+
+
+| 函数名                                                       | -                                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------- |
+| ROUND(X, D)                                                  | 对数值 X 进行四舍五入保留 D 位小数                      |
+| RAND()                                                       | 返回一个在 0 和 1 之间的随机数                          |
+| CASE WHEN [condition]<br/> THEN result<br/> [WHEN [condition] THEN <br/>result ...] [ELSE result] END | 用于实现其它语言中的 case ..when 功能，提供数据流控制。 |
+| MD5(str)                                                     | 返回 str 的 MD5 值                                      |
+|                                                              |                                                         |
+
+
+
+<br/>
+
+<br/>
+
+
+
+>CASE WHEN ...
+
+```mysql
+-- 显示每个用户的昵称和性别
+SELECT
+	user_nick,
+CASE
+		WHEN sex = 1 THEN '男' 
+		WHEN sex = 0 THEN '女' 
+		ELSE '未知'
+END AS '性别'
+FROM
+	imc_user;
+	
+
+
+-- 可以用在 WHERE 中，查询出所有等于男的用户
+SELECT
+	user_nick,
+CASE WHEN sex = 1 THEN '男' 
+		 WHEN sex = 0 THEN '女' 
+		 ELSE '未知'
+END AS '性别'
+FROM
+	imc_user
+WHERE CASE WHEN sex = 1 THEN '男' 
+		       WHEN sex = 0 THEN '女' 
+		       ELSE '未知'
+      END = '男';
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+<br/>
+
+
+
+## SQL高级特性
+
+
+
+之前在演示中，使用过一种叫做 **子查询** 的功能，所谓的 **子查询**就是存在其他查询中的查询，但是并没有着重介绍这种子查询，因为在 MYSQL8.0 中，有了一种比子查询更好的选择，就是下面的公共表表达式。
+
+
+
+<br/>
+
+
+
+## 公共表表达式CTE(Common Table Expressions)
+
+
+
+- MySQL8.0 之后的版本才可以使用
+- CTE 生成一个命名临时表，并且只在查询期间有效
+- CTE 临时表在一个查询中可以多次引用及自引用
+
+
+
+其性能以及可读性都优于子查询。
+
+
+
+<br/>
+
+<br/>
+
+
+
+```mysql
+-- 基础表达式
+-- 
+-- 以 WITH 表达句开头的，后面是一个可选的关键字 RECURSIVE
+-- RECURSIVE：如果我们在使用公共表表达式的时候，指定了这个关键字，则说明这个公共表表达式，它是一个可以自引用的临时表，通常这种自引用的临时表都使用在递归查询的场景下
+-- 前面说过了，公共表表达式它是一个命名的临时表，所以呢，下面呢就需要来定义这个临时表的表名了，以及可选列的列表。注意呢，这个列表一定要和下面我们查询结果中的列是一一对应的。接下来，使用 AS 关键字，来定义生成的公共临时表的查询，这个查询呢，就是一个 SELECT 的查询语句，这个语句的执行结果，就是我们生成的临时表中的数据，那么如果我们要在一个查询中，用多个公共表表达式的话，还可以呢，在下面继续，定义其他的公共表表达式，每一个公共表表达式之间要用 ' ，' 进行分割。
+-- 那么在定义好公共表表达式之后，我们就可以在下面的 SELECT 或 UPDATE 、DELETE 、INSERT  语句中，来引用我们上面所定义的公共表表达式了
+WITH [RECURSIVE]
+cte_name [(column_list)] AS (
+  query
+)
+[, cte_name [(column_list)] AS (
+  query
+)]
+SELECT * FROM cte_name;
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+<br/>
+
+
+
+```mysql
+-- 1、先写出一个查询，查询出在课程表中，学习人数大于 2000 的课程名、学习人数、分类 id
+-- 2、把这个查询加入到公共表表达式中，WITH cte AS () 括起来，这样就完成了一个公共表表达式的定义
+-- 3、在查询中，引用公共表表达式，其查询结果就和公共表表达式中定义的查询结果是一样的，只有三列（ 课程名、学习人数、分类 id ）
+WITH cte AS (
+  SELECT title, study_cnt, class_id 
+  FROM imc_course 
+  WHERE study_cnt > 2000
+)
+SELECT *
+FROM cte;
+```
+
+
+
+<br/>
+
+<br/>
+
+
+
+> 多次引用公共表表达式
+
+
+
+```mysql
+-- 1、可以在用 UNION ALL 引用一次，执行结果为所有课程都重复出现了两次
+-- 子查询是不可以多次引用的，我们每引用一次子查询，都是要定义一次，这是公共表表达式和子查询最大的不同
+WITH cte AS (
+  SELECT title, study_cnt, class_id 
+  FROM imc_course 
+  WHERE study_cnt > 2000
+)
+SELECT * FROM cte
+UNION ALL
+SELECT * FROM cte;
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+
+
+> 使用公共表表达式生成自增的序列
+
+```mysql
+-- CTE 递归生成序列
+-- 1、使用 RECURSIVE 关键字允许它自引用
+-- 2、SELECT 1 起名叫 n
+-- 3、使用 UNION ALL 来关联 它的自引用
+-- 4、自引用是 2 + n 引用这里定义的公共表表达式，这就要做自引用，WHERE n < 10，不然就死循环了，
+-- 第一行是 1，没回都在 1 的基础上加 2，这样就会生成一个自增的序列
+-- 
+-- SELECT 1 AS n -> 1
+-- SELECT 2 + n FROM ttest WHERE n < 10 -> 3、5、7、9、11
+WITH RECURSIVE ttest AS (
+  SELECT 1 AS n 
+	UNION ALL 
+	SELECT 2 + n FROM ttest WHERE n < 10 
+)
+SELECT *  FROM ttest;
+
+-- 1、3、5、7、9、11
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+🌰🌰🌰
+
+```mysql
+-- 递归查询课程评论信息
+-- 2、定义一个公共表表达式，可以自引用 RECURSIVE，表名为 replay
+-- 4、指定公共表表达式的列表( quest_id, quest_title, user_id, replyid, path ) 
+WITH RECURSIVE replay( quest_id, quest_title, user_id, replyid, path ) 
+-- 5、AS 来定义公共表表达式
+AS (
+  -- 1、查询 imc_question 表中，条件为 course_id 为 59 的这么课程，并且还需要找出评论的根节点，就是 replyid = 0
+	-- 3、查询出 问答评论id，问答评论标题，提交人的id，回答id，要生成一个树状的路径 CAST() 把 quest_id 转换成固定长度，命名为 path
+	SELECT quest_id, quest_title, user_id, replyid, CAST( quest_id AS CHAR ( 200 ) ) AS path
+	FROM imc_question 
+	WHERE course_id = 59 AND replyid = 0
+	-- 6、前面找到了关于这么课程问答评论的第一条的评论信息，也就是没有回复的第一条 replyid = 0 的信息
+	-- 7、关联后续回复的信息
+	UNION ALL
+	-- 9、同样需要查询出这些列来，这里的路径需要进行拼接
+	SELECT a.quest_id, a.quest_title,a. user_id, a.replyid, CONCAT(b.path, '>>', a.quest_id) AS path 
+	-- 8、查询我们这个递归，内关联我们的公共表表达式，同样要获得评论id，评论标题，...，还是要通过 imc_question 表
+	-- 关联 公共表表达式，关联条件 a 表的记录 是 b 表的回复
+	FROM imc_question a
+	JOIN replay b 
+	on a.replyid = b.quest_id
+)
+-- 10、最后查询公共表表达式
+SELECT * FROM replay;
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+<br/>
+
+
+
+## 窗口函数
+
+> 一组记录，而窗口函数，指的是这一组记录上所执行的一组函数，那么符合条件的每一条记录，都会分别来执行这个窗口函数，并且窗口函数并不会改变记录集的行数。窗口函数的使用比其他函数要复杂些
+
+
+
+<br/>
+
+
+
+```mysql
+-- 基本语法
+-- 
+-- 窗口函数有一些特有的函数，还有之前用过的聚合函数，都可以在这里使用
+-- OVER：关键字，是窗口函数的重点，指定了这个窗口的范围，之前的聚合函数、刚才所说的特定函数，就是在这个关键字指定的范围内进行计算的
+-- PARTITION BY：子句是用于查询返回的结果集进行分组的，也就是把查询的结果集分成不同大小的窗口，窗口函数在不同窗口上分别的执行
+-- ORDER BY：子句是指按照哪些字段进行排序，窗口函数将按照排序后的记录来顺序的进行编号，可以和 PARTITION 组合使用，也可以单独使用
+function_name([exp])
+OVER(
+  [PARTITION BY exp, [,...]]
+  [ORDER BY exp [ASC[DESC] [,...]]
+)
+```
+
+
+
+<br/>
+
+<br/>
+
+
+
+**窗口函数**
+
+
+
+| 函数名       | 说明                                                         |
+| ------------ | ------------------------------------------------------------ |
+| 聚合函数     | 聚合函数都可以作为窗口函数使用                               |
+| ROW_NUMBER() | 返回窗口分区内数据的行号                                     |
+| RANK()       | 类似于 row_number，只是对于相同数据会产生重复的行号，之后的数据行号会产生间隔 |
+| DENSE_RANK() | 类似于 rank 区别在于当组内某行数据重复时，虽然行号会重复，但后续的行号不会产生间隔 |
+
+
+
+
+
+<br/>
+
+<br/>
+
+```mysql
+-- ROW_NUMBER, RANK, DENSE_RANK 之间的区别
+WITH test ( study_name, class_name, score ) AS ( 
+  SELECT 'sqlercn', 'MySQL', 95 
+	UNION ALL 
+	SELECT 'tom', 'MySQL', 99 
+	UNION ALL 
+	SELECT 'Jerry', 'MySQL', 99 
+	UNION ALL 
+	SELECT 'Gavin', 'MySQL', 98 
+	UNION ALL 
+	SELECT 'sqlercn', 'PostGreSQL', 99 
+	UNION ALL 
+	SELECT 'tom', 'PostGreSQL', 99 
+	UNION ALL 
+	SELECT 'Jerry', 'PostGreSQL', 98 
+)
+SELECT study_name, class_name, score
+       -- OVER() 中指定，按 class_name 根据分数进行由高到低排序，排出 1、2、3、4 名
+       ,ROW_NUMBER() OVER(PARTITION BY class_name ORDER BY score DESC) AS rw
+       ,RANK() OVER(PARTITION BY class_name ORDER BY score DESC) AS rk
+       ,DENSE_RANK() OVER(PARTITION BY class_name ORDER BY score DESC) AS drk
+FROM test 
+-- 相同的课程进行排序，按照课程名称进行排序，如果课程名称下，按 rw 进行排序
+ORDER BY class_name, rw;
+
+
+-- rw：是按照顺序排的，虽然有两个 99，但还是排出了 1 和 2
+-- rk：有两个 99，它是都是 1，由于有两个并列 第1，原本的 2 被 1 给占据了，所以接下来的就到了 3，它们之间就产生了间隔
+-- drk：有两个 99，它是都是 1，虽然有两个并列 第1，但第二个 1 并不会影响到 2，所以后面的是 2，它们之间没有产生间隔
+-- 
+-- study_name class_name score rw rk drk
+-- tom	MySQL	99	1	1	1
+-- Jerry	MySQL	99	2	1	1
+-- Gavin	MySQL	98	3	3	2
+-- sqlercn	MySQL	95	4	4	3
+-- sqlercn	PostGreSQL	99	1	1	1
+-- tom	PostGreSQL	99	2	1	1
+-- Jerry	PostGreSQL	98	3	3	2
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+
+
+```mysql
+-- 按学习人数对课程进行排名，并
+-- 列出每类课程学习人数排名前 3 的课程名称，学习人数以及名次
+
+-- 2、定义一个窗口
+WITH tmp AS (
+	-- 1、先关联两张表，按类别查询，根据课程评分由高到低进行排列，RANK() 会产生间隔
+	SELECT class_name, title, score
+				 ,RANK() OVER(PARTITION BY class_name ORDER BY score DESC ) AS cnt
+	FROM imc_course a 
+	JOIN imc_class b on b.class_id = a.class_id
+)
+-- 3、进行查询
+SELECT *
+FROM tmp 
+WHERE cnt <= 3;
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+
+
+```mysql
+-- 每门课程的学习人数占本类课程总学习人数的百分比
+
+-- 2、定义一个公共表表达式
+WITH tmp AS(
+	SELECT class_name, title, study_cnt
+				 -- 1、使用聚合函数来计算，没类课程下学习人数的总和
+				 -- 定义的窗口，同样是按分类来定义这个窗口
+				 ,SUM( study_cnt ) OVER( PARTITION BY class_name ) AS class_total
+	FROM imc_course a 
+  JOIN imc_class b ON b.class_id = a.class_id
+)
+-- 3、查询，使用 CONCAT() 拼接上 '%'
+SELECT class_name, title, CONCAT( study_cnt / class_total * 100, '%' )
+FROM tmp
+-- 4、可以按照分类名进行排序，方便看
+ORDER BY class_name;
+```
+
+
+
+
+
+<br/>
+
+<br/>
+
+<br/>
+
+
+
+## 在 SQL 开发中易犯的错误
+
+
+
+- 使用 COUNT(*) 判断是否存在符合条件的数据
+  - 使用 SELECT ... LIMIT 1
+- 在执行一个更新语句后，使用查询方式判断此更新语句是否有执行成功
+  - 使用 ROW_COUNT() 函数判断修改行数
+- 试图在 ON 条件中过滤不满足条件的记录
+  - 在 WHERE 条件中进行过滤
+- 在使用 In 进行子查询的判断时，在列中未指定正确的表名，如 Select A1 from A where A1 in ( Select A1 from B ) 这时尽管 B 中并不存在 A1 列，数据库也不会报错，而是会列出 A 表中的所有数据
+  -  1、使用 表名.列名 的方式 ( SELECT 表名.列名 FROM B )
+  -  2、更好的方式是：使用 JOIN 关联代替子查询
+- 对于表中定义的具有 not null 和 default 值的列，在插入数据时直接插入 null 值。
+  - 不要这么做
+
+
+
+<br/>
+
+<br/>
+
+<br/>
+
+
+
+## 总结
+
+
+
+- 如何使用 DCL 语句来管理数据库的访问
+- 如何使用 DDL 语句来建立数据库对象
+- 如何使用 DML 语句来操作数据库中的数据
+- MySQL 常用的系统函数
+- MySQL8.0 中新增的通用表达式和窗口函数
+  - 通用表达式：用来代替子查询使用
+  - 窗口函数：常用于统计分析类的查询使用，可以大大节省我们编写 SQL 的时间，高执行效率，增加 SQL 可读性
+- 在 SQL 开发中易犯的错误
+
+
+
+
+
+
+
+
+
 
 
 
