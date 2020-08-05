@@ -15,7 +15,7 @@ function elementIsVisibleInViewport(el, partiallyVisible = false) {
     ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&
     ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth)) :
     top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth
-} 
+}
 ```
 
 ## 获取元素css样式
@@ -85,7 +85,7 @@ console.log(div.classList.contains("te")) // true
 
 
 /**
-* Example2 
+* Example2
 */
 const hasClass = (el, className) => new RegExp(`(^|\\s)${className}(\\s|$)`).test(el.className);
 ```
@@ -150,4 +150,11 @@ window.scrollTo({
     left: 0,
     behavior: 'smooth'
 })
+```
+
+## 禁用鼠标右键
+```html
+<body oncontextmenu="return false">
+  <div></div>
+</body>
 ```
