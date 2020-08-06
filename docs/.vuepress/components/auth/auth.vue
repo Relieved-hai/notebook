@@ -6,7 +6,7 @@
                :close-on-click-modal="false"
                :close-on-press-escape='false'
                :show-close="false">
-      <el-input ref="dialog" autofocus v-model="input" placeholder="" @keyup.enter.native="okHandle"/>
+      <el-input ref="dialog" autofocus v-model="input" type="password" placeholder="" @keyup.enter.native="okHandle"/>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="okHandle">确 定</el-button>
       </span>

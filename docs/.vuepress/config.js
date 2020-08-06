@@ -166,12 +166,12 @@ const otherJs = [
     ]
   }
 ];
-const noteJs = [
+const writingJs = [
   {
     title: "react",
     collapsable: true,
     children: [
-      ["/note/react/one/", "123"]
+      ["/writing/react/one-aklsdjkncvxcv/", "学习手记 1"]
     ]
   }
 ];
@@ -212,8 +212,8 @@ module.exports = {
         link: "/other/"
       },
       {
-        text: "note",
-        link: "/note/"
+        text: "writing",
+        link: "/writing/"
       },
       {
         text: "GitHub",
@@ -227,7 +227,7 @@ module.exports = {
       "/node/": nodeJs,
       "/flutter/": flutterJs,
       "/other/": otherJs,
-      "/note/": noteJs,
+      "/writing/": writingJs,
       // fallback
       "/": ["" /* / */]
     }
