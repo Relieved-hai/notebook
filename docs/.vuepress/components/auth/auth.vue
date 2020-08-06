@@ -54,11 +54,13 @@
       // 确定
       okHandle() {
         if (!this.input) return;
+
         if (this.input !== 'pch') {
           this.input = ''
           this.$message.warning('验证码错误，请重新输入！')
           return
         }
+
         this.isOk = true
         this.dialogVisible = false
       }
