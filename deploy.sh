@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# 确保脚本抛出遇到的错误
+# 确锟斤拷锟脚憋拷锟阶筹拷锟斤拷锟斤拷锟侥达拷锟斤拷
 set -e
 
 npm run docs:build

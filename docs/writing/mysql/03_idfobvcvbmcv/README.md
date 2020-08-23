@@ -1,3 +1,5 @@
+<auth-auth />
+
 ## 操作表
 
 
@@ -28,7 +30,7 @@
 ## 向表中写入数据
 
 
-![](./images/insert_01.svg)
+![](images/insert_01.svg)
 
 `tbl_name` ：要插入的表名
 
@@ -55,13 +57,13 @@
 - 确认对于插入列的插入值的清单 `values('MySQL'),('Redis')`
 
 
-![](./images/insert_02.svg)
+![](images/insert_02.svg)
 
 <br/>
 
 在这个表中  `class_name`   是业务主键，它是不能重复的，但在之前建立表的时候，并没有在这一列上建立唯一索引，这里要使用  `CRTATE INDEX`  语句来建立唯一索引。
 
-![](./images/create_unique_01.svg)
+![](images/create_unique_01.svg)
 
 <br/>
 
@@ -71,7 +73,7 @@
 
 
 
-![](./images/insert_03.svg)
+![](images/insert_03.svg)
 
 <br/>
 
@@ -95,7 +97,7 @@
 > 这是最为频繁也是最为复杂的语句，从一定程度上，是否能用好 SELECT 语句是衡量掌握 SQL 语言能力的一个关键。
 
 
-![](./images/select_01.svg)
+![](images/select_01.svg)
 
 
 组成  `SELECT`  语句的从句、关键字一共有三个
@@ -105,7 +107,7 @@
 
 
 
-![](./images/select_02.svg)
+![](images/select_02.svg)
 
 
 <br/>
@@ -115,7 +117,7 @@
 - `FROM`  子句：用于指定哪个数据库哪个表中查询数据，可以列出所要从中获取数据的表名，这个表可以是一个物理表，也可以是一个视图，或者是由其他的 `SELECT` 语句所产生的一个衍生表。
 
 
-![](./images/select_03.svg)
+![](images/select_03.svg)
 
 `SELECT *`：表中的所有列，但这不是一个很好的习惯，因为如果取出所有列，如果这些列中有些是我们不需要使用的，这个情况下，一方面会带来一些 IO 的消耗，另一方面，对于一些特殊的数据类型，如 text 这样的列，还会影响 `SELECT` 查询的性能，所以推荐只查询需要的列。
 
@@ -133,7 +135,7 @@
 
 
 
-![](./images/where_01.svg)
+![](images/where_01.svg)
 
 
 一般会这样来写一个 SQL
@@ -184,7 +186,7 @@ MySQL 的比较运算符
 <br/>
 
 
-![](./images/1.svg)
+![](images/1.svg)
 
 <other-mysql-three-1/>
 
@@ -214,7 +216,7 @@ MySQL 的比较运算符
 <br/>
 <br/>
 
-![](./images/2.svg)
+![](images/2.svg)
 
 <other-mysql-three-2/>
 
@@ -265,7 +267,7 @@ MySQL 的比较运算符
 
 - `INNER JOIN`：内连接
 
-![inner_join](./images/inner_join.png)
+![inner_join](images/inner_join.png)
 
 简单来说，以 A 、B 为例，两个表的内关联，就是找出这两个表中通过关联键关联之后，都存在的一些数据，从数学的角度讲就是求两个表的 **交集**。
 
@@ -284,7 +286,7 @@ MySQL 的比较运算符
 
 
     **第二种左外关联**：查询出只存在于 A 表中，而不存在于 B 表中的数据，我们只需要在原有的左外关联基础上，在增加一个 `WHERE B.KEY IS NULL` 过滤条件，过滤出来所有 B 表中数据为空的数据就可以了。实际上就实现了 B 集合对于 A 集合的补集的查询，也就是实现了数据不存在于某一个表中的一种查询方式。
-    
+
     ![left_join_01](./images/left_join_01.png) ![left_join_02](./images/left_join_02.png)
 
 
@@ -295,7 +297,7 @@ MySQL 的比较运算符
 
 ​       同样，右关联也可以查询出两个结果集的并集和补集，在查询并集的时候，使用关键字 `RIGHT JOIN` ,而在查询两个集合的补集时，则需要增加 `WHERE A.KEY IS NULL` 的过滤条件。
 
-![right_join_01](./images/right_join_01.png) ![right_join_02](./images/right_join_02.png)
+![right_join_01](images/right_join_01.png) ![right_join_02](images/right_join_02.png)
 
 
 
@@ -304,7 +306,7 @@ MySQL 的比较运算符
 <br/>
 
 
-![](./images/3.svg)
+![](images/3.svg)
 
 <other-mysql-three-3/>
 
@@ -318,7 +320,7 @@ MySQL 的比较运算符
 
 ## GROUP BY、HAVING
 
-![](./images/gy_01.svg)
+![](images/gy_01.svg)
 
 <br/>
 
@@ -989,7 +991,7 @@ SET col_name1={expr1|DEFAULT}
 
 🌰🌰🌰：
 
-![](./images/4.svg)
+![](images/4.svg)
 
 <other-mysql-three-one/>
 
@@ -1036,7 +1038,7 @@ SET col_name1={expr1|DEFAULT}
 
 
 
-![](./images/date_01.svg)
+![](images/date_01.svg)
 
 
 
@@ -1054,7 +1056,7 @@ SET col_name1={expr1|DEFAULT}
 SELECT
 	SEC_TO_TIME( 60 ),
 	TIME_TO_SEC( '1:00:00' )
-	
+
 -- SEC_TO_TIME( 60 )        -> 00:01:00
 -- TIME_TO_SEC( '1:00:00' ) -> 3600
 ```
@@ -1076,9 +1078,9 @@ SELECT
 -- ORDER BY 2 DESC：按照 SELECT 第二个参数倒排。或者给对比时间起个 AS 别名，使用别名进行倒排
 SELECT
 	title,
-	DATEDIFF( NOW(), online_time ) 
+	DATEDIFF( NOW(), online_time )
 FROM
-	imc_course 
+	imc_course
 ORDER BY
 	2 DESC
 ```
@@ -1184,16 +1186,16 @@ SELECT
 -- 出于 SEO 优化的目的，我们需要合并显示课程分类名称和课程标题
 -- 将 class_name 和 title 合并成一个字符串
 SELECT
-	CONCAT( class_name, title ) 
+	CONCAT( class_name, title )
 FROM
 	imc_course a
 	JOIN imc_class b ON b.class_id = a.class_id
-	
-	
-	
+
+
+
 -- 使用指定的字符串进行拼接
 SELECT
-	CONCAT_WS( '-', class_name, title ) 
+	CONCAT_WS( '-', class_name, title )
 FROM
 	imc_course a
 	JOIN imc_class b ON b.class_id = a.class_id
@@ -1218,7 +1220,7 @@ FROM
 SELECT
 	class_name,
 	LENGTH( class_name ),
-	CHAR_LENGTH( class_name ) 
+	CHAR_LENGTH( class_name )
 FROM
 	imc_class
 ```
@@ -1294,7 +1296,7 @@ SELECT SUBSTRING('www.test.com', 5)
 -- 按 delim 来截取 str，从第 count 开始; 正数从左开始，负数从右开始
 SELECT
 	SUBSTRING_INDEX( '192.168.0.100', '.', -2 );
-	
+
 -- 0.100
 ```
 
@@ -1319,7 +1321,7 @@ SELECT
 	LOCATE( '-', title ),
 	SUBSTRING( title, 1, LOCATE( '-', title ) ),
 	SUBSTRING( title, 1, LOCATE( '-', title )- 1 ),
-	SUBSTRING_INDEX( title, '-', 1 ) 
+	SUBSTRING_INDEX( title, '-', 1 )
 FROM
 	imc_course;
 ```
@@ -1381,26 +1383,26 @@ SELECT
 SELECT
 	user_nick,
 CASE
-		WHEN sex = 1 THEN '男' 
-		WHEN sex = 0 THEN '女' 
+		WHEN sex = 1 THEN '男'
+		WHEN sex = 0 THEN '女'
 		ELSE '未知'
 END AS '性别'
 FROM
 	imc_user;
-	
+
 
 
 -- 可以用在 WHERE 中，查询出所有等于男的用户
 SELECT
 	user_nick,
-CASE WHEN sex = 1 THEN '男' 
-		 WHEN sex = 0 THEN '女' 
+CASE WHEN sex = 1 THEN '男'
+		 WHEN sex = 0 THEN '女'
 		 ELSE '未知'
 END AS '性别'
 FROM
 	imc_user
-WHERE CASE WHEN sex = 1 THEN '男' 
-		       WHEN sex = 0 THEN '女' 
+WHERE CASE WHEN sex = 1 THEN '男'
+		       WHEN sex = 0 THEN '女'
 		       ELSE '未知'
       END = '男';
 ```
@@ -1451,7 +1453,7 @@ WHERE CASE WHEN sex = 1 THEN '男'
 
 ```mysql
 -- 基础表达式
--- 
+--
 -- 以 WITH 表达句开头的，后面是一个可选的关键字 RECURSIVE
 -- RECURSIVE：如果我们在使用公共表表达式的时候，指定了这个关键字，则说明这个公共表表达式，它是一个可以自引用的临时表，通常这种自引用的临时表都使用在递归查询的场景下
 -- 前面说过了，公共表表达式它是一个命名的临时表，所以呢，下面呢就需要来定义这个临时表的表名了，以及可选列的列表。注意呢，这个列表一定要和下面我们查询结果中的列是一一对应的。接下来，使用 AS 关键字，来定义生成的公共临时表的查询，这个查询呢，就是一个 SELECT 的查询语句，这个语句的执行结果，就是我们生成的临时表中的数据，那么如果我们要在一个查询中，用多个公共表表达式的话，还可以呢，在下面继续，定义其他的公共表表达式，每一个公共表表达式之间要用 ' ，' 进行分割。
@@ -1483,8 +1485,8 @@ SELECT * FROM cte_name;
 -- 2、把这个查询加入到公共表表达式中，WITH cte AS () 括起来，这样就完成了一个公共表表达式的定义
 -- 3、在查询中，引用公共表表达式，其查询结果就和公共表表达式中定义的查询结果是一样的，只有三列（ 课程名、学习人数、分类 id ）
 WITH cte AS (
-  SELECT title, study_cnt, class_id 
-  FROM imc_course 
+  SELECT title, study_cnt, class_id
+  FROM imc_course
   WHERE study_cnt > 2000
 )
 SELECT *
@@ -1507,8 +1509,8 @@ FROM cte;
 -- 1、可以在用 UNION ALL 引用一次，执行结果为所有课程都重复出现了两次
 -- 子查询是不可以多次引用的，我们每引用一次子查询，都是要定义一次，这是公共表表达式和子查询最大的不同
 WITH cte AS (
-  SELECT title, study_cnt, class_id 
-  FROM imc_course 
+  SELECT title, study_cnt, class_id
+  FROM imc_course
   WHERE study_cnt > 2000
 )
 SELECT * FROM cte
@@ -1535,13 +1537,13 @@ SELECT * FROM cte;
 -- 3、使用 UNION ALL 来关联 它的自引用
 -- 4、自引用是 2 + n 引用这里定义的公共表表达式，这就要做自引用，WHERE n < 10，不然就死循环了，
 -- 第一行是 1，没回都在 1 的基础上加 2，这样就会生成一个自增的序列
--- 
+--
 -- SELECT 1 AS n -> 1
 -- SELECT 2 + n FROM ttest WHERE n < 10 -> 3、5、7、9、11
 WITH RECURSIVE ttest AS (
-  SELECT 1 AS n 
-	UNION ALL 
-	SELECT 2 + n FROM ttest WHERE n < 10 
+  SELECT 1 AS n
+	UNION ALL
+	SELECT 2 + n FROM ttest WHERE n < 10
 )
 SELECT *  FROM ttest;
 
@@ -1561,24 +1563,24 @@ SELECT *  FROM ttest;
 ```mysql
 -- 递归查询课程评论信息
 -- 2、定义一个公共表表达式，可以自引用 RECURSIVE，表名为 replay
--- 4、指定公共表表达式的列表( quest_id, quest_title, user_id, replyid, path ) 
-WITH RECURSIVE replay( quest_id, quest_title, user_id, replyid, path ) 
+-- 4、指定公共表表达式的列表( quest_id, quest_title, user_id, replyid, path )
+WITH RECURSIVE replay( quest_id, quest_title, user_id, replyid, path )
 -- 5、AS 来定义公共表表达式
 AS (
   -- 1、查询 imc_question 表中，条件为 course_id 为 59 的这么课程，并且还需要找出评论的根节点，就是 replyid = 0
 	-- 3、查询出 问答评论id，问答评论标题，提交人的id，回答id，要生成一个树状的路径 CAST() 把 quest_id 转换成固定长度，命名为 path
 	SELECT quest_id, quest_title, user_id, replyid, CAST( quest_id AS CHAR ( 200 ) ) AS path
-	FROM imc_question 
+	FROM imc_question
 	WHERE course_id = 59 AND replyid = 0
 	-- 6、前面找到了关于这么课程问答评论的第一条的评论信息，也就是没有回复的第一条 replyid = 0 的信息
 	-- 7、关联后续回复的信息
 	UNION ALL
 	-- 9、同样需要查询出这些列来，这里的路径需要进行拼接
-	SELECT a.quest_id, a.quest_title,a. user_id, a.replyid, CONCAT(b.path, '>>', a.quest_id) AS path 
+	SELECT a.quest_id, a.quest_title,a. user_id, a.replyid, CONCAT(b.path, '>>', a.quest_id) AS path
 	-- 8、查询我们这个递归，内关联我们的公共表表达式，同样要获得评论id，评论标题，...，还是要通过 imc_question 表
 	-- 关联 公共表表达式，关联条件 a 表的记录 是 b 表的回复
 	FROM imc_question a
-	JOIN replay b 
+	JOIN replay b
 	on a.replyid = b.quest_id
 )
 -- 10、最后查询公共表表达式
@@ -1609,7 +1611,7 @@ SELECT * FROM replay;
 
 ```mysql
 -- 基本语法
--- 
+--
 -- 窗口函数有一些特有的函数，还有之前用过的聚合函数，都可以在这里使用
 -- OVER：关键字，是窗口函数的重点，指定了这个窗口的范围，之前的聚合函数、刚才所说的特定函数，就是在这个关键字指定的范围内进行计算的
 -- PARTITION BY：子句是用于查询返回的结果集进行分组的，也就是把查询的结果集分成不同大小的窗口，窗口函数在不同窗口上分别的执行
@@ -1650,27 +1652,27 @@ OVER(
 
 ```mysql
 -- ROW_NUMBER, RANK, DENSE_RANK 之间的区别
-WITH test ( study_name, class_name, score ) AS ( 
-  SELECT 'sqlercn', 'MySQL', 95 
-	UNION ALL 
-	SELECT 'tom', 'MySQL', 99 
-	UNION ALL 
-	SELECT 'Jerry', 'MySQL', 99 
-	UNION ALL 
-	SELECT 'Gavin', 'MySQL', 98 
-	UNION ALL 
-	SELECT 'sqlercn', 'PostGreSQL', 99 
-	UNION ALL 
-	SELECT 'tom', 'PostGreSQL', 99 
-	UNION ALL 
-	SELECT 'Jerry', 'PostGreSQL', 98 
+WITH test ( study_name, class_name, score ) AS (
+  SELECT 'sqlercn', 'MySQL', 95
+	UNION ALL
+	SELECT 'tom', 'MySQL', 99
+	UNION ALL
+	SELECT 'Jerry', 'MySQL', 99
+	UNION ALL
+	SELECT 'Gavin', 'MySQL', 98
+	UNION ALL
+	SELECT 'sqlercn', 'PostGreSQL', 99
+	UNION ALL
+	SELECT 'tom', 'PostGreSQL', 99
+	UNION ALL
+	SELECT 'Jerry', 'PostGreSQL', 98
 )
 SELECT study_name, class_name, score
        -- OVER() 中指定，按 class_name 根据分数进行由高到低排序，排出 1、2、3、4 名
        ,ROW_NUMBER() OVER(PARTITION BY class_name ORDER BY score DESC) AS rw
        ,RANK() OVER(PARTITION BY class_name ORDER BY score DESC) AS rk
        ,DENSE_RANK() OVER(PARTITION BY class_name ORDER BY score DESC) AS drk
-FROM test 
+FROM test
 -- 相同的课程进行排序，按照课程名称进行排序，如果课程名称下，按 rw 进行排序
 ORDER BY class_name, rw;
 
@@ -1678,7 +1680,7 @@ ORDER BY class_name, rw;
 -- rw：是按照顺序排的，虽然有两个 99，但还是排出了 1 和 2
 -- rk：有两个 99，它是都是 1，由于有两个并列 第1，原本的 2 被 1 给占据了，所以接下来的就到了 3，它们之间就产生了间隔
 -- drk：有两个 99，它是都是 1，虽然有两个并列 第1，但第二个 1 并不会影响到 2，所以后面的是 2，它们之间没有产生间隔
--- 
+--
 -- study_name class_name score rw rk drk
 -- tom	MySQL	99	1	1	1
 -- Jerry	MySQL	99	2	1	1
@@ -1708,12 +1710,12 @@ WITH tmp AS (
 	-- 1、先关联两张表，按类别查询，根据课程评分由高到低进行排列，RANK() 会产生间隔
 	SELECT class_name, title, score
 				 ,RANK() OVER(PARTITION BY class_name ORDER BY score DESC ) AS cnt
-	FROM imc_course a 
+	FROM imc_course a
 	JOIN imc_class b on b.class_id = a.class_id
 )
 -- 3、进行查询
 SELECT *
-FROM tmp 
+FROM tmp
 WHERE cnt <= 3;
 ```
 
@@ -1736,7 +1738,7 @@ WITH tmp AS(
 				 -- 1、使用聚合函数来计算，没类课程下学习人数的总和
 				 -- 定义的窗口，同样是按分类来定义这个窗口
 				 ,SUM( study_cnt ) OVER( PARTITION BY class_name ) AS class_total
-	FROM imc_course a 
+	FROM imc_course a
   JOIN imc_class b ON b.class_id = a.class_id
 )
 -- 3、查询，使用 CONCAT() 拼接上 '%'

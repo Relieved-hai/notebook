@@ -1,3 +1,5 @@
+<auth-auth />
+
 SQL VS NOSQL
 
 ## 关系型数据库的特点

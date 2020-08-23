@@ -126,15 +126,6 @@ const otherJs = [
       // ["/other/java/design_pattern/", "设计模式"],
     ]
   },
-  // {
-  //   title: "MySQL",
-  //   collapsable: true,
-  //   children: [
-  //     ["/other/mysql/one/", "one"],
-  //     ["/other/mysql/two/", "two"],
-  //     ["/other/mysql/three/", "three"],
-  //   ]
-  // },
   {
     title: "Nginx",
     collapsable: true,
@@ -171,9 +162,19 @@ const writingJs = [
     title: "react",
     collapsable: true,
     children: [
-      ["/writing/react/one-aklsdjkncvxcv/", "学习手记 1"]
+      ["/writing/react/01_aklsdjkncvxcv/", "学习手记 1"],
+      ["/writing/react/02_kzxjcklzxcdof/", "学习手记 2"],
     ]
-  }
+  },
+  {
+    title: "MySQL",
+    collapsable: true,
+    children: [
+      ["/writing/mysql/01_asdazxczxcsd/", "one"],
+      ["/writing/mysql/02_zjooppbmkfbf/", "two"],
+      ["/writing/mysql/03_idfobvcvbmcv/", "three"],
+    ]
+  },
 ];
 
 module.exports = {
@@ -211,10 +212,10 @@ module.exports = {
         text: "Other",
         link: "/other/"
       },
-      {
-        text: "writing",
-        link: "/writing/"
-      },
+      // {
+      //   text: "writing",
+      //   link: "/writing/"
+      // },
       {
         text: "GitHub",
         link: "https://github.com/Relieved-hai/notebook"

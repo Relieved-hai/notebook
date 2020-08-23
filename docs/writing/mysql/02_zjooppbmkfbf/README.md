@@ -1,3 +1,5 @@
+<auth-auth />
+
 ## SQL语言开发
 
 初始 SQL
