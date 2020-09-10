@@ -186,7 +186,7 @@ MySQL 的比较运算符
 <br/>
 
 
-![](images/1.svg)
+![](images/img_1.svg)
 
 <other-mysql-three-1/>
 
@@ -216,7 +216,7 @@ MySQL 的比较运算符
 <br/>
 <br/>
 
-![](images/2.svg)
+![](images/img_2.svg)
 
 <other-mysql-three-2/>
 
@@ -306,7 +306,7 @@ MySQL 的比较运算符
 <br/>
 
 
-![](images/3.svg)
+![](images/img_3.svg)
 
 <other-mysql-three-3/>
 
@@ -991,7 +991,7 @@ SET col_name1={expr1|DEFAULT}
 
 🌰🌰🌰：
 
-![](images/4.svg)
+![](images/img_4.svg)
 
 <other-mysql-three-one/>
 
@@ -1798,25 +1798,6 @@ ORDER BY class_name;
   - 通用表达式：用来代替子查询使用
   - 窗口函数：常用于统计分析类的查询使用，可以大大节省我们编写 SQL 的时间，高执行效率，增加 SQL 可读性
 - 在 SQL 开发中易犯的错误
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

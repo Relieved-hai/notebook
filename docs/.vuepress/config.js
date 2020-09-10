@@ -162,8 +162,11 @@ const writingJs = [
     title: "react",
     collapsable: true,
     children: [
-      ["/writing/react/01_aklsdjkncvxcv/", "学习手记 1"],
-      ["/writing/react/02_kzxjcklzxcdof/", "学习手记 2"],
+      ["/writing/react/01_aklsdjkncvxcv/", "React 新特性一览"],
+      ["/writing/react/02_kzxjcklzxcdof/", "React 颠覆性新特性 Hooks"],
+      ["/writing/react/03_iuweuqihzjncz/", "React 新特性之 Redux"],
+      ["/writing/react/04_poiojxvnsjdfi/", "渐进式 Web App"],
+      ["/writing/react/05_1agsdjincvjna/", "业务架构"],
     ]
   },
   {
