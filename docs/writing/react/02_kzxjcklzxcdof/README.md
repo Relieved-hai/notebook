@@ -1,3 +1,5 @@
+<auth-auth />
+
 ## React Hooks 的概念与意义
 
 - 以往 react 的组件都是以 class 的形式来编写的，只有无状态组件才可以用函数来编写
@@ -465,6 +467,76 @@ export default App;
 
 ## 使用 Context Hooks
 
+和之前的 Context 一样，它允许数据跨越组件层级直接传递，如下
+```jsx
+<Provider value={data}>
+  <Consumer>
+    { data => <span>{ data }</span> }
+  </Consumer>
+</Provider>
+```
+
+<br/>
+<br/>
+<br/>
+
+🌰
+```jsx
+import React, { Component, createContext, useContext, useState } from 'react';
+
+const CountContext = createContext()
+
+// 写法一：Consumer
+class Foo extends Component {
+  render() {
+    return (
+      <CountContext.Consumer>
+        {
+          count => <h1>{count}</h1>
+        }
+      </CountContext.Consumer>
+    )
+  }
+}
+
+// 写法二：contextType
+class Bar extends Component {
+  static contextType = CountContext;
+
+  render() {
+    const count = this.context
+    return <h1>{count}</h1>
+  }
+}
+
+// 写法三：hooks
+function Counter() {
+  const count = useContext(CountContext)
+  return <h1>{count}</h1>
+}
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <div>
+      <p>count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+
+      <CountContext.Provider value={count}>
+        <Foo/>
+        <Bar/>
+        <Counter/>
+      </CountContext.Provider>
+    </div>
+  )
+}
+
+export default App;
+```
+
+**这里还是要强调，不要滥用 Context，它会破坏组件的独立性**
+
 <br/>
 <br/>
 <br/>
@@ -474,6 +546,261 @@ export default App;
 
 
 ## 使用 Memo & Callback Hooks
+
+`useMemo` 是 `Memo` 的变种，`Memo` 用来优化函数重渲染的行为，当传入组件的值都不变的情况下，就不会发生组件重渲染，在 `hooks` 环境下，几乎所有组件都是函数组件，我们使用 `Memo` 的几率较高。
+
+<br/>
+
+- `Memo` 函数针对是一个组件的渲染是否重复执行。
+- `useMemo` 则定义了一段函数逻辑是否重复执行。
+- 本质都是利用了同样的算法，来判定依赖是否发生改变，进而决定是否触发特定逻辑，有很多这样的逻辑，输入输出都是对等的，相同的输入，一定产生相同的输出，数学上称之为幂等。用 `Memo` 可以避免不必要的重复计算，减少资源浪费，所以严格来说，即使不使用 `useMemo`、`Memo`，都不会导致你的业务逻辑发生变化。换句话说，`Memo` 和 `useMemo` 仅仅用来做性能优化之用。
+
+<br/>
+<br/>
+<br/>
+
+🌰
+
+**一、使用 useMemo**
+
+```jsx
+import React, { useMemo, useState } from 'react';
+
+function Counter(props) {
+  return <h1>{props.count}</h1>
+}
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  /**
+   * useMemo
+   *   1、和 useEffect 一样
+   *     ① 第一个参数是要执行的逻辑函数
+   *     ② 第二个参数是这个逻辑依赖的输入变量组成的数组，如果不传第二个参数，那么它每次都会执行，那么这将毫无意义，传入空数组则会执行一次
+   *
+   *   2、和 useEffect 调用时机不一致
+   *     ① useEffect 执行的是副作用，所以一定是在渲染之后运行
+   *     ② useMemo 是希望有返回值的，而返回值可以直接参与渲染，因此 useMemo 在渲染期间完成
+   */
+
+  // 只要 count 发生变化，double 才会重新计算
+  const double = useMemo(() => {
+    return count * 2
+  }, [count])
+
+  return (
+    <div>
+      <p>count: {count} double: {double} </p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+      <Counter count={count}/>
+    </div>
+  )
+}
+
+export default App;
+```
+
+<br/>
+<br/>
+<br/>
+
+**二、结合 Memo，进行优化**
+
+```jsx
+import React, { memo, useMemo, useState } from 'react';
+
+// 使用 Memo 包裹，在传入的值不变时，不再重渲染
+const Counter = memo(function Counter(props) {
+  console.log('Counter render');
+  return <h1>{props.count}</h1>
+})
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  /**
+   * 默认进来执行一次
+   * 在 count === 3 之前，它就相当于 false，一直保持不变，不会重新计算
+   * 在 count === 3 时候，它由 false => true，它会重新计算 double 值，等于 6
+   * 在 count  >  3 时候，它由 true => false，它会重新计算 double 值，等于 8
+   * 后面由于一直是 false，那么就会保持 8 一直不变
+   *
+   * 因 <Counter count={double}/> 被 Memo 包裹，所以从始至终，它只会执行 render 三次 ( double = 0, double = 6, double = 8 )
+   */
+  const double = useMemo(() => {
+    return count * 2
+  }, [count === 3])
+
+  return (
+    <div>
+      <p>count: {count} double: {double} </p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+      <Counter count={double}/>
+    </div>
+  )
+}
+
+export default App;
+```
+
+<br/>
+<br/>
+<br/>
+
+**三、useCallback**
+
+函数句柄变化，会导致 Memo 失效
+
+```jsx
+import React, { memo, useCallback, useMemo, useState } from 'react';
+
+// 使用 Memo 包裹，在传入的值不变时，不再重渲染
+const Counter = memo(function Counter(props) {
+  /**
+   * Q: 为什么在使用 1 的方式来定义 onClick 时，当父组件修改 count 时，传入子组件的是 double，但在 double 没有发生变化的情况下，console.log('Counter render') 依然执行了？
+   *
+   *   这说明，每次 App 重渲染后，onClick 的句柄变化，导致 Counter 被重新渲染
+   *
+   * Q: count 变化可以理解，但是 onClick 就不应该变化了，毕竟它只是一个函数，有什么办法能不让 onClick 的句柄发生改变呢？
+   *
+   *   解决方式一：useMemo
+   *   解决方式二：useCallback
+   */
+  console.log('Counter render');
+  return <h1 onClick={props.onClick}>{props.count}</h1>
+})
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  const double = useMemo(() => {
+    return count * 2
+  }, [count === 3])
+
+  /**
+   * 1、函数句柄的变化，会导致 Memo( <Counter /> ) 也重新渲染
+   * const onClick = () => {
+   *   console.log('onClick');
+   * }
+   */
+
+  /**
+   * 解决方式一：useMemo
+   *
+   * useMemo(() => fn)
+   *
+   * 由于我们传给 useMemo 第二个参数是一个空数组，那么整个逻辑就只会运行一次。理论上我们返回的 onClick 就只有一个句柄。useMemo 就只是用来优化性能的，现在就派上用场了
+   *
+   * const onClick = useMemo(() => {
+   *   return () => {
+   *     console.log('onClick')
+   *   }
+   * }, [])
+   */
+
+  /**
+   * 解决方式二：useCallback
+   *
+   * useCallback(fn)
+   *
+   * useCallback 这几行代码，明明每次渲染，都会创建新的函数，useCallback 怎么就优化性能了呢？
+   * 使用 useCallback 确实不能阻止创建新的函数，但这个函数不一定会被返回，换句话说，很可能创建的函数就直接被抛弃不用了，它解决的是传入子组件的函数参数，过度变化导致子组件过度渲染的问题，一定要理解好，不要对 useCallback 有误解
+   */
+  const onClick = useCallback(() => {
+    console.log('onClick');
+  }, [])
+
+  return (
+    <div>
+      <p>count: {count} double: {double} </p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+      <Counter count={double} onClick={onClick}/>
+    </div>
+  )
+}
+
+export default App;
+```
+
+<br/>
+<br/>
+<br/>
+
+**四、扩展**
+
+setState 的扩展
+
+```jsx
+import React, { memo, useCallback, useMemo, useState } from 'react';
+
+const Counter = memo(function Counter(props) {
+  console.log('Counter render');
+  return <h1 onClick={props.onClick}>{props.count}</h1>
+})
+
+function App() {
+  const [count, setCount] = useState(0)
+  const [clickCount, setClickCount] = useState(0)
+
+  const double = useMemo(() => {
+    return count * 2
+  }, [count === 3])
+
+  /**
+   * 写法一：
+   *   将依赖外部的变量都写入，如 [clickCount, setClickCount]，但是 setClickCount 是不需要的，因为 react 能保证这个函数的句柄是相同的
+   *   https://reactjs.org/docs/hooks-reference.html 中有这么一句话 ( React guarantees that setState function identity is stable and won’t change on re-renders. This is why it’s safe to omit from the useEffect or useCallback dependency list. )
+   *
+   * const onClick = useCallback(() => {
+   *   console.log('onClick');
+   *   setClickCount(clickCount + 1)
+   * }, [clickCount])
+   *
+   */
+
+  /**
+   * 写法二：
+   *
+   *   setState
+   *     ① 除了可以传入最新值以外
+   *     ② 还可以传入一个函数，函数的参数是这个 state 的当前值，函数的返回值是要更新的值
+   *
+   *   这样可以不获取 clickCount 的句柄，通过函数的参数，来让 clickCount + 1，这样就可以把 clickCount 从依赖数组中删除。
+   *
+   */
+  const onClick = useCallback(() => {
+    console.log('onClick');
+
+    setClickCount(clickCount => clickCount + 1)
+  }, [])
+
+
+  return (
+    <div>
+      <p>count: {count} double: {double} </p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+      <Counter count={double} onClick={onClick}/>
+    </div>
+  )
+}
+
+export default App;
+```
+
+<br/>
+<br/>
+<br/>
+
+**总结**
+
+- 和 `Memo` 函数根据属性来决定是否重新渲染组件一样，`useMemo` 可以根据自己的依赖来决定一段函数逻辑是否重复执行，从而优化性能
+
+- 如果 `useMemo` 的返回值是函数的话，那么就可以简写成 `useCallback` 的方式，只是简单而已，实际没有更多区别
+
+- 需要特别注意的是，当依赖变化时，我们能判定 `useMemo` 一定重新执行，但是注意，即使依赖不变化，我们也不能假定它就一定不会重新执行，也就是说，它也可能重新执行，这是考虑内存优化的结果。总之，一定要仅仅把 `useMemo`、`useCallback` 当做一种锦上添花的优化手段，不可过度依赖它是否触发重新渲染。
+
+- 它们的实际用途远比这里介绍的多
 
 <br/>
 <br/>
@@ -485,6 +812,225 @@ export default App;
 
 ## 使用 Ref Hooks
 
+在 `react` 的更新迭代中，曾在 `class` 中出现过 `String Ref`、`Callback Ref`、以及现在推荐使用的 `CreateRef`，在函数组件中我们只能使用 `useRef`，如果将它当做 `CreateRef` 是不对的，因为 `useRef` 本身有两种使用场景。
+
+- 获取子组件或者 `DOM` 节点的句柄
+
+- 渲染周期之间共享数据的存储
+
+  - 可能能想到用 `state` 跨域渲染周期保存，但 `state` 的赋值会触发重渲染，但是 `Ref` 不会，从这点上看，`useRef` 更像类组件的一个普通属性成员。
+
+<br/>
+<br/>
+<br/>
+
+🌰
+
+**一、获取元素**
+
+```jsx
+import React, { Component, useCallback, useMemo, useRef, useState } from 'react';
+
+class Counter extends Component {
+  speak() {
+    console.log('speak', this.props.count);
+  }
+
+  render() {
+    const { onClick, count } = this.props
+    return <h1 onClick={onClick}>{count}</h1>
+  }
+}
+
+function App() {
+  const [count, setCount] = useState(0)
+  const [clickCount, setClickCount] = useState(0)
+
+  // 1、创建
+  const counterRef = useRef()
+
+  const double = useMemo(() => {
+    return count * 2
+  }, [count])
+
+  const onClick = useCallback(() => {
+    console.log('onClick');
+
+    setClickCount(clickCount => clickCount + 1)
+
+    // 3、counterRef.current 就是当前的元素
+    counterRef.current.speak();
+
+    // 由于依赖了 counterRef，则将它加入进来
+  }, [counterRef])
+
+  return (
+    <div>
+      <p>count: {count} double: {double} </p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+      {/* 2、ref 赋值， <Counter /> 已更换成 class 组件 */}
+      <Counter ref={counterRef} count={double} onClick={onClick}/>
+    </div>
+  )
+}
+
+export default App;
+```
+
+<br/>
+<br/>
+<br/>
+
+**二、定时器问题**
+
+① 问题代码
+
+```jsx
+import React, { Component, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+class Counter extends Component {
+  speak() {
+    console.log('speak', this.props.count);
+  }
+
+  render() {
+    const { onClick, count } = this.props
+    return <h1 onClick={onClick}>{count}</h1>
+  }
+}
+
+function App() {
+  const [count, setCount] = useState(0)
+  const [clickCount, setClickCount] = useState(0)
+  const counterRef = useRef()
+  let it;
+
+  const double = useMemo(() => {
+    return count * 2
+  }, [count === 3])
+
+  const onClick = useCallback(() => {
+    setClickCount(clickCount => clickCount + 1)
+    counterRef.current.speak();
+  }, [counterRef])
+
+  // 1、只执行一次
+  useEffect(() => {
+    it = setInterval(() => {
+      setCount(count => count + 1)
+    }, 1000)
+  }, [])
+
+  // 2、每次都执行
+  useEffect(() => {
+    if (count >= 10) {
+      clearInterval(it)
+    }
+  })
+
+  /**
+   * Q: 当 count > 10，这个定时器会停下来吗？
+   *
+   * 运行后，会发现定时器并没有停下来，而是继续走，这是？
+   *
+   * 因为在 cleanInterval 的时候，定时器句柄 it 这个变量，已经不是 setInterval 的赋值了，每次 App 重渲染，都会重置它。那么把 it 放在 useState 中，可以解决吗？
+   *
+   * 但是 it 并没有参与渲染，而且弄不好在副作用中更新，导致死循环，这个时候 useRef 就派上用场了
+   *
+   */
+
+  return (
+    <div>
+      <p>count: {count} double: {double} </p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+      <Counter ref={counterRef} count={double} onClick={onClick}/>
+    </div>
+  )
+}
+
+export default App;
+```
+
+<br/>
+
+② 解决方式: `useRef`
+
+`useRef` 和 `useState` 一样可以传入一个默认参数，但不能传入函数，它不支持函数参数进行延迟初始化
+
+```jsx
+import React, { Component, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+class Counter extends Component {
+  speak() {
+    console.log('speak', this.props.count);
+  }
+
+  render() {
+    const { onClick, count } = this.props
+    return <h1 onClick={onClick}>{count}</h1>
+  }
+}
+
+function App() {
+  const [count, setCount] = useState(0)
+  const [clickCount, setClickCount] = useState(0)
+  const counterRef = useRef()
+  // 1、使用 useRef
+  const it = useRef()
+
+  const double = useMemo(() => {
+    return count * 2
+  }, [count === 3])
+
+  const onClick = useCallback(() => {
+    setClickCount(clickCount => clickCount + 1)
+    counterRef.current.speak();
+  }, [counterRef])
+
+  useEffect(() => {
+    // 2、将它放入到 current 中
+    it.current = setInterval(() => {
+      setCount(count => count + 1)
+    }, 1000)
+  }, [])
+
+  useEffect(() => {
+    if (count >= 10) {
+      // 3、清除的时候
+      clearInterval(it.current);
+    }
+  })
+
+  return (
+    <div>
+      <p>count: {count} double: {double} </p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+      <Counter ref={counterRef} count={double} onClick={onClick}/>
+    </div>
+  )
+}
+
+export default App;
+```
+
+<br/>
+<br/>
+<br/>
+
+总结
+
+- `useRef` 很像类属性成员，如果碰到组件中，需要访问上一次渲染时候的一些数据，甚至是 state，就把它们同步到 Ref 中，下一次渲染就能够正确的获取到了。
+
+- `useRef` 有两种使用场景
+  - 获取子组件元素
+  - 用来同步不同渲染周期之间需要共享的数据
+
+<br/>
+<br/>
+<br/>
+
+**Q: 在副作用里面，如何判定一个元素或组件，在本次渲染和上次渲染之间，有过重新创建呢？**
+
 <br/>
 <br/>
 <br/>
@@ -494,6 +1040,207 @@ export default App;
 
 
 ## 自定义 Hooks
+
+**优化类组件的三大问题**
+
+- 方便复用状态逻辑
+
+  - Custom Hooks
+
+- 副作用的关注点分离
+
+- 函数组件无 this 问题
+
+<br/>
+<br/>
+<br/>
+
+🌰
+
+**一、简单的自定义 hooks**
+
+```jsx
+import React, { useEffect, useRef, useState } from 'react';
+
+function Counter(props) {
+  return <h1>{props.count}</h1>
+}
+
+// 1、自定义 hooks，将在 App 中的逻辑抽取出来
+function useCount(defaultCount) {
+  const [count, setCount] = useState(defaultCount)
+  const it = useRef()
+
+  useEffect(() => {
+    it.current = setInterval(() => {
+      setCount(count => count + 1)
+    }, 1000)
+  }, [])
+
+  useEffect(() => {
+    if (count >= 10) {
+      clearInterval(it.current)
+    }
+  })
+
+  // 2、返回所需句柄
+  return [count, setCount]
+}
+
+function App() {
+  // 3、使用
+  const [count, setCount] = useCount(0)
+
+  return (
+    <div>
+      <p>count: {count}  </p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+      <Counter count={count}/>
+    </div>
+  )
+}
+
+export default App;
+```
+
+
+<br/>
+<br/>
+<br/>
+
+**二、hooks 返回一个 jsx**
+
+```jsx
+import React, { useEffect, useRef, useState } from 'react';
+
+// 1、改造一下
+function useCounter(count) {
+  return <h1>{count}</h1>
+}
+
+function useCount(defaultCount) {
+  const [count, setCount] = useState(defaultCount)
+  const it = useRef()
+
+  useEffect(() => {
+    it.current = setInterval(() => {
+      setCount(count => count + 1)
+    }, 1000)
+  }, [])
+
+  useEffect(() => {
+    if (count >= 10) {
+      clearInterval(it.current)
+    }
+  })
+
+  return [count, setCount]
+}
+
+function App() {
+  const [count, setCount] = useCount(0)
+
+  // 2、调用它，返回一个 jsx
+  const Counter = useCounter(count)
+
+  console.log(Counter);
+
+  return (
+    <div>
+      <p>count: {count}  </p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+      {
+        // 3、使用
+        Counter
+      }
+    </div>
+  )
+}
+
+export default App;
+```
+
+<br/>
+<br/>
+<br/>
+
+**三、监听窗口大小变化**
+
+```jsx
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+
+// 1、监听浏览器窗口变化
+function useSize() {
+  // 2、定义 size
+  const [size, setSize] = useState({ width: 0, height: 0 })
+
+  // 3、用 useCallback 去包装这个函数，使得它只执行一次，且句柄不变
+  const onResize = useCallback(() => {
+    const { clientWidth, clientHeight } = document.documentElement
+
+    setSize({
+      width: clientWidth,
+      height: clientHeight
+    })
+  }, [])
+
+  // 4、初始化一次，注册监听事件 resize，并返回一个销毁函数
+  useEffect(() => {
+    window.addEventListener('resize', onResize, false)
+
+    return () => {
+      window.removeEventListener('resize', onResize, false)
+    }
+  }, [])
+
+  // 5、返回
+  return size
+}
+
+function useCount(defaultCount) {
+  const [count, setCount] = useState(defaultCount)
+  const it = useRef()
+
+  useEffect(() => {
+    it.current = setInterval(() => {
+      setCount(count => count + 1)
+    }, 1000)
+  }, [])
+
+  useEffect(() => {
+    if (count >= 10) {
+      clearInterval(it.current);
+    }
+  }, [count])
+
+  return [count, setCount]
+}
+
+function useCounter(count) {
+  // 6、调用
+  const { width, height } = useSize()
+  return <h1>count：{count}, size: {width} x {height} </h1>
+}
+
+function App() {
+  const [count, setCount] = useCount(0)
+  const Counter = useCounter(count)
+  // 6、调用
+  const { width, height } = useSize()
+  return (
+    <div>
+      <p>count: {count}, size: {width} x {height}  </p>
+      <button onClick={() => setCount(count + 1)}>add</button>
+      {
+        Counter
+      }
+    </div>
+  )
+}
+
+export default App;
+```
+
 
 <br/>
 <br/>
@@ -505,6 +1252,23 @@ export default App;
 
 ## Hooks 的使用法则
 
+`Hooks` 被设计的如此简洁，正是因为它遵循了一些规定 [Rules fo Hooks](https://reactjs.org/docs/hooks-rules.html)，没有这些规定，`hooks` 将无法运行
+
+
+- 仅在顶层调用 `hooks` 函数
+
+  - 不能再循环语句、条件语句、嵌套函数中调用 `hooks` 函数
+
+  - 不仅仅是 `useState`，整个 `hooks` 函数都很可能依赖调用顺序，这样 `react` 才能在组件的不同渲染周期中把相同的逻辑关联起来，一旦你的 `hooks` 函数不在顶层调用，那么很有可能在组件的不同渲染周期中，它们的调用顺序发生变化，进而导致变量混乱，信息不同步。为了尽可能规避这一类问题，强烈建议把 `hooks` 放在最顶层，不要说为了节省开销，把可能不必要的 `hooks` 放在条件语句中，这是不对的，这也算是为了 `hooks` 简洁而做出的一点小小牺牲
+
+- 仅在函数组件和自定义 `hooks` 函数中，调用 `hooks` 函数
+
+  - 不能再其他不同函数中调用
+
+<br/>
+
+**在 react 中，以 use 开头的函数，都要遵循着两条法则**
+
 <br/>
 <br/>
 <br/>
@@ -514,3 +1278,178 @@ export default App;
 
 
 ## Hooks 的常见问题
+
+**1、生命周期函数如何映射到 Hooks 中？**
+
+![](./images/01.png)
+
+<br/>
+
+- **constructor 阶段**
+
+  - **class** 中，常用做初始化状态使用
+
+  - **hooks** 中，可使用 `useState` 代替
+
+
+- **getDerivedStateFromProps 阶段**
+
+  - **class** 中，这是一个静态方法，根据参数 `nextProps`、`prevState` 来决定返回新的状态
+
+  ```jsx
+  class Counter extends Component {
+    state = {
+      overflow: false
+    }
+
+    static getSnapshotBeforeUpdate(prevProps, prevState) {
+      if (prevProps.count > 10) {
+        return {
+          overflow: true
+        }
+      }
+    }
+  }
+  ```
+
+  - **hooks** 中
+  ```jsx
+  /**
+   * Q: 这样会有问题吗？直接在函数组件中 setState，会导致死循环吗？直接 setState 会有性能问题吗？
+   *  会，在代码逻辑有问题的时候，例如一直不停的 setState，触发重渲染的时候，正常逻辑是到达了某一条件，就不在触发重渲染了
+   *  不会，react 文档中已经声明了，这个 setState，是在 react 操作 dom 之前完成的
+   */
+  function Counter(props) {
+    const [overflow, setOverflow] = useState(false)
+
+    if (props.count > 10) {
+      setOverflow(true)
+    }
+  }
+  ```
+
+- **shouldComponentUpdate 阶段**
+
+  - 这个在函数组件中，显然就是对 Memo 的使用了
+
+- **render 阶段**
+
+  - 函数组件本身就返回的 jsx
+
+- **componentDidMount、componentDidUpdate、componentWillUnmount 阶段**
+
+  - useEffect
+  ```jsx
+  function App() {
+    let renderCounter = useRef(0)
+    renderCounter.current++
+    useEffect(() => {
+      // componentDidMount
+
+      // componentWillUnmount
+      return () => {  }
+    })
+
+    useEffect(() => {
+      if (renderCounter > 1) {
+        // componentDidUpdate
+      }
+    })
+  }
+  ```
+
+- **getsnapshotbeforeupdate、componentDidCatch、getDerivedStateFromError 阶段**
+
+  - 这些 hooks 暂时无法实现，这就说明了，函数组件还不能完全取代类组件
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+**2、类实例成员变量如何映射到 Hooks？**
+
+- class 中，类实例成员变量，它能在不同的渲染周期之间记录状态，而且还不会触发重新渲染
+
+  ```jsx
+  class App {
+    it = 0;
+  }
+  ```
+
+- hooks 中，没有类，也就没有办法挂载属性变量，但有 Ref，之前用 Ref 保存过定时器变量，这个就是属性变量的替代写法
+
+  ```jsx
+  function App() {
+    const it = useRef(0)
+  }
+  ```
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+**3、Hooks 中如何获取历史 props 和 state？**
+
+- hooks 中
+
+  ```jsx
+  function Counter() {
+    const [count, setCount] = useState(0)
+
+    // 特别定义了一个 Ref，来保存上一次的 count 值
+    const prevCountRef = useRef()
+
+    // 用副作用来同步 count 值
+    useEffect(() => {
+      prevCountRef.current = count
+    })
+
+    // 由于 Ref 不受重渲染影响，所以可以取到上一次的值
+    const prevCount = prevCountRef.current
+
+    return <div>Now: {count}, before: {prevCount}</div>
+  }
+  ```
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+**4、如何强制更新一个 Hooks 组件**
+
+- class 中，可以使用 forceUpdate，调用它的话，无聊状态和属性变没变，都会让组件重渲染，甚至还跳过了 shouldComponentUpdate 的检查
+
+- hooks 中，可以创建一个不参与实际渲染的 state，然后更新它的值，来达到同样的效果
+
+  ```jsx
+  function Counter() {
+    const [count, setCount] = useState(0)
+    const [updater, setUpdater] = useState(0)
+
+    // 通过 setState 来间接的来实现重渲染
+    function forceUpdate() {
+      setUpdater(updater => updater + 1)
+    }
+
+    const prevCountRef = useRef()
+
+    useEffect(() => {
+      prevCountRef.current = count
+    })
+
+    const prevCount = prevCountRef.current
+
+    return <div>Now: {count}, before: {prevCount}</div>
+  }
+  ```
+
