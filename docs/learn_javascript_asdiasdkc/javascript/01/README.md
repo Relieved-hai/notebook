@@ -146,4 +146,3 @@ JavaScript 程序可以在 `<script>` 标签的帮助下插入到 HTML 文档的
 - `type` 和 `language` 特性（ attribute ）不是必需的。
 
 - 外部的脚本可以通过 `<script src="path/to/script.js"></script>` 的方式插入。
-
