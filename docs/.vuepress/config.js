@@ -59,5 +59,8 @@ module.exports = {
       // fallback
       "/": ["" /* / */]
     }
+  },
+  markdown: {
+    lineNumbers: true // 代码块显示行号
   }
 };
