@@ -178,12 +178,49 @@ alert( "the result is ${1 + 2}" );
 
 ## Boolean 类型 ( 逻辑类型 )
 
+boolean 类型仅包含两个值：`true` 和 `false`。
+
+这种类型通常用于存储表示 yes 或 no 的值：`true` 意味着 “yes，正确”，`false` 意味着 “no，不正确”。
+
+比如：
+
+```js
+let nameFieldChecked = true; // yes, name field is checked
+let ageFieldChecked = false; // no, age field is not checked
+```
+
+<br/>
+
+布尔值也可作为比较的结果：
+
+```js
+let isGreater = 4 > 1;
+
+alert( isGreater ); // true（比较的结果是 "yes"）
+```
+
+更详细的内容将会在 [逻辑运算符](../11/README.md) 一节中介绍。
+
 <br/>
 <br/>
 <br/>
 
 
 ## "null" 值
+
+特殊的 `null` 值不属于上述任何一种类型。
+
+它构成了一个独立的类型，只包含 `null` 值：
+
+```js
+let age = null;
+```
+
+相对比较于其他编程语言，JavaScript 中的 `null` 不是一个 "对不存在的 `Object` 的引用" 或者 "null 指针"。
+
+JavaScript 中的 `null` 仅仅是一个代表 "无"、"空"、"值未知" 的特殊值。
+
+上面的代码表示 **age** 是未知的。
 
 <br/>
 <br/>
@@ -192,12 +229,45 @@ alert( "the result is ${1 + 2}" );
 
 ## "undefined" 值
 
+特殊值 `undefined` 和 `null` 一样自成类型。
+
+`undefined` 的含义是 **未被赋值**。
+
+如果一个变量已被声明，但未被赋值，那么它的值就是 `undefined`：
+
+```js
+let age;
+
+alert(age); // 弹出 "undefined"
+```
+
+<br/>
+
+从技术上讲，可以显式地将 `undefined` 赋值给变量：
+
+```js
+let age = 100;
+
+// 将值修改为 undefined
+age = undefined;
+
+alert(age); // "undefined"
+```
+
+...... 但是不建议这样做。通常，使用 `null` 将一个 "空" 或者 "未知" 的值写入变量中，而 `undefined` 则保留作为未进行初始化的事物的默认初始值。
+
 <br/>
 <br/>
 <br/>
 
 
 ## object 类型和 symbol 类型
+
+`object` 类型是一个特殊的类型。
+
+其他所有的数据类型都被称为 "原始类型"，因为它们的值只包含一个单独的内容（ 字符串、数字或者其他 ）。相反，`object` 则用于储存数据集合和更复杂的实体。
+
+因为它非常重要，所以我们对其进行单独讲解。在充分学习了原始类型后，我们将会在 [对象](../../ioxcjvjcpp/01/README.md) 了解 `object`。
 
 <br/>
 <br/>
@@ -206,9 +276,77 @@ alert( "the result is ${1 + 2}" );
 
 ## typeof 运算符
 
-<br/>
-<br/>
+`typeof` 运算符返回参数的类型。当我们想要分别处理不同类型值的时候，或者想快速进行数据类型检验时，非常有用。
+
+它支持两种语法形式：
+
+1. 作为运算符: `typeof x`。
+
+2. 函数形式: `typeof(x)`
+
 <br/>
 
+换而言之，有括号和没有括号，得到的结果是一样的。
+
+对 `typeof x` 的调用会以字符串的形式返回数据类型:
+
+```js {13,15,17}
+typeof undefined // 'undefined'
+
+typeof 0 // "number"
+
+typeof 10n // "bigint"
+
+typeof true // "boolean"
+
+typeof "foo" // "string"
+
+typeof Symbol("id") // "symbol"
+
+typeof Math // "object"  (1)
+
+typeof null // "object"  (2)
+
+typeof alert // "function"  (3)
+```
+
+最后三行可能需要额外的说明：
+
+1. `Math` 是一个提供数据运算的内建 `object`。会在 [数字类型](../../wergfhgfhk/02/README.md) 中看到它。此处仅作为一个 `object` 的示例。
+
+2. `typeof null` 的结果是 `object`。这是官方承认的 `typeof` 的行为上的错误，这个问题来自于 JavaScript 语言的早期，并为了兼容性而保留了下来。`null` 绝对不是一个 `object`。`null` 有自己的类型，它是一个特殊值。
+
+3. `typeof alert` 的结果是 `"function"`，因为 `alert` 在 JavaScript 语言中是一个函数。在下一章的学习函数，我们会了解到，在 JavaScript 语言中没有一个特别的 "function" 类型。函数隶属于 `object` 类型。但是 `typeof` 会对函数区分对待，并返回 `"function"`。这也是来自于 JavaScript 语言早期的问题。从技术上讲，这种行为是不正确的，但在实际编程中却非常方便。
+
+<br/>
+<br/>
+<br/>
 
 ## 总结
+
+JavaScript 中又八种基本的数据类型（ 译注：前七种为基本数据类型，也称为原始类型，而 `object` 为复杂数据类型 ）。
+
+- `number` 用于任何类型的数字：整数或浮点数，在 `±(253-1)` 范围内的整数。
+
+- `bigint` 用于任意长度的整数。
+
+- `string` 用于字符串：一个字符串可以包含 0 个或多个字符，所以没有单独的单字符类型。
+
+- `boolean` 用于 `true` 和 `false`。
+
+- `null` 用于未知的值 —— 只有一个 `null` 值的独立类型。
+
+- `undefined` 用于未定义的值 —— 只有一个 `undefined` 值的独立类型。
+
+- `symbol` 用于唯一的标识符。
+
+- `object` 用于更复杂的数据结构。
+
+<br/>
+
+- 两种形式：`typeof x` 或者 `typeof(x)`。
+
+- 以字符串的形式返回类型名称，例如 `"string"`。
+
+- `typeof null` 会返回 `"object"` —— 这是 JavaScript 编程语言的一个错误，实际上它并不是一个 `object`。
+

@@ -13,13 +13,18 @@ module.exports = [
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/04/", '数据类型'],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/05/", '交互：alert、prompt 和 confirm'],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/06/", '类型转换'],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/11/", '逻辑运算符'],
         ]
       },
       {
         title: "代码质量", collapsable: true, children: []
       },
       {
-        title: "Object（对象）：基础知识", collapsable: true, children: []
+        title: "Object（对象）：基础知识", collapsable: true,
+        children: [
+          ["/learn_javascript_asdiasdkc/one/ioxcjvjcpp/01/", '对象'],
+          ["/learn_javascript_asdiasdkc/one/ioxcjvjcpp/08/", '对象 — 原始值转换'],
+        ]
       },
       {
         title: "数据类型", collapsable: true, children: [
