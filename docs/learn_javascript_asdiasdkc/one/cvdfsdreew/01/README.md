@@ -139,7 +139,7 @@ JavaScript 程序可以在 `<script>` 标签的帮助下插入到 HTML 文档的
 <br/>
 
 
-**总结**
+## 总结
 
 - 我们可以使用一个 `<script>` 标签将 JavaScript 代码添加到页面中。
 
