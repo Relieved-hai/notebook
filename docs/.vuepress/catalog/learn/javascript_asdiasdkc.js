@@ -14,7 +14,16 @@ module.exports = [
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/05/", '交互：alert、prompt 和 confirm'],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/06/", '类型转换'],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/07/", '基础运算符，数学'],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/08/", '值得比较'],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/09/", "条件分支：if 和 '?'"],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/11/", '逻辑运算符'],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/12/", "空值合并运算符 '??'"],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/13/", "循环：while 和 for"],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/14/", '"switch" 语句'],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/15/", '函数'],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/16/", '函数表达式'],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/17/", '箭头函数，基础知识'],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/18/", 'JavaScript 特性'],
         ]
       },
       {
