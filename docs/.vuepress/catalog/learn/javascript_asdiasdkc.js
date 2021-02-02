@@ -52,9 +52,11 @@ module.exports = [
       },
       {
         title: "数据类型", collapsable: true, children: [
+          ["/learn_javascript_asdiasdkc/one/wergfhgfhk/01/", '原始类型的方法'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/02/", '数字类型'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/03/", '字符串'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/06/", 'Iterable object（可迭代对象）'],
+          ["/learn_javascript_asdiasdkc/one/wergfhgfhk/11/", '日期和时间'],
         ]
       },
       {
