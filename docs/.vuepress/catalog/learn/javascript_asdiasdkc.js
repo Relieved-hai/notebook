@@ -14,7 +14,7 @@ module.exports = [
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/05/", '交互：alert、prompt 和 confirm'],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/06/", '类型转换'],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/07/", '基础运算符，数学'],
-          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/08/", '值得比较'],
+          ["/learn_javascript_asdiasdkc/one/cvdfsdreew/08/", '值的比较'],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/09/", "条件分支：if 和 '?'"],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/11/", '逻辑运算符'],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/12/", "空值合并运算符 '??'"],

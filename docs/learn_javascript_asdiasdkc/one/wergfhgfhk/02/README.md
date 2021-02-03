@@ -521,14 +521,6 @@ alert( Math.pow(2, 10) ); // 2 的 10 次幂 = 1024
 
 - 需要时请查看 [Math](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) 对象。这个库很小，但是可以满足基本的需求。
 
-
-
-
-
-
-
-
-
 <br/>
 <br/>
 <br/>
