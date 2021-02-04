@@ -21,7 +21,7 @@ let double = "double-quoted";
 let backticks = `backticks`;
 ```
 
-单引号和双引号基本相同。但是，反引号允许我们通过 ${…} 将任何表达式嵌入到字符串中：
+单引号和双引号基本相同。但是，反引号允许我们通过 `${…}` 将任何表达式嵌入到字符串中：
 
 ```js
 function sum(a, b) {
@@ -776,7 +776,7 @@ alert( "S\u0307\u0323".normalize() == "\u1e68" ); // true
 - `str.repeat(n)` —— 重复字符串 n 次。
 - ……更多内容细节请参见 [手册](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/String)。
 
-字符串还具有使用正则表达式进行搜索/替换的方法。但这个话题很大，因此我们将在本教程中单独的 [正则表达式](https://zh.javascript.info/regular-expressions) 章节中进行讨论。
+字符串还具有使用正则表达式进行搜索/替换的方法。但这个话题很大，因此我们将在本教程中单独的 [正则表达式]() 章节中进行讨论。
 
 <br/>
 <br/>
