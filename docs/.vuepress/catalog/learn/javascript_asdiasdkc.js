@@ -58,6 +58,7 @@ module.exports = [
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/04/", '数组'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/05/", '数组方法'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/06/", 'Iterable object（可迭代对象）'],
+          ["/learn_javascript_asdiasdkc/one/wergfhgfhk/07/", 'Map and Set（映射和集合）'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/11/", '日期和时间'],
         ]
       },
