@@ -59,15 +59,27 @@ module.exports = [
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/05/", '数组方法'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/06/", 'Iterable object（可迭代对象）'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/07/", 'Map and Set（映射和集合）'],
+          ["/learn_javascript_asdiasdkc/one/wergfhgfhk/08/", 'WeakMap and WeakSet（弱映射和弱集合）'],
+          ["/learn_javascript_asdiasdkc/one/wergfhgfhk/09/", 'Object.keys，values，entries'],
+          ["/learn_javascript_asdiasdkc/one/wergfhgfhk/10/", '解构赋值'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/11/", '日期和时间'],
+          ["/learn_javascript_asdiasdkc/one/wergfhgfhk/12/", 'JSON 方法，toJSON'],
         ]
       },
       {
         title: "函数进阶内容",
         collapsable: true,
         children: [
+          ["/learn_javascript_asdiasdkc/one/uweiqowjsa/01/", '递归和堆栈'],
+          ["/learn_javascript_asdiasdkc/one/uweiqowjsa/02/", 'Rest 参数与 Spread 语法'],
+          ["/learn_javascript_asdiasdkc/one/uweiqowjsa/03/", '变量作用域，闭包'],
           ["/learn_javascript_asdiasdkc/one/uweiqowjsa/04/", '旧时的 "var"'],
           ["/learn_javascript_asdiasdkc/one/uweiqowjsa/05/", '全局对象'],
+          ["/learn_javascript_asdiasdkc/one/uweiqowjsa/06/", '函数对象，NFE'],
+          ["/learn_javascript_asdiasdkc/one/uweiqowjsa/07/", '"new Function" 语法'],
+          ["/learn_javascript_asdiasdkc/one/uweiqowjsa/08/", '调度：setTimeout 和 setInterval'],
+          ["/learn_javascript_asdiasdkc/one/uweiqowjsa/09/", '装饰器模式和转发，call/apply'],
+          ["/learn_javascript_asdiasdkc/one/uweiqowjsa/10/", '函数绑定'],
           ["/learn_javascript_asdiasdkc/one/uweiqowjsa/11/", '深入理解箭头函数']
         ]
       },
@@ -75,12 +87,15 @@ module.exports = [
         title: "对象属性配置", collapsable: true,
         children: [
           ["/learn_javascript_asdiasdkc/one/mncmvneqwe/01/", '属性标志和属性描述符'],
+          ["/learn_javascript_asdiasdkc/one/mncmvneqwe/02/", '属性的 getter 和 setter'],
         ]
       },
       {
         title: "原型，继承", collapsable: true,
         children: [
           ["/learn_javascript_asdiasdkc/one/ghdfgqowei/01/", '原型继承'],
+          ["/learn_javascript_asdiasdkc/one/ghdfgqowei/02/", 'F.prototype'],
+          ["/learn_javascript_asdiasdkc/one/ghdfgqowei/03/", '原生的原型'],
           ["/learn_javascript_asdiasdkc/one/ghdfgqowei/04/", '原型方法，没有 __proto__ 的对象'],
         ]
       },
@@ -88,6 +103,12 @@ module.exports = [
         title: "类", collapsable: true,
         children: [
           ["/learn_javascript_asdiasdkc/one/iqopweixbz/01/", 'Class 基本语法'],
+          ["/learn_javascript_asdiasdkc/one/iqopweixbz/02/", '类继承'],
+          ["/learn_javascript_asdiasdkc/one/iqopweixbz/03/", '静态属性和静态方法'],
+          ["/learn_javascript_asdiasdkc/one/iqopweixbz/04/", '私有的和受保护的属性和方法'],
+          ["/learn_javascript_asdiasdkc/one/iqopweixbz/05/", '扩展内建类'],
+          ["/learn_javascript_asdiasdkc/one/iqopweixbz/06/", '类检查："instanceof"'],
+          ["/learn_javascript_asdiasdkc/one/iqopweixbz/07/", 'Mixin 模式'],
         ]
       },
       {
@@ -100,10 +121,13 @@ module.exports = [
         title: "Generator，高级 iteration", collapsable: true, children: []
       },
       {
-        title: "模块", collapsable: true, children: []
+        title: "模块", collapsable: true, children: [
+          ["/learn_javascript_asdiasdkc/one/mknalsweqw/01/", '模块 (Module) 简介']
+        ]
       },
       {
         title: "杂项", collapsable: true, children: [
+          ["/learn_javascript_asdiasdkc/one/idortjeior/01/", 'Proxy 和 Reflect'],
           ["/learn_javascript_asdiasdkc/one/idortjeior/05/", 'BigInt']
         ]
       }
@@ -112,7 +136,15 @@ module.exports = [
   {
     title: "浏览器：文档，事件，接口",
     collapsable: true,
-    children: []
+    children: [
+      {
+        title: "JavaScript 基础知识",
+        collapsable: true,
+        children: [
+          ["/learn_javascript_asdiasdkc/two/iopiopqwez/03/", "事件循环：微任务和宏任务"],
+        ]
+      }
+    ]
   },
   {
     title: "其他",
