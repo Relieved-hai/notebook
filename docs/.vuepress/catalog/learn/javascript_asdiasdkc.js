@@ -112,10 +112,23 @@ module.exports = [
         ]
       },
       {
-        title: "错误处理", collapsable: true, children: []
+        title: "错误处理", collapsable: true, children: [
+          ["/learn_javascript_asdiasdkc/one/jasldiicxv/01/", '错误处理，"try..catch"'],
+          ["/learn_javascript_asdiasdkc/one/jasldiicxv/02/", '自定义 Error，扩展 Error']
+        ]
       },
       {
-        title: "Promise，async/await", collapsable: true, children: []
+        title: "Promise，async/await", collapsable: true,
+        children: [
+          ["/learn_javascript_asdiasdkc/one/isjndfafsdqwe/01/", '简介：回调'],
+          ["/learn_javascript_asdiasdkc/one/isjndfafsdqwe/02/", 'Promise'],
+          ["/learn_javascript_asdiasdkc/one/isjndfafsdqwe/03/", 'Promise 链'],
+          ["/learn_javascript_asdiasdkc/one/isjndfafsdqwe/04/", '使用 promise 进行错误处理'],
+          ["/learn_javascript_asdiasdkc/one/isjndfafsdqwe/05/", 'Promise API'],
+          ["/learn_javascript_asdiasdkc/one/isjndfafsdqwe/06/", 'Promisification'],
+          ["/learn_javascript_asdiasdkc/one/isjndfafsdqwe/07/", '微任务（Microtask）'],
+          ["/learn_javascript_asdiasdkc/one/isjndfafsdqwe/08/", 'Async/await'],
+        ]
       },
       {
         title: "Generator，高级 iteration", collapsable: true, children: []
@@ -138,7 +151,14 @@ module.exports = [
     collapsable: true,
     children: [
       {
-        title: "JavaScript 基础知识",
+        title: "Document",
+        collapsable: true,
+        children: [
+          ["/learn_javascript_asdiasdkc/two/xkcopvjksern/01/", "浏览器环境，规格"],
+        ]
+      },
+      {
+        title: "杂项",
         collapsable: true,
         children: [
           ["/learn_javascript_asdiasdkc/two/iopiopqwez/03/", "事件循环：微任务和宏任务"],
