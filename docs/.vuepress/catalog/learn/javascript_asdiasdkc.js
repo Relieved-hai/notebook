@@ -1,11 +1,10 @@
 module.exports = [
   {
     title: "JavaScript 编程语言",
-    collapsable: true,
+    collapsable: false,
     children: [
       {
         title: "JavaScript 基础知识",
-        collapsable: true,
         children: [
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/01/", "Hello world"],
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/02/", '现代模式，"use strict"'],
@@ -27,7 +26,7 @@ module.exports = [
         ]
       },
       {
-        title: "代码质量", collapsable: true,
+        title: "代码质量",
         children: [
           ["/learn_javascript_asdiasdkc/one/uiooxcvasj/01/", "在 Chrome 中调试"],
           ["/learn_javascript_asdiasdkc/one/uiooxcvasj/02/", "代码风格"],
@@ -38,7 +37,7 @@ module.exports = [
         ]
       },
       {
-        title: "Object（对象）：基础知识", collapsable: true,
+        title: "Object（对象）：基础知识",
         children: [
           ["/learn_javascript_asdiasdkc/one/ioxcjvjcpp/01/", '对象'],
           ["/learn_javascript_asdiasdkc/one/ioxcjvjcpp/02/", '对象引用和复制'],
@@ -51,7 +50,7 @@ module.exports = [
         ]
       },
       {
-        title: "数据类型", collapsable: true, children: [
+        title: "数据类型",  children: [
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/01/", '原始类型的方法'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/02/", '数字类型'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/03/", '字符串'],
@@ -68,7 +67,7 @@ module.exports = [
       },
       {
         title: "函数进阶内容",
-        collapsable: true,
+
         children: [
           ["/learn_javascript_asdiasdkc/one/uweiqowjsa/01/", '递归和堆栈'],
           ["/learn_javascript_asdiasdkc/one/uweiqowjsa/02/", 'Rest 参数与 Spread 语法'],
@@ -84,14 +83,14 @@ module.exports = [
         ]
       },
       {
-        title: "对象属性配置", collapsable: true,
+        title: "对象属性配置",
         children: [
           ["/learn_javascript_asdiasdkc/one/mncmvneqwe/01/", '属性标志和属性描述符'],
           ["/learn_javascript_asdiasdkc/one/mncmvneqwe/02/", '属性的 getter 和 setter'],
         ]
       },
       {
-        title: "原型，继承", collapsable: true,
+        title: "原型，继承",
         children: [
           ["/learn_javascript_asdiasdkc/one/ghdfgqowei/01/", '原型继承'],
           ["/learn_javascript_asdiasdkc/one/ghdfgqowei/02/", 'F.prototype'],
@@ -100,7 +99,7 @@ module.exports = [
         ]
       },
       {
-        title: "类", collapsable: true,
+        title: "类",
         children: [
           ["/learn_javascript_asdiasdkc/one/iqopweixbz/01/", 'Class 基本语法'],
           ["/learn_javascript_asdiasdkc/one/iqopweixbz/02/", '类继承'],
@@ -112,13 +111,13 @@ module.exports = [
         ]
       },
       {
-        title: "错误处理", collapsable: true, children: [
+        title: "错误处理",  children: [
           ["/learn_javascript_asdiasdkc/one/jasldiicxv/01/", '错误处理，"try..catch"'],
           ["/learn_javascript_asdiasdkc/one/jasldiicxv/02/", '自定义 Error，扩展 Error']
         ]
       },
       {
-        title: "Promise，async/await", collapsable: true,
+        title: "Promise，async/await",
         children: [
           ["/learn_javascript_asdiasdkc/one/isjndfafsdqwe/01/", '简介：回调'],
           ["/learn_javascript_asdiasdkc/one/isjndfafsdqwe/02/", 'Promise'],
@@ -131,15 +130,15 @@ module.exports = [
         ]
       },
       {
-        title: "Generator，高级 iteration", collapsable: true, children: []
+        title: "Generator，高级 iteration",  children: []
       },
       {
-        title: "模块", collapsable: true, children: [
+        title: "模块",  children: [
           ["/learn_javascript_asdiasdkc/one/mknalsweqw/01/", '模块 (Module) 简介']
         ]
       },
       {
-        title: "杂项", collapsable: true, children: [
+        title: "杂项",  children: [
           ["/learn_javascript_asdiasdkc/one/idortjeior/01/", 'Proxy 和 Reflect'],
           ["/learn_javascript_asdiasdkc/one/idortjeior/05/", 'BigInt']
         ]
@@ -148,18 +147,16 @@ module.exports = [
   },
   {
     title: "浏览器：文档，事件，接口",
-    collapsable: true,
+    collapsable: false,
     children: [
       {
         title: "Document",
-        collapsable: true,
         children: [
           ["/learn_javascript_asdiasdkc/two/xkcopvjksern/01/", "浏览器环境，规格"],
         ]
       },
       {
         title: "杂项",
-        collapsable: true,
         children: [
           ["/learn_javascript_asdiasdkc/two/iopiopqwez/03/", "事件循环：微任务和宏任务"],
         ]
@@ -168,7 +165,15 @@ module.exports = [
   },
   {
     title: "其他",
-    collapsable: true,
-    children: []
+    collapsable: false,
+    children: [
+      {
+        title: "网络请求",
+        children: [
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/01/", "Fetch"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/04/", "Fetch：中止（Abort）"],
+        ]
+      },
+    ]
   }
 ];
