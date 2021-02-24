@@ -50,7 +50,7 @@ module.exports = [
         ]
       },
       {
-        title: "数据类型",  children: [
+        title: "数据类型", children: [
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/01/", '原始类型的方法'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/02/", '数字类型'],
           ["/learn_javascript_asdiasdkc/one/wergfhgfhk/03/", '字符串'],
@@ -111,7 +111,7 @@ module.exports = [
         ]
       },
       {
-        title: "错误处理",  children: [
+        title: "错误处理", children: [
           ["/learn_javascript_asdiasdkc/one/jasldiicxv/01/", '错误处理，"try..catch"'],
           ["/learn_javascript_asdiasdkc/one/jasldiicxv/02/", '自定义 Error，扩展 Error']
         ]
@@ -130,15 +130,21 @@ module.exports = [
         ]
       },
       {
-        title: "Generator，高级 iteration",  children: []
-      },
-      {
-        title: "模块",  children: [
-          ["/learn_javascript_asdiasdkc/one/mknalsweqw/01/", '模块 (Module) 简介']
+        title: "Generator，高级 iteration",
+        children: [
+          ["/learn_javascript_asdiasdkc/one/opcxklcvnkjwq/01/", 'Generator'],
+          ["/learn_javascript_asdiasdkc/one/opcxklcvnkjwq/02/", '异步迭代和 generator']
         ]
       },
       {
-        title: "杂项",  children: [
+        title: "模块", children: [
+          ["/learn_javascript_asdiasdkc/one/mknalsweqw/01/", '模块 (Module) 简介'],
+          ["/learn_javascript_asdiasdkc/one/mknalsweqw/02/", '导出和导入'],
+          ["/learn_javascript_asdiasdkc/one/mknalsweqw/03/", '动态导入'],
+        ]
+      },
+      {
+        title: "杂项", children: [
           ["/learn_javascript_asdiasdkc/one/idortjeior/01/", 'Proxy 和 Reflect'],
           ["/learn_javascript_asdiasdkc/one/idortjeior/05/", 'BigInt']
         ]
@@ -153,6 +159,12 @@ module.exports = [
         title: "Document",
         children: [
           ["/learn_javascript_asdiasdkc/two/xkcopvjksern/01/", "浏览器环境，规格"],
+        ]
+      },
+      {
+        title: "加载文档和其他资源",
+        children: [
+          ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/02/", "脚本：async，defer"],
         ]
       },
       {
@@ -172,6 +184,13 @@ module.exports = [
         children: [
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/01/", "Fetch"],
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/04/", "Fetch：中止（Abort）"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/05/", "Fetch：跨源请求"],
+        ]
+      },
+      {
+        title: "正则表达式",
+        children: [
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/01/", "模式（Patterns）和修饰符（flags）"]
         ]
       },
     ]
