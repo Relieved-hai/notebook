@@ -146,6 +146,9 @@ module.exports = [
       {
         title: "杂项", children: [
           ["/learn_javascript_asdiasdkc/one/idortjeior/01/", 'Proxy 和 Reflect'],
+          ["/learn_javascript_asdiasdkc/one/idortjeior/02/", 'Eval：执行代码字符串'],
+          ["/learn_javascript_asdiasdkc/one/idortjeior/03/", '柯里化（Currying）'],
+          ["/learn_javascript_asdiasdkc/one/idortjeior/04/", 'Reference Type'],
           ["/learn_javascript_asdiasdkc/one/idortjeior/05/", 'BigInt']
         ]
       }
