@@ -201,6 +201,12 @@ module.exports = [
         ]
       },
       {
+        title: "Web components",
+        children: [
+          ["/learn_javascript_asdiasdkc/three/quwioenzskjd/04/", "模板元素"]
+        ]
+      },
+      {
         title: "正则表达式",
         children: [
           ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/01/", "模式（Patterns）和修饰符（flags）"]
