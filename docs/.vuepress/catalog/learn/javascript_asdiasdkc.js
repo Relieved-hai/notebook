@@ -175,6 +175,16 @@ module.exports = [
         ]
       },
       {
+        title: "事件简介",
+        children: [
+          ["/learn_javascript_asdiasdkc/two/kdsfmakspqw/01/", "浏览器事件简介"],
+          ["/learn_javascript_asdiasdkc/two/kdsfmakspqw/02/", "冒泡和捕获"],
+          ["/learn_javascript_asdiasdkc/two/kdsfmakspqw/03/", "事件委托"],
+          ["/learn_javascript_asdiasdkc/two/kdsfmakspqw/04/", "浏览器默认行为"],
+          ["/learn_javascript_asdiasdkc/two/kdsfmakspqw/05/", "创建自定义事件"]
+        ]
+      },
+      {
         title: "加载文档和其他资源",
         children: [
           ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/02/", "脚本：async，defer"],
