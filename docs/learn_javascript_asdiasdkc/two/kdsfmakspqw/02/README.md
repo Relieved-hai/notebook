@@ -365,7 +365,7 @@ elem.addEventListener(..., true)
 </script>
 ```
 
-<html class="de" style="border: 1px solid #d6d6d6; padding: 10px;">
+<html class="de h-b">
 <body class="de">
 <style>
   .bor {
