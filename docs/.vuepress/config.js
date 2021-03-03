@@ -5,9 +5,6 @@ module.exports = {
   base: "/notebook/",
   repo: "https://github.com/Relieved-hai/notebook", // 添加 github 链接
   themeConfig: {
-    themeConfig: {
-      lastUpdated: "Last Updated"
-    },
     nav: [
       {
         text: "Notebook",
@@ -60,6 +57,8 @@ module.exports = {
       "/": ["" /* / */]
     }
   },
+  // lastUpdated: "Last Updated",
+  smoothScroll: true,
   markdown: {
     lineNumbers: true // 代码块显示行号
   }

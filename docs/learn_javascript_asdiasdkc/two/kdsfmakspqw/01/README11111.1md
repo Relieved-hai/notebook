@@ -110,9 +110,16 @@ HTML 特性不是编写大量代码的好位置，因此我们最好创建一个
 </script>
 ```
 
-<ClientOnly>
-  <learn_javascript_asdiasdkc-two-kdsfmakspqw-01-demo2 />
-</ClientOnly>
+<html>
+<body>a
+<input id="elem" type="button" value="Click me">
+<script>
+  elem.onclick = function() {
+    alert('Thank you');
+  };
+</script>
+</body>
+</html>
 
 <br/>
 
@@ -128,9 +135,11 @@ HTML 特性不是编写大量代码的好位置，因此我们最好创建一个
 <input type="button" onclick="alert('Click!')" value="Button">
 ```
 
-<div class="h-b">
+<html>
+<body>
 <input type="button" onclick="alert('Click!')" value="Button">
-</div>
+</body>
+</html>
 
 - 2. HTML + JS：
 
@@ -143,9 +152,16 @@ HTML 特性不是编写大量代码的好位置，因此我们最好创建一个
 </script>
 ```
 
-<ClientOnly>
-  <learn_javascript_asdiasdkc-two-kdsfmakspqw-01-demo3 />
-</ClientOnly>
+<html>
+<body>
+<input id="element" type="button" value="Click me">
+<script>
+  element.onclick = function() {
+    alert('Click!');
+  };
+</script>
+</body>
+</html>
 
 <br/>
 
@@ -164,9 +180,17 @@ HTML 特性不是编写大量代码的好位置，因此我们最好创建一个
 </script>
 ```
 
-<ClientOnly>
-  <learn_javascript_asdiasdkc-two-kdsfmakspqw-01-demo4 />
-</ClientOnly>
+<html>
+<body>
+<input type="button" id="ele" onclick="alert('Before')" value="Click me">
+<script>
+  // 覆盖了现有的处理程序
+  ele.onclick = function() {
+    alert('After'); // 只会显示此内容
+  };
+</script>
+</body>
+</html>
 
 要移除一个处理程序 —— 赋值 `elem.onclick = null`。
 
@@ -184,9 +208,7 @@ HTML 特性不是编写大量代码的好位置，因此我们最好创建一个
 <button onclick="alert(this.innerHTML)">Click me</button>
 ```
 
-<div class="h-b">
 <button onclick="alert(this.innerHTML)">Click me</button>
-</div>
 
 <br/>
 <br/>
@@ -350,6 +372,24 @@ input.removeEventListener("click", handler);
 </script>
 ```
 
+<html>
+<body>
+<input id="elemDemo" type="button" value="Click me"/>
+<script>
+  function handler1() {
+    alert('Thanks!');
+  }
+  function handler2() {
+    alert('Thanks again!');
+  }
+  const elem = document.getElementById('elemDemo');
+  elem.onclick = function () { alert('Hello') };
+  elem.addEventListener('click', handler1); // Thanks!
+  elem.addEventListener('click', handler2); // Thanks again!
+</script>
+</body>
+</html>
+
 正如我们在上面这个例子中所看到的，我们可以 **同时** 使用 DOM 属性和 `addEventListener` 来设置处理程序。但通常我们只使用其中一种方式。
 
 :::warning
@@ -388,7 +428,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 下面是一个从 `event` 对象获取鼠标指针的坐标的示例：
 
-```html
+```js
 <input type="button" value="Click me" id="elem">
 
 <script>
@@ -487,7 +527,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 `handleEvent` 方法不必通过自身完成所有的工作。它可以调用其他特定于事件的方法，例如：
 
-```html
+```js
 <button id="elem">Click me</button>
 
 <script>
@@ -517,7 +557,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 `handleEvent` 方法不必通过自身完成所有的工作。它可以调用其他特定于事件的方法，例如：
 
-```html
+```js
 <button id="elem">Click me</button>
 
 <script>

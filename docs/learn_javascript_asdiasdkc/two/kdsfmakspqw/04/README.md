@@ -29,11 +29,9 @@ or
 <a href="/" onclick="event.preventDefault()">here</a>
 ```
 
-<html class="h-b">
-<a href="/" onclick="return false">Click here</a>
-or
-<a href="/" onclick="event.preventDefault()">here</a>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-04-demo1 />
+</ClientOnly>
 
 在下一个示例中，我们将使用此技术来创建 JavaScript 驱动的菜单。
 
@@ -66,47 +64,9 @@ or
 
 下面经过 CSS 渲染的外观：
 
-<html style="border: 1px solid #d6d6d6;">
-<style>
-.menu li {
-  display: inline-block;
-  margin: 0;
-}
-.menu > li a {
-  display: inline-block;
-  margin: 0 2px;
-  outline: none;
-  text-align: center;
-  text-decoration: none;
-  font: 14px/100% sans-serif;
-  padding: .5em 2em .55em;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
-  border-radius: .5em;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
-  color: #d9eef7;
-  border: solid 1px #0076a3;
-  background: #0095cd;
-}
-.menu > li:hover a {
-  text-decoration: none;
-  background: #007ead;
-}
-</style>
-<ul id="menu" class="menu">
-  <li><a href="/html">HTML</a></li>
-  <li><a href="/javascript">JavaScript</a></li>
-  <li><a href="/css">CSS</a></li>
-</ul>
-<script>
-menu.onclick = function(event) {
-  if (event.target.nodeName != 'A') return;
-  let href = event.target.getAttribute('href');
-  alert(href);
-  // prevent url change
-  return false;
-};
-</script>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-04-demo2 />
+</ClientOnly>
 
 <br/>
 
@@ -150,10 +110,9 @@ menu.onclick = function(event) {
 <input onmousedown="return false" onfocus="this.value=''" value="Click me">
 ```
 
-<html class="h-b" style="background: transparent">
-  <input value="Focus works" onfocus="this.value=''">
-  <input onmousedown="return false" onfocus="this.value=''" value="Click me">
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-04-demo3 />
+</ClientOnly>
 
 这是因为浏览器行为在 `mousedown` 上被取消。如果我们用另一种方式进行输入，则仍然可以进行聚焦。例如，可以使用 `Tab` 键从第一个输入切换到第二个输入。但鼠标点击则不行。
 
@@ -203,12 +162,9 @@ menu.onclick = function(event) {
 </button>
 ```
 
-<html class="h-b">
-<button>Right-click shows browser context menu</button>
-<button oncontextmenu="alert('Draw our menu'); return false">
-  Right-click shows our context menu
-</button>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-04-demo4 />
+</ClientOnly>
 
 <br/>
 
@@ -233,20 +189,9 @@ menu.onclick = function(event) {
 </script>
 ```
 
-<html class="h-b" style="padding-top: 0">
-<p>Right-click here for the document context menu</p>
-<button id="elem">Right-click here for the button context menu</button>
-<script>
-  elem.oncontextmenu = function(event) {
-    event.preventDefault();
-    alert("Button context menu");
-  };
-  document.oncontextmenu = function(event) {
-    event.preventDefault();
-    alert("Document context menu");
-  };
-</script>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-04-demo5 />
+</ClientOnly>
 
 问题是，当我们点击 `elem` 时，我们会得到两个菜单：按钮级和文档级（事件冒泡）的菜单。
 
@@ -270,21 +215,9 @@ menu.onclick = function(event) {
 </script>
 ```
 
-<html class="h-b" style="padding-top: 0">
-<p>Right-click for the document menu</p>
-<button id="elem1">Right-click for the button menu (fixed with event.stopPropagation)</button>
-<script>
-  elem1.oncontextmenu = function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    alert("Button context menu");
-  };
-  document.oncontextmenu = function(event) {
-    event.preventDefault();
-    alert("Document context menu");
-  };
-</script>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-04-demo6 />
+</ClientOnly>
 
 <br/>
 
@@ -311,21 +244,9 @@ menu.onclick = function(event) {
 </script>
 ```
 
-<html class="h-b" style="padding-top: 0;">
-<p>Right-click for the document menu (added a check for event.defaultPrevented)</p>
-<button id="elem2">Right-click for the button menu</button>
-<script>
-  elem2.oncontextmenu = function(event) {
-    event.preventDefault();
-    alert("Button context menu");
-  };
-  document.oncontextmenu = function(event) {
-    if (event.defaultPrevented) return;
-    event.preventDefault();
-    alert("Document context menu");
-  };
-</script>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-04-demo7 />
+</ClientOnly>
 
 现在一切都可以正常工作了。如果我们有嵌套的元素，并且每个元素都有自己的上下文菜单，那么这也是可以运行的。只需确保检查每个 `contextmenu` 处理程序中的 `event.defaultPrevented`。
 

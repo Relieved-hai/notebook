@@ -8,137 +8,9 @@
 
 让我们看一个示例 —— 反映中国古代哲学的 [八卦图](http://en.wikipedia.org/wiki/Ba_gua) 。
 
-<html>
-<head></head>
-<body>
-<style>
-    #bagua-table th {
-        text-align: center;
-        font-weight: bold;
-    }
-    #bagua-table td {
-        width: 150px;
-        white-space: nowrap;
-        text-align: center;
-        vertical-align: bottom;
-        padding-top: 5px;
-        padding-bottom: 12px;
-    }
-    #bagua-table .nw {
-        background: #999;
-    }
-    #bagua-table .n {
-        background: #03f;
-        color: #fff;
-    }
-    #bagua-table .ne {
-        background: #ff6;
-    }
-    #bagua-table .w {
-        background: #ff0;
-    }
-    #bagua-table .c {
-        background: #60c;
-        color: #fff;
-    }
-    #bagua-table .e {
-        background: #09f;
-        color: #fff;
-    }
-    #bagua-table .sw {
-        background: #963;
-        color: #fff;
-    }
-    #bagua-table .s {
-        background: #f60;
-        color: #fff;
-    }
-    #bagua-table .se {
-        background: #0c3;
-        color: #fff;
-    }
-    #bagua-table .highlight {
-        background: red;
-    }
-</style>
-<table id="bagua-table">
-    <tbody><tr>
-        <th colspan="3"><em>Bagua</em> Chart: Direction, Element, Color, Meaning</th>
-    </tr>
-    <tr>
-        <td class="nw"><strong>Northwest</strong>
-            <br>Metal
-            <br>Silver
-            <br>Elders
-        </td>
-        <td class="n"><strong>North</strong>
-            <br>Water
-            <br>Blue
-            <br>Change
-        </td>
-        <td class="ne"><strong>Northeast</strong>
-            <br>Earth
-            <br>Yellow
-            <br>Direction
-        </td>
-    </tr>
-    <tr>
-        <td class="w"><strong>West</strong>
-            <br>Metal
-            <br>Gold
-            <br>Youth
-        </td>
-        <td class="c"><strong>Center</strong>
-            <br>All
-            <br>Purple
-            <br>Harmony
-        </td>
-        <td class="e"><strong>East</strong>
-            <br>Wood
-            <br>Blue
-            <br>Future
-        </td>
-    </tr>
-    <tr>
-        <td class="sw"><strong>Southwest</strong>
-            <br>Earth
-            <br>Brown
-            <br>Tranquility
-        </td>
-        <td class="s"><strong>South</strong>
-            <br>Fire
-            <br>Orange
-            <br>Fame
-        </td>
-        <td class="se highlight"><strong>Southeast</strong>
-            <br>Wood
-            <br>Green
-            <br>Romance
-        </td>
-    </tr>
-    </tbody></table>
-<script>
-  let table = document.getElementById('bagua-table');
-  let selectedTd;
-  table.onclick = function(event) {
-    let target = event.target;
-    while (target != this) {
-      if (target.tagName == 'TD') {
-        highlight(target);
-        return;
-      }
-      target = target.parentNode;
-    }
-  };
-  function highlight(node) {
-    if (selectedTd) {
-      selectedTd.classList.remove('highlight');
-    }
-    selectedTd = node;
-    selectedTd.classList.add('highlight');
-  };
-</script>
-</body></html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-03-demo1 />
+</ClientOnly>
 
 其 HTML 如下所示：
 
@@ -287,39 +159,9 @@ table.onclick = function(event) {
 </script>
 ```
 
-<html class="h-b">
-<body>
-<div id="menu">
-  <button data-action="save">Save</button>
-  <button data-action="load">Load</button>
-  <button data-action="search">Search</button>
-</div>
-<script>
-class Menu {
-  constructor(elem) {
-    this._elem = elem;
-    elem.onclick = this.onClick.bind(this); // (*)
-  }
-  save() {
-    alert('saving');
-  }
-  load() {
-    alert('loading');
-  }
-  search() {
-    alert('searching');
-  }
-  onClick(event) {
-    let action = event.target.dataset.action;
-    if (action) {
-      this[action]();
-    }
-  };
-}
-new Menu(menu);
-</script>
-</body>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-03-demo2 />
+</ClientOnly>
 
 请注意，`this.onClick` 在 `(*)` 行中被绑定到了 `this`。这很重要，因为否则内部的 `this` 将引用 DOM 元素（`elem`），而不是 `Menu` 对象，那样的话，`this[action]` 将不是我们所需要的。
 
@@ -365,18 +207,9 @@ One more counter: <input type="button" value="2" data-counter>
 </script>
 ```
 
-<html class="h-b">
-Counter: <input type="button" value="1" data-counter>
-One more counter: <input type="button" value="2" data-counter>
-<script>
-  document.addEventListener('click', function(event) {
-    // 如果这个特性存在...
-    if (event.target.dataset.counter != undefined) {
-      event.target.value++;
-    }
-  });
-</script>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-03-demo3 />
+</ClientOnly>
 
 如果我们点击按钮 —— 它的值就会增加。但不仅仅是按钮，一般的方法在这里也很重要。
 
@@ -418,22 +251,9 @@ One more counter: <input type="button" value="2" data-counter>
 </script>
 ```
 
-<html class="h-b">
-<button data-toggle-id="subscribe-mail">
-  Show the subscription form
-</button>
-<form id="subscribe-mail" hidden>
-  Your mail: <input type="email">
-</form>
-<script>
-document.addEventListener('click', function(event) {
-  let id = event.target.dataset.toggleId;
-  if (!id) return;
-  let elem = document.getElementById(id);
-  elem.hidden = !elem.hidden;
-});
-</script>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-03-demo4 />
+</ClientOnly>
 
 让我们再次注意我们做了什么。现在，要向元素添加切换功能 —— 无需了解 JavaScript，只需要使用特性 `data-toggle-id` 即可。
 

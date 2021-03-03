@@ -17,7 +17,7 @@ module.exports = [
     children: [
       ["/writing/mysql/01_asdazxczxcsd/", "one"],
       ["/writing/mysql/02_zjooppbmkfbf/", "two"],
-      ["/writing/mysql/03_idfobvcvbmcv/", "three"],
+      // ["/writing/mysql/03_idfobvcvbmcv/", "three"],
     ]
   },
   {

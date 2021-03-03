@@ -10,21 +10,9 @@
 </div>
 ```
 
-<html>
-<head>
-<style>
-.box {
-  padding: 10px;
-  border: 1px solid #d6d6d6;
-}
-</style>
-</head>
-<body>
-<div class="box" onclick="alert('The handler!')">
-  <em>If you click on <code>EM</code>, the handler on <code>DIV</code> runs.</em>
-</div>
-</body>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-02-demo1 />
+</ClientOnly>
 
 这是不是有点奇怪？如果实际上点击的是 `<em>`，为什么在 `<div>` 上的处理程序会运行？
 
@@ -55,19 +43,9 @@
 </form>
 ```
 
-<html>
-<style>
-  .b {
-    margin: 10px;
-    border: 1px solid blue;
-  }
-</style>
-<form class="b" onclick="alert('form')">FORM
-  <div class="b" onclick="alert('div')">DIV
-    <p class="b" onclick="alert('p')">P</p>
-  </div>
-</form>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-02-demo2 />
+</ClientOnly>
 
 点击内部的 `<p>` 会首先运行 `onclick`：
 
@@ -190,61 +168,9 @@ body {
 
 <br/>
 
-<html>
-<head>
-<style>
-.form {
-  background-color: green;
-  position: relative;
-  width: 150px;
-  height: 150px;
-  text-align: center;
-  cursor: pointer;
-}
-.div {
-background-color: blue;
-position: absolute;
-top: 25px;
-left: 25px;
-width: 100px;
-height: 100px;
-}
-.p {
-  background-color: red;
-  position: absolute;
-  top: 25px;
-  left: 25px;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  margin: 0;
-}
-.body {
-line-height: 25px;
-font-size: 16px;
-}
-</style>
-</head>
-<body class="body">
- A click shows both <code>event.target</code> and <code>this</code> to compare:
-
-  <form class="form" id="form">FORM
-    <div class="div">DIV
-      <p class="p">P</p>
-    </div>
-  </form>
-<script>
-form.onclick = function(event) {
-  event.target.style.backgroundColor = 'yellow';
-  // chrome needs some time to paint yellow
-  setTimeout(() => {
-    alert("target = " + event.target.tagName + ", this=" + this.tagName);
-    event.target.style.backgroundColor = '';
-  }, 0);
-};
-</script>
-</body>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-02-demo3 />
+</ClientOnly>
 
 `event.target` 可能会等于 `this` —— 当点击事件发生在 `<form>` 元素上时，就会发生这种情况。
 
@@ -268,11 +194,9 @@ form.onclick = function(event) {
 </body>
 ```
 
-<html>
-<body onclick="alert(`the bubbling doesn't reach here`)" style="border: 1px solid #d6d6d6; padding: 10px">
-  <button onclick="event.stopPropagation()">Click me</button>
-</body>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-02-demo4 />
+</ClientOnly>
 
 <br/>
 
@@ -365,27 +289,9 @@ elem.addEventListener(..., true)
 </script>
 ```
 
-<html class="de h-b">
-<body class="de">
-<style>
-  .bor {
-    margin: 10px;
-    border: 1px solid blue;
-  }
-</style>
-<form class="de bor">FORM
-  <div class="de bor">DIV
-    <p class="bor de">P</p>
-  </div>
-</form>
-<script>
-  for(let elem of document.querySelectorAll('.de')) {
-    elem.addEventListener("click", e => alert(`Capturing: ${elem.tagName}`), true);
-    elem.addEventListener("click", e => alert(`Bubbling: ${elem.tagName}`));
-  }
-</script>
-</body>
-</html>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kdsfmakspqw-02-demo5 />
+</ClientOnly>
 
 上面这段代码为文档中的 **每个** 元素都设置了点击处理程序，以查看哪些元素上的点击事件处理程序生效了。
 
