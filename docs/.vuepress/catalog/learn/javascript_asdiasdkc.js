@@ -185,6 +185,17 @@ module.exports = [
         ]
       },
       {
+        title: "UI 事件",
+        children: [
+          ["/learn_javascript_asdiasdkc/two/kodmnvxcnaq/01/", "鼠标事件"],
+          ["/learn_javascript_asdiasdkc/two/kodmnvxcnaq/02/", "移动鼠标：mouseover/out，mouseenter/leave"],
+          ["/learn_javascript_asdiasdkc/two/kodmnvxcnaq/03/", "鼠标拖放事件"],
+          ["/learn_javascript_asdiasdkc/two/kodmnvxcnaq/04/", "指针事件"],
+          ["/learn_javascript_asdiasdkc/two/kodmnvxcnaq/05/", "键盘：keydown 和 keyup"],
+          ["/learn_javascript_asdiasdkc/two/kodmnvxcnaq/06/", "滚动"]
+        ]
+      },
+      {
         title: "加载文档和其他资源",
         children: [
           ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/02/", "脚本：async，defer"],
@@ -193,6 +204,7 @@ module.exports = [
       {
         title: "杂项",
         children: [
+          ["/learn_javascript_asdiasdkc/two/iopiopqwez/02/", "选择（Selection）和范围（Range）"],
           ["/learn_javascript_asdiasdkc/two/iopiopqwez/03/", "事件循环：微任务和宏任务"],
         ]
       }
