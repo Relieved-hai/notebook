@@ -132,7 +132,6 @@
 </script>
 ```
 
-
 <ClientOnly>
   <learn_javascript_asdiasdkc-two-kodmnvxcnaq-01-demo2 />
 </ClientOnly>

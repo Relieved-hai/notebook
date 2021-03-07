@@ -1,0 +1,162 @@
+<template>
+  <div class="h-b">
+    <table id="table"
+           @mouseover="logMess($event, 'over')"
+           @mouseout="logMess($event, 'out')">
+      <tr>
+        <th colspan="3"><em>Bagua</em> Chart: Direction, Element, Color, Meaning</th>
+      </tr>
+      <tr>
+        <td class="nw"><strong>Northwest</strong>
+          <br>Metal
+          <br>Silver
+          <br>Elders
+        </td>
+        <td class="n"><strong>North</strong>
+          <br>Water
+          <br>Blue
+          <br>Change
+        </td>
+        <td class="ne"><strong>Northeast</strong>
+          <br>Earth
+          <br>Yellow
+          <br>Direction
+        </td>
+      </tr>
+      <tr>
+        <td class="w"><strong>West</strong>
+          <br>Metal
+          <br>Gold
+          <br>Youth
+        </td>
+        <td class="c"><strong>Center</strong>
+          <br>All
+          <br>Purple
+          <br>Harmony
+        </td>
+        <td class="e"><strong>East</strong>
+          <br>Wood
+          <br>Blue
+          <br>Future
+        </td>
+      </tr>
+      <tr>
+        <td class="sw"><strong>Southwest</strong>
+          <br>Earth
+          <br>Brown
+          <br>Tranquility
+        </td>
+        <td class="s"><strong>South</strong>
+          <br>Fire
+          <br>Orange
+          <br>Fame
+        </td>
+        <td class="se"><strong>Southeast</strong>
+          <br>Wood
+          <br>Green
+          <br>Romance
+        </td>
+      </tr>
+
+    </table>
+
+    <textarea id="textaaa" v-model="val"></textarea>
+
+    <input type="button" @click="val=''" value="Clear">
+  </div>
+</template>
+
+<script>
+export default {
+  name: "demo5",
+  data() {
+    return {
+      val: ''
+    }
+  },
+  methods: {
+    logMess(event, f) {
+      let target = event.target;
+
+      if (f === 'over') {
+        target.style.background = 'pink';
+        this.val += `over -> ${target.tagName}\n`;
+      } else {
+        target.style.background = '';
+        this.val += `out <- ${target.tagName}\n`;
+      }
+
+      textaaa.scrollTop = textaaa.scrollHeight
+    }
+  }
+}
+</script>
+
+<style scoped>
+#textaaa {
+  display: block;
+  height: 100px;
+  width: 456px;
+}
+
+#table th {
+  text-align: center;
+  font-weight: bold;
+}
+
+#table td {
+  width: 150px;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 12px;
+  cursor: pointer;
+}
+
+#table .nw {
+  background: #999;
+}
+
+#table .n {
+  background: #03f;
+  color: #fff;
+}
+
+#table .ne {
+  background: #ff6;
+}
+
+#table .w {
+  background: #ff0;
+}
+
+#table .c {
+  background: #60c;
+  color: #fff;
+}
+
+#table .e {
+  background: #09f;
+  color: #fff;
+}
+
+#table .sw {
+  background: #963;
+  color: #fff;
+}
+
+#table .s {
+  background: #f60;
+  color: #fff;
+}
+
+#table .se {
+  background: #0c3;
+  color: #fff;
+}
+
+#table .highlight {
+  background: red;
+}
+</style>

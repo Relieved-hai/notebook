@@ -23,7 +23,6 @@
   export default {
     methods: {
       handleChange(val) {
-        console.log(val);
       },
       setCode() {
         const code = `

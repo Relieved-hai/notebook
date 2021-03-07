@@ -196,6 +196,15 @@ module.exports = [
         ]
       },
       {
+        title: "表单，控件",
+        children: [
+          ["/learn_javascript_asdiasdkc/two/yyuvnqzasdias/01/", "表单属性和方法"],
+          ["/learn_javascript_asdiasdkc/two/yyuvnqzasdias/02/", "聚焦：focus/blur"],
+          ["/learn_javascript_asdiasdkc/two/yyuvnqzasdias/03/", "事件：change，input，cut，copy，paste"],
+          ["/learn_javascript_asdiasdkc/two/yyuvnqzasdias/04/", "表单：事件和方法提交"],
+        ]
+      },
+      {
         title: "加载文档和其他资源",
         children: [
           ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/02/", "脚本：async，defer"],
