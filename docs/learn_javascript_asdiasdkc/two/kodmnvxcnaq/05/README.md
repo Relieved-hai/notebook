@@ -165,11 +165,9 @@ function checkPhoneKey(key) {
 <input onkeydown="return checkPhoneKey(event.key)" placeholder="Phone, please" type="tel">
 ```
 
-<script>
-window.checkPhoneKey5 = function checkPhoneKey(key) {
-  return (key >= '0' && key <= '9') || key == '+' || key == '(' || key == ')' || key == '-';
-}
-</script>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kodmnvxcnaq-05-mountedDemo />
+</ClientOnly>
 
 <div class="h-b">
 <input onkeydown="return checkPhoneKey5(event.key)" placeholder="Phone, please" type="tel">
@@ -190,14 +188,6 @@ function checkPhoneKey(key) {
 </script>
 <input onkeydown="return checkPhoneKey(event.key)" placeholder="Phone, please" type="tel">
 ```
-
-
-<script>
-window.checkPhoneKey6 = function checkPhoneKey(key) {
-  return (key >= '0' && key <= '9') || key == '+' || key == '(' || key == ')' || key == '-' ||
-    key == 'ArrowLeft' || key == 'ArrowRight' || key == 'Delete' || key == 'Backspace';
-}
-</script>
 
 <div class="h-b">
 <input onkeydown="return checkPhoneKey6(event.key)" placeholder="Phone, please" type="tel">

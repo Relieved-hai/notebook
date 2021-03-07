@@ -207,12 +207,15 @@ module.exports = [
       {
         title: "加载文档和其他资源",
         children: [
+          ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/01/", "页面生命周期：DOMContentLoaded，load，beforeunload，unload"],
           ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/02/", "脚本：async，defer"],
+          ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/02/", "资源加载：onload，onerror"],
         ]
       },
       {
         title: "杂项",
         children: [
+          ["/learn_javascript_asdiasdkc/two/iopiopqwez/01/", "DOM 变动观察器（Mutation observer）"],
           ["/learn_javascript_asdiasdkc/two/iopiopqwez/02/", "选择（Selection）和范围（Range）"],
           ["/learn_javascript_asdiasdkc/two/iopiopqwez/03/", "事件循环：微任务和宏任务"],
         ]

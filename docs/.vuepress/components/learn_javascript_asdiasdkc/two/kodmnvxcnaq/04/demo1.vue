@@ -1,5 +1,7 @@
 <template>
-  <div id="areaaa"></div>
+  <div class="h-b" id="aisdqweqwe">
+    <div id="areaaa"></div>
+  </div>
 </template>
 
 <script>
@@ -7,7 +9,7 @@ export default {
   name: "cfsasd",
   mounted() {
     this.$nextTick(() => {
-      document.onpointerdown = document.onpointerup = log;
+      document.getElementById('aisdqweqwe').onpointerdown = document.getElementById('aisdqweqwe').onpointerup = log;
 
       function log(event) {
         areaaa.insertAdjacentHTML("beforeend", `

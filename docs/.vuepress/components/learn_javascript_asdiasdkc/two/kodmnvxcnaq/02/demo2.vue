@@ -1,9 +1,9 @@
 <template>
   <div class="h-b">
-    <div id="parent">parent
+    <div id="parentdemo2">parent
       <div id="child">child</div>
     </div>
-    <textarea id="text"/>
+    <textarea id="textdemo2"/>
     <input @click="clearText" value="Clear" type="button">
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      let parent = document.getElementById('parent');
+      let parent = document.getElementById('parentdemo2');
       parent.onmouseover = parent.onmouseout = parent.onmousemove = this.handler;
     })
   },
@@ -33,7 +33,7 @@ export default {
       return false;
     },
     clearText() {
-      text.value = "";
+      textdemo2.value = "";
       this.lastMessage = "";
     },
     log(message) {
@@ -48,17 +48,17 @@ export default {
       if (message === this.lastMessage) {
         this.repeatCounter++;
         if (this.repeatCounter === 2) {
-          text.value = text.value.trim() + ' x 2\n';
+          textdemo2.value = textdemo2.value.trim() + ' x 2\n';
         } else {
-          text.value = text.value.slice(0, text.value.lastIndexOf('x') + 1) + this.repeatCounter + "\n";
+          textdemo2.value = textdemo2.value.slice(0, textdemo2.value.lastIndexOf('x') + 1) + this.repeatCounter + "\n";
         }
 
       } else {
         this.repeatCounter = 1;
-        text.value += message + "\n";
+        textdemo2.value += message + "\n";
       }
 
-      text.scrollTop = text.scrollHeight;
+      textdemo2.scrollTop = textdemo2.scrollHeight;
 
       this.lastMessageTime = time;
       this.lastMessage = message;
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style scoped>
-#parent {
+#parentdemo2 {
   background: #99C0C3;
   width: 160px;
   height: 120px;

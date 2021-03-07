@@ -15,11 +15,9 @@ window.addEventListener('scroll', function() {
 });
 ```
 
-<script>
-window.addEventListener('scroll', function() {
-  document.getElementById('showScrollDemo').innerHTML = window.pageYOffset + 'px';
-});
-</script>
+<ClientOnly>
+  <learn_javascript_asdiasdkc-two-kodmnvxcnaq-06-demo1 />
+</ClientOnly>
 
 在运行中：
 

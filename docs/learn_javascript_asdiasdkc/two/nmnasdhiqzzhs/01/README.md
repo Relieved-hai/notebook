@@ -1,4 +1,4 @@
-# 事件循环：微任务和宏任务
+# 页面生命周期：DOMContentLoaded，load，beforeunload，unload
 
 
 
@@ -26,7 +26,7 @@
 <br/>
 <br/>
 
-## 事件循环
+## DOMContentLoaded
 
 
 
@@ -54,7 +54,7 @@
 <br/>
 <br/>
 
-## 用例 1：拆分 CPU 过载任务
+## window.onload
 
 
 
@@ -82,7 +82,7 @@
 <br/>
 <br/>
 
-## 用例 2：进度指示
+## window.onunload
 
 
 
@@ -110,7 +110,7 @@
 <br/>
 <br/>
 
-## 用例 3：在事件之后做一些事情
+## window.onbeforeunload
 
 
 
@@ -138,7 +138,7 @@
 <br/>
 <br/>
 
-## 宏任务和微任务
+## readyState
 
 
 
