@@ -209,7 +209,7 @@ module.exports = [
         children: [
           ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/01/", "页面生命周期：DOMContentLoaded，load，beforeunload，unload"],
           ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/02/", "脚本：async，defer"],
-          ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/02/", "资源加载：onload，onerror"],
+          ["/learn_javascript_asdiasdkc/two/nmnasdhiqzzhs/03/", "资源加载：onload，onerror"],
         ]
       },
       {
@@ -232,6 +232,13 @@ module.exports = [
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/01/", "Fetch"],
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/04/", "Fetch：中止（Abort）"],
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/05/", "Fetch：跨源请求"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/06/", "Fetch API"],
+        ]
+      },
+      {
+        title: "在浏览器中存储数据",
+        children: [
+          ["/learn_javascript_asdiasdkc/three/quiwoezdna/01/", "Cookie，document.cookie"]
         ]
       },
       {

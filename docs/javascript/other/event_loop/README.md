@@ -925,7 +925,7 @@ function queueMicrotaskWithMutationObserver(callback) {
 
 ### 参考资料
 
-[Event loop: microtasks and macrotasks；](https://javascript.info/event-loop)
+[Event loop: microtasks and macrotasks；](../../../learn_javascript_asdiasdkc/two/iopiopqwez/03/README.md)
 
 [Concurrency model and the event loop；](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
 
