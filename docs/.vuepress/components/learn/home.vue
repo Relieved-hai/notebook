@@ -1,24 +1,21 @@
 <template>
   <div class="learn-container">
-    <el-row v-for="$items in catalogList"
-            :key="$items.title"
-            :gutter="20"
-    >
-      <el-col :span="24">
-        <h4><i class="el-icon-collection-tag"/> {{ $items.title }}</h4>
-      </el-col>
-      <el-col v-for="($item, $idx) in $items.content"
-              :key="`${$item.label}_${$idx}`"
-              :span="6">
-        <div class="box" @click="go($item)">
-          <img src="./images/js.jpg"
-               class="img">
-          <p>
-            {{ $item.label }}
-          </p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="content-group" v-for="$items in catalogList"
+         :key="$items.title">
+      <h4><i class="el-icon-collection-tag"/> {{ $items.title }}</h4>
+      <el-row :gutter="10">
+        <el-col v-for="($item, $idx) in $items.content"
+                :key="$idx"
+                :xs="24"
+                :sm="8"
+                :md="6">
+          <div class="content-grid" @click="go($item)">
+            <div class="img" :style="{ backgroundImage: `url(${$item.pic})` }"/>
+            <p class="label"> {{ $item.label }} </p>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
@@ -31,9 +28,19 @@ export default {
         title: 'Javascript',
         content: [
           {
-            label: 'Javascript 教程',
-            value: '2',
-            url: '/learn_javascript_asdiasdkc/'
+            label: 'Javascript',
+            url: '/javascript/',
+            pic: require('./images/js.png')
+          },
+          {
+            label: 'Javascript',
+            url: '/learn_javascript_asdiasdkc/',
+            pic: require('./images/js.png')
+          },
+          {
+            label: 'Typescript',
+            url: '/typescript/',
+            pic: require('./images/ts.png')
           }
         ]
       },
@@ -41,8 +48,18 @@ export default {
         title: 'Css',
         content: [
           {
-            label: 'Css 教程',
-            value: '2'
+            label: 'Css',
+            pic: ''
+          }
+        ]
+      },
+      {
+        title: 'Other',
+        content: [
+          {
+            label: 'Other',
+            url: '/other/',
+            pic: ''
           }
         ]
       }
@@ -59,19 +76,21 @@ export default {
 
 <style scoped lang="scss">
 .learn-container {
+  user-select: none;
 
-  .box {
-    position: relative;
-    width: 100%;
-    margin-bottom: 14px;
-    background: #fff;
-    font-size: 14px;
+  .content-group {
+    margin-bottom: 10px;
+  }
+
+  .content-grid {
+    margin-bottom: 10px;
+    padding: 0 10px;
     border-radius: 6px;
     border: 1px solid #e4ecf3;
-    cursor: pointer;
+    box-sizing: border-box;
     -webkit-transition: all .2s linear;
     transition: all .2s linear;
-    text-align: center;
+    cursor: pointer;
 
     &:hover {
       box-shadow: 0 7px 15px rgba(0, 0, 0, .1);
@@ -79,10 +98,22 @@ export default {
     }
 
     .img {
-      width: 80px;
-      margin-top: 20px;
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: transparent no-repeat center;
+      background-size: 100% 100%;
+      vertical-align: middle;
+    }
+
+    .label {
+      display: inline-block;
+      width: calc(100% - 45px);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      vertical-align: middle;
     }
   }
 }
-
 </style>

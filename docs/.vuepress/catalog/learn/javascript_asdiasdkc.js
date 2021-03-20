@@ -150,6 +150,7 @@ module.exports = [
           ["/learn_javascript_asdiasdkc/one/idortjeior/03/", '柯里化（Currying）'],
           ["/learn_javascript_asdiasdkc/one/idortjeior/04/", 'Reference Type'],
           ["/learn_javascript_asdiasdkc/one/idortjeior/05/", 'BigInt']
+          // ["/learn_javascript_asdiasdkc/one/idortjeior/06/", 'Intl：JavaScript中的国际化'],
         ]
       }
     ]
@@ -226,6 +227,14 @@ module.exports = [
     title: "其他",
     collapsable: false,
     children: [
+      {
+        title: "Frame 和 window",
+        children: [
+          ["/learn_javascript_asdiasdkc/three/qazplmwsxokn/01/", "弹窗和 window 的方法"],
+          ["/learn_javascript_asdiasdkc/three/qazplmwsxokn/02/", "跨窗口通信"],
+          ["/learn_javascript_asdiasdkc/three/qazplmwsxokn/03/", "点击劫持攻击"]
+        ]
+      },
       {
         title: "网络请求",
         children: [

@@ -11,8 +11,8 @@ module.exports = [
       ["/notebook/js/string/", "字符串 String"],
       ["/notebook/js/function/", "函数 Function"],
       ["/notebook/js/dom/", "文档对象 DOM"],
-      ["/notebook/js/bom/", "浏览器对象 BOM"],
-      ["/notebook/js/design/", "设计模式"]
+      ["/notebook/js/bom/", "浏览器对象 BOM"]
+      // ["/notebook/js/design/", "设计模式"]
     ]
   },
   {

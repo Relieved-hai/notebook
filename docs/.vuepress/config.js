@@ -11,26 +11,6 @@ module.exports = {
         link: "/notebook/"
       },
       {
-        text: "Js",
-        link: "/javascript/"
-      },
-      {
-        text: "Ts",
-        link: "/typescript/"
-      },
-      {
-        text: "Node",
-        link: "/node/"
-      },
-      {
-        text: "flutter",
-        link: "/flutter/"
-      },
-      {
-        text: "Other",
-        link: "/other/"
-      },
-      {
         text: "Learn",
         link: "/learn/"
       },
@@ -47,8 +27,8 @@ module.exports = {
       "/notebook/": require('./catalog/notebook'),
       "/javascript/": require('./catalog/javascript'),
       "/typescript/": require('./catalog/typescript'),
-      "/node/": require('./catalog/node'),
-      "/flutter/": require('./catalog/flutter'),
+      // "/node/": require('./catalog/node'),
+      // "/flutter/": require('./catalog/flutter'),
       "/other/": require('./catalog/other'),
       "/writing/": require('./catalog/writing'),
       "/learn/": require('./catalog/learn/index'),
