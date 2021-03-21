@@ -236,12 +236,22 @@ module.exports = [
         ]
       },
       {
+        title: "二进制数据，文件",
+        children: [
+          ["/learn_javascript_asdiasdkc/three/yhntgbcdexsw/01/", "ArrayBuffer，二进制数组"],
+          ["/learn_javascript_asdiasdkc/three/yhntgbcdexsw/02/", "TextDecoder 和 TextEncoder"],
+          ["/learn_javascript_asdiasdkc/three/yhntgbcdexsw/03/", "Blob"],
+          ["/learn_javascript_asdiasdkc/three/yhntgbcdexsw/04/", "File 和 FileReader"]
+        ]
+      },
+      {
         title: "网络请求",
         children: [
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/01/", "Fetch"],
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/04/", "Fetch：中止（Abort）"],
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/05/", "Fetch：跨源请求"],
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/06/", "Fetch API"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/08/", "XMLHttpRequest"],
         ]
       },
       {
