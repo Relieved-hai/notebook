@@ -248,16 +248,33 @@ module.exports = [
         title: "网络请求",
         children: [
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/01/", "Fetch"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/02/", "FormData"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/03/", "Fetch：下载进度"],
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/04/", "Fetch：中止（Abort）"],
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/05/", "Fetch：跨源请求"],
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/06/", "Fetch API"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/07/", "URL 对象"],
           ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/08/", "XMLHttpRequest"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/09/", "可恢复的文件上传"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/10/", "长轮询（Long polling）"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/11/", "WebSocket"],
+          ["/learn_javascript_asdiasdkc/three/qeiwoquweiz/12/", "Server Sent Events"],
         ]
       },
       {
         title: "在浏览器中存储数据",
         children: [
-          ["/learn_javascript_asdiasdkc/three/quiwoezdna/01/", "Cookie，document.cookie"]
+          ["/learn_javascript_asdiasdkc/three/quiwoezdna/01/", "Cookie，document.cookie"],
+          ["/learn_javascript_asdiasdkc/three/quiwoezdna/02/", "LocalStorage，sessionStorage"],
+          ["/learn_javascript_asdiasdkc/three/quiwoezdna/03/", "IndexedDB"]
+        ]
+      },
+      {
+        title: "动画",
+        children: [
+          ["/learn_javascript_asdiasdkc/three/ashdqwieuzxc/01/", "贝塞尔曲线"],
+          ["/learn_javascript_asdiasdkc/three/ashdqwieuzxc/02/", "CSS 动画"],
+          ["/learn_javascript_asdiasdkc/three/ashdqwieuzxc/03/", "JavaScript 动画"]
         ]
       },
       {
