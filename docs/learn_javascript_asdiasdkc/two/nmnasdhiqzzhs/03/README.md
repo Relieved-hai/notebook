@@ -218,7 +218,7 @@ window.onerror = function(message, url, line, col, errorObj) {
   alert(`${message}\n${url}, ${line}:${col}`);
 };
 </script>
-<script crossorigin="anonymous" src="https://cors.javascript.info/article/onload-onerror/crossorigin/error.js"></script>
+<script crossorigin="anonymous" src="https://relieved-hai.github.io/notebook/article/onload-onerror/crossorigin/error.js"></script>
 ```
 
 现在，假设服务器提供了 `Access-Control-Allow-Origin` header，一切都正常。我们有了完整的 error 报告。

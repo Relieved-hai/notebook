@@ -386,7 +386,7 @@ async function* fetchCommits(repo) {
 
   let count = 0;
 
-  for await (const commit of fetchCommits('javascript-tutorial/en.javascript.info')) {
+  for await (const commit of fetchCommits('javascript-tutorial/relieved-hai')) {
 
     console.log(commit.author.login);
 

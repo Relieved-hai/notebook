@@ -383,7 +383,7 @@ event 对象具有特殊属性：
 
 ```js
 window.addEventListener("message", function(event) {
-  if (event.origin != 'http://javascript.info') {
+  if (event.origin != 'https://relieved-hai.github.io/notebook') {
     // 来自未知的源的内容，我们忽略它
     return;
   }

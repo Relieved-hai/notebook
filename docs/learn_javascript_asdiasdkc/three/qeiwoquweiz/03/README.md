@@ -92,15 +92,39 @@ alert(commits[0].author.login);
 
 让我们一步步解释下这个过程：
 
+- 1. 我们像往常一样执行 `fetch`，但不是调用 `response.json()`，而是获得了一个流读取器（stream reader）`response.body.getReader()`。
 
+  请注意，我们不能同时使用这两种方法来读取相同的响应。要么使用流读取器，要么使用 reponse 方法来获取结果。
 
+- 2. 在读取数据之前，我们可以从 `Content-Length` header 中得到完整的响应长度。
 
+  跨源请求中可能不存在这个 header（请参见 [Fetch：跨源请求](../../qeiwoquweiz/05/README.md) ），并且从技术上讲，服务器可以不设置它。但是通常情况下它都会在那里。
 
+- 3. 调用 `await reader.read()`，直到它完成。
 
+  我们将响应块收集到数组 `chunks` 中。这很重要，因为在使用完（consumed）响应后，我们将无法使用 `response.json()` 或者其他方式（你可以试试，将会出现 error）去“重新读取”它。
 
+- 4. 最后，我们有了一个 `chunks` —— 一个 `Uint8Array` 字节块数组。我们需要将这些块合并成一个结果。但不幸的是，没有单个方法可以将它们串联起来，所以这里需要一些代码来实现：
 
+  - 1. 我们创建 `chunksAll = new Uint8Array(receivedLength)` —— 一个具有所有数据块合并后的长度的同类型数组。
+  - 2. 然后使用 `.set(chunk, position)` 方法，从数组中一个个地复制这些 `chunk`。
 
+- 5. 我们的结果现在储存在 `chunksAll` 中。但它是一个字节数组，不是字符串。
 
+  要创建一个字符串，我们需要解析这些字节。可以使用内建的 [TextDecoder](../../yhntgbcdexsw/02/README.md)) 对象完成。然后，我们可以 `JSON.parse` 它，如果有必要的话。
 
+  如果我们需要的是二进制内容而不是字符串呢？这更简单。用下面这行代码替换掉第 4 和第 5 步，这行代码从所有块创建一个 `Blob`：
 
+  ```js
+  let blob = new Blob(chunks);
+  ```
 
+<br/>
+
+最后，我们得到了结果（以字符串或 blob 的形式表示，什么方便就用什么），并在过程中对进度进行了跟踪。
+
+再强调一遍，这不能用于 **上传** 过程（现在无法通过 `fetch` 获取），仅用于 **下载** 过程。
+
+<br/>
+<br/>
+<br/>
