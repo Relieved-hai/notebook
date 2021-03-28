@@ -1,47 +1,4 @@
-# CSS 动画
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br/>
-<br/>
-<br/>
-
-## CSS 过渡（transition）[#css-transition]
-
+# Custom elements
 
 
 
@@ -82,50 +39,7 @@
 <br/>
 <br/>
 
-## transition-property
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br/>
-<br/>
-<br/>
-
-## transition-duration
-
+## 例子: “time-formatted”
 
 
 
@@ -166,50 +80,7 @@
 <br/>
 <br/>
 
-## transition-delay
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br/>
-<br/>
-<br/>
-
-## transition-timing-function
-
+## 监视属性
 
 
 
@@ -250,8 +121,7 @@
 <br/>
 <br/>
 
-## transitionend 事件
-
+## 渲染顺序
 
 
 
@@ -292,8 +162,48 @@
 <br/>
 <br/>
 
-## 关键帧动画（Keyframes）
+## Customized built-in elements
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br/>
+<br/>
+<br/>
+
+## 引用参考
 
 
 
@@ -335,7 +245,6 @@
 <br/>
 
 ## 总结
-
 
 
 
