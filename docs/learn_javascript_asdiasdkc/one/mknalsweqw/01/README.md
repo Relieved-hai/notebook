@@ -393,9 +393,9 @@ sayHi(); // Ready to serve, Pete!
 - 2. 从另一个源（例如另一个网站）获取的外部脚本需要 [CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS) header，如我们在 [Fetch：跨源请求](../../../three/qeiwoquweiz/05/README.md) 一章中所讲的那样。换句话说，如果一个模块脚本是从另一个源获取的，则远程服务器必须提供表示允许获取的 header `Access-Control-Allow-Origin`。
 
 ```js
-<!-- another-site.com 必须提供 Access-Control-Allow-Origin -->
+<!-- site.com 必须提供 Access-Control-Allow-Origin -->
 <!-- 否则，脚本将无法执行 -->
-<script type="module" src="http://another-site.com/their.js"></script>
+<script type="module" src="http://site.com/their.js"></script>
 ```
 
 默认这样做可以确保更好的安全性。

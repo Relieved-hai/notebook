@@ -156,36 +156,13 @@ fetch('https://another.com/page', {
 
 ## mode
 
+`mode` 选项是一种安全措施，可以防止偶发的跨源请求：
 
+- `"cors"` —— 默认值，允许跨源请求，如 [Fetch：跨源请求](../../qeiwoquweiz/05/README.md) 一章所述，
+- `"same-origin"` —— 禁止跨源请求，
+- `"no-cors"` —— 只允许简单的跨源请求。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+当 `fetch` 的 URL 来自于第三方，并且我们想要一个“断电开关”来限制跨源能力时，此选项可能很有用。
 
 <br/>
 <br/>
@@ -193,36 +170,11 @@ fetch('https://another.com/page', {
 
 ## credentials
 
+`credentials` 选项指定 `fetch` 是否应该随请求发送 cookie 和 HTTP-Authorization header。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- `"same-origin"` —— 默认值，对于跨源请求不发送，
+- `"include"` —— 总是发送，需要来自跨源服务器的 `Accept-Control-Allow-Credentials`，才能使 JavaScript 能够访问响应，详细内容在 [Fetch：跨源请求](../../qeiwoquweiz/05/README.md) 一章有详细介绍，
+- `"omit"` —— 不发送，即使对于同源请求。
 
 <br/>
 <br/>
@@ -230,36 +182,16 @@ fetch('https://another.com/page', {
 
 ## cache
 
+默认情况下，`fetch` 请求使用标准的 HTTP 缓存。就是说，它遵从 `Expires`，`Cache-Control` header，发送 `If-Modified-Since`，等。就像常规的 HTTP 请求那样。
 
+使用 `cache` 选项可以忽略 HTTP 缓存或者对其用法进行微调：
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- `"default"` —— `fetch` 使用标准的 HTTP 缓存规则和 header，
+- `"no-store"` —— 完全忽略 HTTP 缓存，如果我们设置 header `If-Modified-Since`，`If-None-Match`，`If-Unmodified-Since`，`If-Match`，或 `If-Range`，则此模式会成为默认模式，
+- `"reload"` —— 不从 HTTP 缓存中获取结果（如果有），而是使用响应填充缓存（如果 response header 允许），
+- `"no-cache"` —— 如果有一个已缓存的响应，则创建一个有条件的请求，否则创建一个普通的请求。使用响应填充 HTTP 缓存，
+- `"force-cache"` —— 使用来自 HTTP 缓存的响应，即使该响应已过时（stale）。如果 HTTP 缓存中没有响应，则创建一个常规的 HTTP 请求，行为像正常那样，
+- `"only-if-cached"` —— 使用来自 HTTP 缓存的响应，即使该响应已过时（stale）。如果 HTTP 缓存中没有响应，则报错。只有当 `mode` 为 `same-origin` 时生效。
 
 <br/>
 <br/>
@@ -267,36 +199,13 @@ fetch('https://another.com/page', {
 
 ## redirect
 
+通常来说，`fetch` 透明地遵循 HTTP 重定向，例如 301，302 等。
 
+`redirect` 选项允许对此进行更改：
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- `"follow"` —— 默认值，遵循 HTTP 重定向，
+- `"error"` —— HTTP 重定向时报错，
+- `"manual"` —— 不遵循 HTTP 重定向，但 response.url 将是一个新的 URL，并且 `response redirectd` 将为 `true`，以便我们能够手动执行重定向到新的 URL（如果需要的话）。
 
 <br/>
 <br/>
@@ -304,36 +213,21 @@ fetch('https://another.com/page', {
 
 ## integrity
 
+`integrity` 选项允许检查响应是否与已知的预先校验和相匹配。
 
+正如 [规范](https://w3c.github.io/webappsec-subresource-integrity/) 所描述的，支持的哈希函数有 SHA-256，SHA-384，和 SHA-512，可能还有其他的，这取决于浏览器。
 
+例如，我们下载一个文件，并且我们知道它的 SHA-256 校验和为 “abcdef”（当然，实际校验和会更长）。
 
+我们可以将其放在 `integrity` 选项中，就像这样:
 
+```js
+fetch('http://site.com/file', {
+  integrity: 'sha256-abcdef'
+});
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+然后 `fetch` 将自行计算 SHA-256 并将其与我们的字符串进行比较。如果不匹配，则会触发错误。
 
 <br/>
 <br/>
@@ -341,38 +235,36 @@ fetch('https://another.com/page', {
 
 ## keepalive
 
+`keepalive` 选项表示该请求可能会使发起它的网页“失活（outlive）”。
 
+例如，我们收集有关当前访问者是如何使用我们的页面（鼠标点击，他查看的页面片段）的统计信息，以分析和改善用户体验。
 
+当访问者离开我们的网页时 —— 我们希望能够将数据保存到我们的服务器上。
 
+我们可以使用 `window.onunload` 事件来实现：
 
+```js {4}
+window.onunload = function() {
+  fetch('/analytics', {
+    method: 'POST',
+    body: "statistics",
+    keepalive: true
+  });
+};
+```
 
+通常，当一个文档被卸载时（unloaded），所有相关的网络请求都会被中止。但是，`keepalive` 选项告诉浏览器，即使在离开页面后，也要在后台执行请求。所以，此选项对于我们的请求成功至关重要。
 
+<br/>
 
+它有一些限制：
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- 我们无法发送兆字节的数据：`keepalive` 请求的 body 限制为 64kb。
+  - 如果我们需要收集有关访问的大量统计信息，我们则应该将其定期以数据包的形式发送出去，这样就不会留下太多数据给最后的 `onunload` 请求了。
+  - 此限制是被应用于当前所有 `keepalive` 请求的总和的。换句话说，我们可以并行执行多个 `keepalive` 请求，但它们的 body 长度之和不得超过 64KB。
+- 如果文档（document）已卸载（unloaded），我们就无法处理服务器响应。因此，在我们的示例中，因为 `keepalive`，所以 `fetch` 会成功，但是后续的函数将无法正常工作。
+  - 在大多数情况下，例如发送统计信息，这不是问题，因为服务器只接收数据，并通常向此类请求发送空的响应。
 
 <br/>
 <br/>
 <br/>
-
