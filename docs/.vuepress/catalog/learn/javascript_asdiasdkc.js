@@ -4,6 +4,10 @@ module.exports = [
     collapsable: false,
     children: [
       {
+        title: "",
+        collapsable: false
+      },
+      {
         title: "JavaScript 基础知识",
         children: [
           ["/learn_javascript_asdiasdkc/one/cvdfsdreew/01/", "Hello world"],
@@ -67,7 +71,6 @@ module.exports = [
       },
       {
         title: "函数进阶内容",
-
         children: [
           ["/learn_javascript_asdiasdkc/one/uweiqowjsa/01/", '递归和堆栈'],
           ["/learn_javascript_asdiasdkc/one/uweiqowjsa/02/", 'Rest 参数与 Spread 语法'],
@@ -160,6 +163,10 @@ module.exports = [
     collapsable: false,
     children: [
       {
+        title: "",
+        collapsable: false
+      },
+      {
         title: "Document",
         children: [
           ["/learn_javascript_asdiasdkc/two/xkcopvjksern/01/", "浏览器环境，规格"],
@@ -228,6 +235,10 @@ module.exports = [
     collapsable: false,
     children: [
       {
+        title: "",
+        collapsable: false
+      },
+      {
         title: "Frame 和 window",
         children: [
           ["/learn_javascript_asdiasdkc/three/qazplmwsxokn/01/", "弹窗和 window 的方法"],
@@ -293,6 +304,22 @@ module.exports = [
         title: "正则表达式",
         children: [
           ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/01/", "模式（Patterns）和修饰符（flags）"],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/02/", "字符类"],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/03/", "Unicode：修饰符 “u” 和 class \\p{...}"],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/04/", '锚点（Anchors)：字符串开始 ^ 和末尾 $'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/05/", 'Flag "m" — 多行模式'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/06/", '词边界：\\b'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/07/", '转义，特殊字符'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/08/", '集合和范围 [...]'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/09/", '量词 `+,*,?` 和 `{n}`'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/10/", '贪婪量词和惰性量词'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/11/", '捕获组'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/12/", '模式中的反向引用：\\N 和 \\k<name>'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/13/", '选择（OR）|'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/14/", '前瞻断言与后瞻断言'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/15/", '灾难性回溯'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/16/", '粘性标志 "y"，在位置处搜索'],
+          ["/learn_javascript_asdiasdkc/three/ioprtymcvzq/17/", '正则表达式（RegExp）和字符串（String）的方法']
         ]
       },
     ]
