@@ -3,3 +3,15 @@
   padding: 10px;
   border-radius: 3px;
 }
+
+code.pattern {
+  border-bottom: 2px solid red;
+}
+
+code.subject {
+  border-bottom: 2px solid #00f;
+}
+
+code.match {
+  border-bottom: 2px solid green;
+}

@@ -288,18 +288,18 @@ module.exports = [
           ["/learn_javascript_asdiasdkc/three/ashdqwieuzxc/03/", "JavaScript 动画"]
         ]
       },
-      {
-        title: "Web components",
-        children: [
-          ["/learn_javascript_asdiasdkc/three/quwioenzskjd/01/", "从星球轨道的高度讲起"],
-          ["/learn_javascript_asdiasdkc/three/quwioenzskjd/02/", "Custom elements"],
-          ["/learn_javascript_asdiasdkc/three/quwioenzskjd/03/", "影子 DOM（Shadow DOM）"],
-          ["/learn_javascript_asdiasdkc/three/quwioenzskjd/04/", "模板元素"],
-          ["/learn_javascript_asdiasdkc/three/quwioenzskjd/05/", "Shadow DOM 插槽，组成"],
-          ["/learn_javascript_asdiasdkc/three/quwioenzskjd/06/", "给 Shadow DOM 添加样式"],
-          ["/learn_javascript_asdiasdkc/three/quwioenzskjd/07/", "Shadow DOM 和事件（events）"]
-        ]
-      },
+      // {
+      //   title: "Web components",
+      //   children: [
+      //     ["/learn_javascript_asdiasdkc/three/quwioenzskjd/01/", "从星球轨道的高度讲起"],
+      //     ["/learn_javascript_asdiasdkc/three/quwioenzskjd/02/", "Custom elements"],
+      //     ["/learn_javascript_asdiasdkc/three/quwioenzskjd/03/", "影子 DOM（Shadow DOM）"],
+      //     ["/learn_javascript_asdiasdkc/three/quwioenzskjd/04/", "模板元素"],
+      //     ["/learn_javascript_asdiasdkc/three/quwioenzskjd/05/", "Shadow DOM 插槽，组成"],
+      //     ["/learn_javascript_asdiasdkc/three/quwioenzskjd/06/", "给 Shadow DOM 添加样式"],
+      //     ["/learn_javascript_asdiasdkc/three/quwioenzskjd/07/", "Shadow DOM 和事件（events）"]
+      //   ]
+      // },
       {
         title: "正则表达式",
         children: [
