@@ -117,7 +117,7 @@ alert( "I love JavaScript".search(regexp));
 
 **`s`**
 
-它包括 “dotall” 模式，即句号 `.`，它可以和 `\n` 换行符匹配（详见章节 [字符类](../../ioprtymcvzq/02/README.md)）。
+它包括 “dotall” 模式，即句号 `.`，它也可以和 `\n` 换行符匹配（详见章节 [字符类](../../ioprtymcvzq/02/README.md)）。
 
 **`u`**
 
