@@ -841,7 +841,7 @@ alert(soldiers[1].age); // 23
 
 - [arr.flat(depth)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)/[arr.flatMap(fn)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap) 从多维数组创建一个新的扁平数组。
 
-- [arr.of(element0[, element1[, …[, elementN]]])](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/of) 基于可变数量的参数创建一个新的 Array 实例，而不需要考虑参数的数量或类型。
+- [Array.of(element0[, element1[, …[, elementN]]])](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/of) 基于可变数量的参数创建一个新的 Array 实例，而不需要考虑参数的数量或类型。
 
 有关完整列表，请参阅 [手册](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)。
 
