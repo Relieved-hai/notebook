@@ -8,6 +8,7 @@ module.exports = [
       ["/typescript/class/", "类"],
       ["/typescript/function/", "函数"],
       ["/typescript/genericity/", "泛型"],
+      ["/typescript/declare/", "声明文件"],
       ["/typescript/other/", "其他"]
     ]
   }

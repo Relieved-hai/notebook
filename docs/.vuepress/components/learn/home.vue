@@ -41,7 +41,12 @@ export default {
             label: 'Typescript',
             url: '/typescript/',
             pic: require('./images/ts.png')
-          }
+          },
+          // {
+          //   label: 'Node',
+          //   url: '/node/',
+          //   pic: ''
+          // }
         ]
       },
       {
@@ -59,6 +64,11 @@ export default {
           {
             label: 'Other',
             url: '/other/',
+            pic: ''
+          },
+          {
+            label: 'Http',
+            url: '/http/',
             pic: ''
           }
         ]

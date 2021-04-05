@@ -23,18 +23,6 @@ module.exports =  [
     children: [["/other/nginx/", "nginx"]]
   },
   {
-    title: "Http",
-    collapsable: true,
-    children: [
-      ["/other/http/one/", "HTTP协议"],
-      ["/other/http/two/", "HTTP协议结构和通讯原理"],
-      ["/other/http/three/", "HTTP协议的特性和使用方法"],
-      ["/other/http/four/", "HTTPS"],
-      ["/other/http/five/", "HTTP的功能追加协议"]
-      // ["/other/http/six/", "Web安全威胁解析"],
-    ]
-  },
-  {
     title: "Jest",
     collapsable: true,
     children: [

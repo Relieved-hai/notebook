@@ -24,15 +24,20 @@ module.exports = {
       }
     ],
     sidebar: {
+      // "/typescriptt/": require('./catalog/typescriptt'),
+      // "/node/": require('./catalog/node'),
+      // "/flutter/": require('./catalog/flutter'),
+      /* === javascript === */
       "/notebook/": require('./catalog/notebook'),
       "/javascript/": require('./catalog/javascript'),
       "/typescript/": require('./catalog/typescript'),
-      // "/node/": require('./catalog/node'),
-      // "/flutter/": require('./catalog/flutter'),
-      "/other/": require('./catalog/other'),
       "/writing/": require('./catalog/writing'),
       "/learn/": require('./catalog/learn/index'),
       "/learn_javascript_asdiasdkc/": require('./catalog/learn/javascript_asdiasdkc'),
+      /* === css === */
+      /* === other === */
+      "/other/": require('./catalog/other'),
+      "/http/": require('./catalog/http'),
       // fallback
       "/": ["" /* / */]
     }
