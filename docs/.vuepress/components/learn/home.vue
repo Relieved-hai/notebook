@@ -53,7 +53,18 @@ export default {
         title: 'Css',
         content: [
           {
-            label: 'Css',
+            label: 'Css 小样式',
+            url: '/css_tricks/',
+            pic: ''
+          },
+          {
+            label: 'Css 小样式',
+            url: '/css_lhammer/',
+            pic: ''
+          },
+          {
+            label: 'Css 小样式',
+            url: '/css_chokcoco/',
             pic: ''
           }
         ]

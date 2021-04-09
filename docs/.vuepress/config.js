@@ -28,6 +28,7 @@ module.exports = {
       // "/node/": require('./catalog/node'),
       // "/flutter/": require('./catalog/flutter'),
       /* === javascript === */
+      "/thank/": [],
       "/notebook/": require('./catalog/notebook'),
       "/javascript/": require('./catalog/javascript'),
       "/typescript/": require('./catalog/typescript'),
@@ -35,6 +36,9 @@ module.exports = {
       "/learn/": require('./catalog/learn/index'),
       "/learn_javascript_asdiasdkc/": require('./catalog/learn/javascript_asdiasdkc'),
       /* === css === */
+      "/css_tricks/": require('./catalog/css_tricks'),
+      "/css_lhammer/": require('./catalog/css_lhammer'),
+      "/css_chokcoco/": require('./catalog/css_chokcoco'),
       /* === other === */
       "/other/": require('./catalog/other'),
       "/http/": require('./catalog/http'),
