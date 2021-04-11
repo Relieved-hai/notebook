@@ -50,5 +50,13 @@ module.exports = {
   smoothScroll: true,
   markdown: {
     lineNumbers: true // 代码块显示行号
+  },
+  a() {
+    for (let i = 0; i < dom.length; i++) {
+      const text = dom[i].innerText
+      if (/慕课 | MK | mk | m | k | 某课 | 慕 | 课 | WEB | web | 前端 | 前 | 端 | 全栈 | 架构/.test(text) !== -1) {
+        console.log(text)
+      }
+    }
   }
 };
