@@ -4,6 +4,6 @@ set -o errexit # Exit on error
 
 
 if $(git commit -am Deploy); then # Commit the changes, if any
-  echo 'deploy'
+  echo 'Changes Committed'
 fi
 
