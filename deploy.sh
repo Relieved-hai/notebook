@@ -1,17 +1,9 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
-# ȷ���ű��׳������Ĵ���
-set -e
+set -o errexit # Exit on error
 
-npm run docs:build
 
-cd ./dist
+if $(git commit -am Deploy); then # Commit the changes, if any
+  echo 'deploy'
+fi
 
-git init
-git add -A
-git commit -m 'deploy'
-
-# npm run docs:build && cd ./dist && git init && git add -A && git commit -m 'deploy'
-git push -f git@github.com:relieved-hai/notebook.git master:gh-pages
-
-# cd -
