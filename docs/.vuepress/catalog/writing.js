@@ -27,4 +27,11 @@ module.exports = [
       ["/writing/english/01_opxvoxcpiv/", "one"],
     ]
   },
+  {
+    title: "Other",
+    collapsable: true,
+    children: [
+      ["/writing/other/eventLoop/", "eventLoop"],
+    ]
+  },
 ]

@@ -40,6 +40,15 @@ module.exports = [
   {
     title: "其他",
     collapsable: true,
-    children: [["/javascript/other/event_loop/", "Event Loop"]]
+    children: [
+      ["/javascript/other/event_loop1/", "Event Loop"],
+      {
+        title: "EventLoop",
+        children: [
+          ["/javascript/other/event_loop/term/", '术语'],
+          ["/javascript/other/event_loop/browser/", '浏览器中的 event loop']
+        ]
+      }
+    ]
   }
 ];

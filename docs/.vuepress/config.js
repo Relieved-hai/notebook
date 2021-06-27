@@ -4,6 +4,13 @@ module.exports = {
   dest: "./dist", // 设置输出目录
   base: "/notebook/",
   repo: "https://github.com/Relieved-hai/notebook", // 添加 github 链接
+  head: [
+    // add jquert and fancybox
+    ['script', { src: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.slim.min.js' }],
+    ['script', { src: 'https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.2/jquery.fancybox.min.js' }],
+    ['link', { rel: 'stylesheet', type: 'text/css', href: 'https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.2/jquery.fancybox.min.css' }]
+  ],
+  plugins: [require('./plugins/fancybox')],
   themeConfig: {
     nav: [
       {
@@ -42,6 +49,7 @@ module.exports = {
       /* === other === */
       "/other/": require('./catalog/other'),
       "/http/": require('./catalog/http'),
+      "/algorithm/": require('./catalog/algorithm'),
       // fallback
       "/": ["" /* / */]
     }
@@ -50,6 +58,5 @@ module.exports = {
   smoothScroll: true,
   markdown: {
     lineNumbers: true // 代码块显示行号
-  },
-  pagePatterns: ['**/*.md', '!.vuepress', '!node_modules']
+  }
 };

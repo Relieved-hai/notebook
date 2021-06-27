@@ -1,9 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-set -o errexit # Exit on error
+# 确保脚本抛出遇到的错误
+set -e
 
+npm run docs:build
 
-if $(git commit -am Deploy); then # Commit the changes, if any
-  echo 'Changes Committed'
-fi
+cd /Users/mr_pang/Desktop/other/github/note && cd ./dist && rm -rf writing/
 
+git init && git add -A && git commit -m 'deploy docs'
+
+git push -f git@github.com:relieved-hai/notebook.git master:gh-pages
+
+cd -

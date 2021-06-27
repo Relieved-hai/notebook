@@ -81,6 +81,11 @@ export default {
             label: 'Http',
             url: '/http/',
             pic: ''
+          },
+          {
+            label: '初识算法',
+            url: '/algorithm/',
+            pic: ''
           }
         ]
       }
