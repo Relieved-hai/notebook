@@ -41,7 +41,6 @@ module.exports = [
     title: "其他",
     collapsable: true,
     children: [
-      ["/javascript/other/event_loop1/", "Event Loop"],
       {
         title: "EventLoop",
         children: [

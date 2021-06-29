@@ -29,12 +29,12 @@ export default {
         content: [
           {
             label: 'Javascript',
-            url: '/javascript/',
+            url: '/learn_javascript_asdiasdkc/',
             pic: require('./images/js.png')
           },
           {
             label: 'Javascript',
-            url: '/learn_javascript_asdiasdkc/',
+            url: '/javascript/',
             pic: require('./images/js.png')
           },
           {

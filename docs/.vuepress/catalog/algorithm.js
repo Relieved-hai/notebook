@@ -9,6 +9,7 @@ module.exports =  [
       ["/algorithm/linked_list/", "链表"],
       ["/algorithm/set/", "集合"],
       ["/algorithm/map/", "字典"],
+      ["/algorithm/tree/", "树"],
     ]
   }
 ];
