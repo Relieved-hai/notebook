@@ -121,8 +121,8 @@ JavaScript语言的设计者意识到，这时主线程完全可以不管IO设�
 
 这里有几个重点：
 
-1. 当我们第一次执行的时候，解释器会将整体代码script放入宏任务队列中，因此事件循环是从第一个宏任务开始的；
-2. 如果在执行微任务的过程中，产生新的微任务添加到微任务队列中，也需要一起清空；微任务队列没清空之前，是不会执行下一个宏任务的。
+1. 当我们第一次执行的时候，解释器会将整体代码 script 放入宏任务队列中，因此事件循环是从第一个宏任务开始的；
+2. 微任务的执行是批量性、连续性的执行完，执行期间是不会执行其他任务的。且如果在执行微任务的过程中，产生新的微任务入队，那么，它也会一起被执行掉。
 
 :::tip
 到此，如果不在深究内容，可以跳过下面内容
@@ -1153,6 +1153,288 @@ event loop 在 javascript 异步编程领域下，应该还要很多的应用场
 <br/>
 
 ## event loop 的面试题
+
+面试题难度的几个层级：
+
+- 比较生冷的考法，比如考你以此几点：
+  - macrotask，microtask 和 render callback 执行的前提是 call stack 为空；
+  - 三个队列执行的优先级：microtask > render callback > macrotask;
+- 理解macrotask与microtask执行的先后顺序；
+- 理解microtask执行的批量性，连续性；
+- 理解入队时机对执行流的影响，理解promise对象的构造代码是同步执行的。
+- 掌握比较冷僻的，setImmediate,async...await和mutationObserver;
+
+好下面，我们来看看市面上面试题:
+
+<br/>
+
+**问题1：** 以下的三个场景的执行结果会是怎样？为什么？
+
+```javascript
+// 场景1：
+function foo() {
+  setTimeout(foo, 0);
+};
+foo();
+
+// 场景2：
+function foo() {
+  return Promise.resolve().then(foo);
+};
+foo();
+
+// 场景3：
+function foo() {
+  foo()
+};
+foo();
+```
+
+<br/>
+
+**解析：**
+
+- **场景1** 会无限递归执行，js 引擎不会报 “maximum call stack size exceeded”，同时界面能够响应用户的交互；因为， macrotask 与 microtask 执行的前提是 call stack 为空。call stack 同一时间里面只有一个 call frame；界面之所以能够响应用户交互是因为用户通过交互产生的各种 render callback 的优先级比 macrotask 的优先级要高，意思是优先响应 UI。
+- **场景2** 也会无限递归执行，js 引擎不会报 “maximum call stack size exceeded”，但是界面不能够响应用户的交互；不能报 “maximum call stack size exceeded” 的原因跟 **场景1** 是一样的。界面不能够响应用户交互是因为 microtask 的优先级比 render callback 的优先要高，这样子的话，连续，无限的 microtask 执行就长期占用了 call stack，使得 render callback 无法得到执行的机会，界面也就没法重新渲染了(为了验证这个场景的执行结果，把当前的 render process 搞崩了好几次)。
+- **场景3** 无法递归执行，js 引擎会报 “maximum call stack size exceeded”。这是同步代码，每递归一次，就会增加一个 call frame，所以必定会引起 call stack 长度溢出。
+
+<br/>
+<br/>
+
+**问题2：** 以下的打印顺序结果会是怎样的呢？
+
+```javascript
+setTimeout(function () {
+  console.log(1)
+}, 0);
+
+new Promise(function executor(resolve) {
+
+  console.log(2);
+
+  for (var i = 0; i < 10000; i++) {
+    i == 9999 && resolve();
+  }
+
+  console.log(3);
+})
+  .then(function () {
+    console.log(4);
+  });
+
+console.log(5);
+```
+
+**解析：** 打印结果是：
+
+```shell
+2
+3
+5
+4
+1
+```
+
+考点有：
+
+- event loop 的基本处理模型
+- promise 的 executor 是属于同步代码，即归属于 js 引擎初始化后的第一个 macrotask。
+- 题中的 for 循环一直在占用 call stack，所以，后面的 “console.log(5);” 也没法执行。
+- promise 一旦 resolve 掉，相应的 callback 才能入队到 microtask 中。
+
+<br/>
+<br/>
+
+**问题3：** 以下的打印顺序结果会是怎样的呢？
+
+```javascript
+// 位置 1
+setTimeout(function () {
+  console.log('timeout1');
+}, 1000);
+
+// 位置 2
+console.log('start');
+
+// 位置 3
+Promise
+  .resolve()
+  .then(function () {
+    // 位置 5
+    console.log('promise1');
+
+    // 位置 6
+    Promise.resolve().then(function () {
+      console.log('promise2');
+    });
+
+    // 位置 7
+    setTimeout(function () {
+
+      // 位置 8
+      Promise.resolve().then(function () {
+        console.log('promise3');
+      });
+
+      // 位置 9
+      console.log('timeout2')
+    }, 0);
+  });
+
+// 位置 4
+console.log('done');
+```
+
+**解析：** 打印结果是
+
+```shell
+start
+done
+promise1
+promise2
+timeout2
+promise3
+timeout1
+```
+
+这里有好几个考点。首先在考你：
+
+- 位置1 和 位置7 到底谁先入队 macrotask queue？
+- 位置6 和 位置7 几乎同时分别入队到 microtask 和 macrotask 中，当前的 microtask 执行完，call stack 为空的时候，到底先执行谁？
+
+
+针对考点1，其实就是考你同一个类型的任务，入队时机的问题。这种问题得具体问题具体分析。不过一般是看以下几点：
+
+- setTime 调用时传入的 delay 时间值（单位为毫秒）；
+- promise 被 resolve 的时机（因为这会影响到后面 then 方法 callback 的入队时机）；
+- 当两个 setTime 的 delay 时间值一样的时候，我们就看它们在代码书写期的先后顺序，不相等的时候（并且前面代码的执行耗时几乎可以忽略不计），那么我们就比较它们时间值得大小。越小越早入队。
+- 要是当前入队动作发生前时候有同步代码阻塞 call stack，注意评估该同步代码的执行时间。
+
+拿 setTimeout 这个入队动作举个例子，两个 setTimeout 的入队顺序算法如下：
+
+![](./images/setTimeout_01.png)
+
+promise 也是一样的，只不过它所对应的 delay 时间是由 resolve 方法执行的时间点来决定的。
+
+回归到本示例，因为 位置7 前面的同步代码的执行时间几乎忽略不计，而 位置1 总的 delay 时间则为 1000 毫秒。所以，最先入队的是 位置7。假如，我们把 位置7 的 delay 时间改为 1001ms 的话，那么打印结果将会是这样的：
+
+```shell
+start
+done
+promise1
+promise2
+timeout1
+timeout2
+promise3
+```
+
+可以看出，“timeout1” 在前面，“timeout2” 在后面。具体的执行结果截图就不给出，大家可以自行去验证。
+
+<br/>
+
+为了测试我们算法的准确性，那我们再来测试一下在 delay 时间相等的情况：
+
+```javascript
+// 位置 1
+setTimeout(function () {
+  console.log('timeout1');
+}, 1000);
+
+// 位置 2
+console.log('start');
+
+// 位置 3
+Promise.resolve().then(function () {
+  // ....
+
+  setTimeout(function () {
+    // 位置 8
+    Promise.resolve().then(function () {
+      console.log('promise3');
+    });
+    // 位置 9
+    console.log('timeout2')
+  }, 1000);
+});
+
+// 位置 4
+console.log('done');
+```
+
+那么打印结果将会是：“timeout1” 在前面，“timeout2” 在后面。如果我们调换一下两者的书写顺序：
+
+```javascript
+// 位置 2
+// 位置 2
+console.log('start');
+
+setTimeout(function () {
+  // 位置 8
+  Promise.resolve().then(function () {
+    console.log('promise3');
+  });
+  // 位置 9
+  console.log('timeout2')
+}, 1000);
+
+// 位置 1
+setTimeout(function () {
+  console.log('timeout1');
+}, 1000);
+
+// 位置 4
+console.log('done');
+```
+
+那么打印结果将会：“timeout2” 在前面，“timeout1” 在后面。为了证明我们算法的准确性，我们最后来验证一下 “同步代码的执行时间不能忽略不计的情况”。我们有以下代码：
+
+```javascript
+// 位置 1
+setTimeout(function () {
+  console.log('timeout1');
+}, 1000);
+
+// 位置 2
+console.log('start');
+
+// 位置 3
+Promise.resolve().then(function () {
+  // 位置 5
+  console.log('promise1');
+  // 位置 6
+  Promise.resolve().then(function () {
+    console.log('promise2');
+  });
+
+  // 阻塞2ms
+  const now = Date.now();
+  while (Date.now() - now < 3) {
+  }
+
+  // 位置 7
+  setTimeout(function () {
+    // 位置 8
+    Promise.resolve().then(function () {
+      console.log('promise3');
+    });
+    // 位置 9
+    console.log('timeout2')
+  }, 999);
+});
+
+// 位置 4
+console.log('done');
+```
+
+以上代码中，虽然 位置7 本身的 delay 时间比 位置1 的 delay 时间少了1毫秒，但是 位置7 前面在 call stack 上阻塞了 2ms，那么 位置7 的入队所用总时间 = 999 + 2  = 1001（ms）。1000 < 1001，所以，位置1 先入队。最终打印结果将会：“timeout1” 在前面，“timeout2” 在后面。执行结果截图为证：
+
+![](./images/setTimeout_02.png)
+
+对于 promise 而言，只要把 delay 之间改为 resolve 所需要的时间即可，在这里就不多加讨论了。一般而言，面试不会出一些那么牛角尖的题目，但是如果我们自己提前深入到这一点话，那么我们就能够应付得了一些丧心病狂的面试题。
+
+针对考点1已经解释完了，那么看看考点2。哎，其实考点2也没有啥好说的，就是在考 microtask 的连续性。换句话说，要是同时入队两个任务，一个是 macrotask，一个 microtask，那么接下来要执行的肯定是 microtask。
+
+针对同一个示例，我们可以根据上面给出的面试题考点来触类旁通地改造它，然后在浏览器的控制台运行起来，看看代码的执行结果跟自己推演的结果是否一致就可以。多加练习，相信你会越来越有信心，对（window）event loop 的理解也会更加深入的。
 
 <br/>
 <br/>
