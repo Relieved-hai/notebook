@@ -10,6 +10,8 @@ module.exports =  [
       ["/algorithm/set/", "集合"],
       ["/algorithm/map/", "字典"],
       ["/algorithm/tree/", "树"],
+      ["/algorithm/graph/", "图"],
+      ["/algorithm/heap/", "堆"],
     ]
   }
 ];
