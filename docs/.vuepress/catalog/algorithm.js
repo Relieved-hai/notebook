@@ -12,6 +12,10 @@ module.exports =  [
       ["/algorithm/tree/", "树"],
       ["/algorithm/graph/", "图"],
       ["/algorithm/heap/", "堆"],
+      ["/algorithm/sort_search/", "排序和搜索"],
+      ["/algorithm/dc/", "分而治之"],
+      ["/algorithm/dp/", "动态规划"],
+      ["/algorithm/ga/", "贪心算法"],
     ]
   }
 ];
