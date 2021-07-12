@@ -16,6 +16,7 @@ module.exports =  [
       ["/algorithm/dc/", "分而治之"],
       ["/algorithm/dp/", "动态规划"],
       ["/algorithm/ga/", "贪心算法"],
+      ["/algorithm/ba/", "回溯算法"],
     ]
   }
 ];
