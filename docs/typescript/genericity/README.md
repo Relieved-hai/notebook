@@ -215,13 +215,20 @@ loggingIdentity({length: 10, value: 3}) // OK
 你可以声明一个类型参数，且它被另一个类型参数所约束。 比如，现在我们想要用属性名从对象里获取这个属性。 并且我们想要确保这个属性存在于对象 obj 上，因此我们需要在这两个类型之间使用约束。
 
 ```ts
-// 可以简单理解为：keyof T => 就相当于遍历了 T (传进来的对象)
-// 第一次遍历，相当于
-// K extends keyof T    => type K = 'a'
-// key: K               => key = 'a'
-// obj[key]             => obj['a']
+// 可以简单理解为：keyof T => 就相当于遍历了 T (传进来的对象) =>  'a', 'b', 'c', 'd'
+// 第一次遍历开始
+// K extends keyof T    => 类型：K extends 'a' 相当于 type K = 'a'
+// key: K               => 参数：key: 'a'
+// obj[key]             => 返回：obj['a']
+//
+// ...
+// 第二次
+// ...
+// ...
+// ...
+// 结束
 
-function getProperty<T, K extends keyof T> (obj: T, key: K ) {
+function getProperty<T, K extends keyof T> (obj: T, key: K) {
   return obj[key]
 }
 

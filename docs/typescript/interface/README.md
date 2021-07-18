@@ -163,9 +163,9 @@ function errorEmitter(): never {
   console.log(123);
   // code...
 }
-
 ```
 
+[TypeScript中的never类型具体有什么用？](https://www.zhihu.com/question/354601204)
 
 <br/>
 <br/>

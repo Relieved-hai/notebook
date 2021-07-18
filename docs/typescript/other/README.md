@@ -381,19 +381,24 @@ declare module 'jquery' {
 🌰一：
 
 ```ts
-// 装饰器本身就是一个函数，构造方法 作为参数传递
+/*
+ * 装饰器
+ *  - 本身就是一个函数
+ *  - 构造方法作为参数传递
+ *  - 通过 @ 符号来使用
+ *  - 执行时机：在类定义的时候马上执行，而不是实例化时执行 【修饰器对类的行为的改变，是代码编译时发生的（不是TypeScript编译，而是js在执行机中编译阶段），而不是在运行时。这意味着，修饰器能在编译阶段运行代码。也就是说，修饰器本质就是编译时执行的函数。】
+ *  - 执行顺序：属性 > 方法 > 方法参数 > 类 ( 如果有多个同样的装饰器，它会从后往前 )
+ * */
 function testDecorator(constructor: any) {
   constructor.prototype.getName = () => {
     console.log('getName');
   }
 }
 
-// 通过 @ 符号来使用
 @testDecorator
 class Test {
 }
 
-// 实例化
 const test = new Test();
 
 // 直接在实例上获取方式，会报错的
@@ -444,9 +449,9 @@ const test = new Test();
 /*
 * 类装饰器
 * @Description 这里明确指出 constructor 的类型就是一个构造函数，而不是能是 any
-*   (...arg: any[]) => any   : 一个函数需要一个参数（类型 any[]，这里将任意多个参数合并到一起），最后返回一个 any 类型的值
+*   (...arg: any[]) => any   : 一个函数一个参数（类型 any[]，这里将任意多个参数合并到一起），最后返回一个 any 类型的值
 *   new                      : 意思它是一个构造函数
-*   T extends                : T extends 构造函数，也就是说 T 可以被上面这个类型构造函数给实例化出来
+*   T extends                : T extends 构造函数，也就是说 T 可以通过这种类型的构造函数给实例化出来
 *   constructor: T           : 所以 T 可以理解为一个类，或者一个包含构造函数的东西
 * */
 function testDecorator<T extends new (...arg: any[]) => any>(constructor: T) {
@@ -566,6 +571,9 @@ console.log(test.getName());
 
 ### 三、访问器的装饰器
 
+:::warning
+TypeScript 不允许同时装饰一个成员的 get 和 set 访问器。取而代之的是，该成员的所有装饰器必须应用于按文档顺序指定的第一个访问器。这是因为，在装饰器应用于一个属性描述符 (descriptor) 时，它联合了 get 和 set 访问器，而不是单独的每个声明。
+:::
 
 **接收的参数**
 - `target`     :  Prototype
@@ -622,14 +630,14 @@ console.log(test.name);
 
 ```ts
 function visitDecorator(target: any, key: string): any {
-  // 这里的修改并不是实例上的 name，而是原型上的 name
+  // 这里的修改并不是实例上的 name，而是原型 prototype 上的属性 name。
   target[key] = 'test';
 
-  // 这里创建一个 descrioptor，并返回
-  const descrioptor: PropertyDescriptor = {
-    writable: true
-  }
-  return descrioptor;
+  // 可以创建一个 descrioptor，并返回
+  // const descrioptor: PropertyDescriptor = {
+  //   writable: true
+  // }
+  // return descrioptor;
 }
 
 
@@ -658,12 +666,12 @@ console.log(Test.prototype.name);
 **接收的参数**
 
 - `target`:       原型
-- `key`:          参数所在方法名字
+- `method`:       参数所在方法名字
 - `paramIndex`:   参数索引
 
 ```ts
-function paramDecorator(target: any, key: string, paramIndex: number): any {
-  console.log(target, key, paramIndex);
+function paramDecorator(target: any, method: string, paramIndex: number) {
+  console.log(target, method, paramIndex);
 }
 
 class Test {
@@ -683,3 +691,43 @@ test.getInfo('name', 18)
 <br/>
 <br/>
 <br/>
+
+### 🌰：异常捕获
+
+```javascript
+const userInfo: any = undefined
+
+function catchError(msg: string) {
+  return function (target: any, key: string, descriptor: PropertyDescriptor) {
+    const fn = descriptor.value
+
+    descriptor.value = function () {
+      try {
+        fn()
+      } catch (e) {
+        console.error(msg);
+      }
+    }
+  }
+}
+
+
+class Test {
+  @catchError('userInfo name 不存在')
+  getName() {
+    console.log(userInfo.name);
+    return userInfo.name
+  }
+
+  @catchError('userInfo age 不存在')
+  getAge() {
+    console.log(userInfo.age);
+    return userInfo.age
+  }
+}
+
+const text = new Test()
+
+text.getName()
+text.getAge()
+```
