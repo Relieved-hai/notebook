@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[226],{938:function(n,t,e){"use strict";e.r(t);var i={name:"admin",data:function(){return{items:[]}}},u=e(19),a=Object(u.a)(i,function(){var n=this.$createElement,t=this._self._c||n;return t("div",[t("el-button",[this._v("默认按钮")])],1)},[],!1,null,null,null);t.default=a.exports}}]);
