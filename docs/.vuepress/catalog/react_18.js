@@ -40,4 +40,27 @@ module.exports = [
       ["/react_18/05/05/", "生命周期-getSnapshotBeforeUpdate"],
     ],
   },
+  {
+    title: "简易版-性能优化相关特性",
+    collapsable: false,
+    children: [
+      ["/react_18/06/01/", "PureComponent"],
+      ["/react_18/06/02/", "Memo"],
+    ],
+  },
+  {
+    title: "简易版-Hooks",
+    collapsable: false,
+    children: [
+      ["/react_18/07/01/", "Hooks 概括"],
+      ["/react_18/07/02/", "useState"],
+      ["/react_18/07/03/", "useReducer"],
+      ["/react_18/07/04/", "useEffect"],
+      ["/react_18/07/05/", "useLayoutEffect"],
+      ["/react_18/07/06/", "useRef"],
+      ["/react_18/07/07/", "useImperativeHandle"],
+      ["/react_18/07/08/", "useMemo、useCallback"],
+      ["/react_18/07/09/", "Hooks 思考"],
+    ],
+  },
 ];

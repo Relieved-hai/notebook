@@ -144,7 +144,10 @@ function mountArray(children, parent) {
 -   // } else {
 -   //   mount(children[i], parent);
 -   // }
-
++   if (!children[i]) {
++     children.splice(i, 1);
++     continue;
++   }
 +   // 提供给 DOM DIFF 消费
 +   children[i].index = i;
 +   mount(children[i], parent);
@@ -310,13 +313,13 @@ function updateFunctionComponent(oldVNode, newVNode) {
  *        newVNodeChildren: [C, B, E, F, A]
  */
 function updateChildren(parentDOM, oldVNodeChildren, newVNodeChildren) {
-  oldVNodeChildren = Array.isArray(oldVNodeChildren)
-    ? oldVNodeChildren
-    : [oldVNodeChildren].filter(Boolean);
+  oldVNodeChildren = (
+    Array.isArray(oldVNodeChildren) ? oldVNodeChildren : [oldVNodeChildren]
+  ).filter(Boolean);
 
-  newVNodeChildren = Array.isArray(newVNodeChildren)
-    ? newVNodeChildren
-    : [newVNodeChildren].filter(Boolean);
+  newVNodeChildren = (
+    Array.isArray(newVNodeChildren) ? newVNodeChildren : [newVNodeChildren]
+  ).filter(Boolean);
 
   // 上次未更改索引，上次未移动元素的索引，怎么理解呢？末尾有图解
   let lastNotChangedIndex = -1;

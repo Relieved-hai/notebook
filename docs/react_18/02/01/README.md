@@ -151,3 +151,56 @@ React 代码是如何提供给开发者使用的呢？
 - **react-reconciler** 包，渲染相关的基础公用逻辑，这部分也可以理解是跨平台的。正如 react-reconciler 这个包中 README.md 提到了：这个包用于创建自定义的 React 渲染器。我们可以认为 react-dom 就是利用这个 react-reconciler 包创建了一个符合自己特定场景的渲染器。
 
 关于 react18 源码基本情况的更多内容，可以参阅 [官方文档](https://reactjs.org/docs/codebase-overview.html)
+
+<br/>
+<br/>
+<br/>
+
+### Babel（可忽略）
+
+Babel 的工作方式是将现代 JavaScript 代码转换为旧版本浏览器可以理解的等效代码。例如，可能会用到 ES6 的箭头函数，但并不是所有浏览器都支持这个特性。Babel 就可以将箭头函数转换为普通函数表达式，使得代码在不支持箭头函数的环境中也能运行。Babel 在工作时会使用一种称为抽象语法树（AST）的结构。AST 是源代码的分层、树形表示，用于表示程序的语法结构，其实就是一个承载很多信息的对象。
+
+当 Babel 处理代码时，它会执行以下三个主要步骤：
+
+- **解析（Parsing）**：将源代码转换为 AST。这个过程会读取代码，并识别各种结构（如变量、函数等）。
+- **转换（Transformation）**：在 AST 上执行一系列转换。这个阶段可以修改、添加、移除树上的节点。
+- **生成（Code Generation）**：将经过转换的 AST 转回普通的源代码。
+
+<br/>
+<br/>
+
+简单案例
+
+安装依赖项：
+
+```shell
+npm install --save @babel/parser @babel/traverse @babel/generator
+```
+
+然后在 Node 环境中，运行下面代码：
+
+```js
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const generate = require("@babel/generator").default;
+
+// 1. 解析（Parsing）: 将源代码转换为 AST
+const code = "const x = 1;";
+const ast = parser.parse(code);
+
+// 2. 转换（Transformation）: 在 AST 上进行修改
+traverse(ast, {
+  enter(path) {
+    if (path.isIdentifier({ name: "x" })) {
+      path.node.name = "y";
+    }
+  },
+});
+
+// 3. 生成（Code Generation）: 将修改后的 AST 转回源代码
+const output = generate(ast).code;
+
+console.log(output); // 输出 "const y = 1;"
+```
+
+也可以在 AST 可视化工具，如 [AST Explorer 网站体验](https://astexplorer.net/)
