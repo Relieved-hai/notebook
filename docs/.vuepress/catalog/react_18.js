@@ -1,7 +1,7 @@
 module.exports = [
   {
     title: "简易版-渲染",
-    collapsable: false,
+    collapsable: true,
     children: [
       ["/react_18/02/01/", "前置概念"],
       ["/react_18/02/02/", "环境搭建"],
@@ -10,7 +10,7 @@ module.exports = [
   },
   {
     title: "简易版-函数组件、类组件",
-    collapsable: false,
+    collapsable: true,
     children: [
       ["/react_18/03/01/", "函数组件"],
       ["/react_18/03/02/", "类组件"],
@@ -23,7 +23,7 @@ module.exports = [
   },
   {
     title: "简易版-渲染过程优化-DOM DIFF",
-    collapsable: false,
+    collapsable: true,
     children: [
       ["/react_18/04/01/", "DOM DIFF-原理分析"],
       ["/react_18/04/02/", "DOM DIFF-简单实现"],
@@ -31,18 +31,18 @@ module.exports = [
   },
   {
     title: "简易版-类组件增强-生命周期",
-    collapsable: false,
+    collapsable: true,
     children: [
       ["/react_18/05/01/", "生命周期-概念"],
       ["/react_18/05/02/", "常用生命周期-简单实现"],
-      ["/react_18/05/03/", "生命周期-shouldComponentUpdate"],
-      ["/react_18/05/04/", "生命周期-getDeriveStateFromProps"],
-      ["/react_18/05/05/", "生命周期-getSnapshotBeforeUpdate"],
+      ["/react_18/05/03/", "shouldComponentUpdate"],
+      ["/react_18/05/04/", "getDeriveStateFromProps"],
+      ["/react_18/05/05/", "getSnapshotBeforeUpdate"],
     ],
   },
   {
     title: "简易版-性能优化相关特性",
-    collapsable: false,
+    collapsable: true,
     children: [
       ["/react_18/06/01/", "PureComponent"],
       ["/react_18/06/02/", "Memo"],
@@ -50,7 +50,7 @@ module.exports = [
   },
   {
     title: "简易版-Hooks",
-    collapsable: false,
+    collapsable: true,
     children: [
       ["/react_18/07/01/", "Hooks 概括"],
       ["/react_18/07/02/", "useState"],
@@ -61,6 +61,27 @@ module.exports = [
       ["/react_18/07/07/", "useImperativeHandle"],
       ["/react_18/07/08/", "useMemo、useCallback"],
       ["/react_18/07/09/", "Hooks 思考"],
+    ],
+  },
+  {
+    title: "Fiber 架构",
+    collapsable: true,
+    children: [
+      ["/react_18/08/01/", "为什么需要 Fiber"],
+      ["/react_18/08/02/", "什么是 Fiber"],
+    ],
+  },
+  {
+    title: "Fiber 架构-初始化渲染",
+    collapsable: true,
+    children: [
+      ["/react_18/09/01/", "环境搭建"],
+      ["/react_18/09/02/", "jsxDev"],
+      ["/react_18/09/03/", "createRoot-createContainer"],
+      ["/react_18/09/04/", "createRoot-updateContainer"],
+      ["/react_18/09/05/", "scheduleUpdateOnFiber"],
+      ["/react_18/09/06/", "beginWork"],
+      ["/react_18/09/07/", "beginWork-mountChildFibers、reconcileChildFibers"],
     ],
   },
 ];
