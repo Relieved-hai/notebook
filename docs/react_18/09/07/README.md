@@ -63,10 +63,11 @@ function createChildReconciler(shouldTrackSideEffects) {
     // 正常虚拟 DOM
     if (typeof newChild === "object" && newChild !== null) {
       switch (newChild.$$typeof) {
-        case REACT_ELEMENT_TYPE:
+        case REACT_ELEMENT_TYPE: {
           const created = createFiberFromElement(newChild);
           created.return = returnFiber;
           return created;
+        }
 
         default:
           break;
@@ -143,6 +144,8 @@ function createChildReconciler(shouldTrackSideEffects) {
     if (isArray(newChild)) {
       return reconcileChildrenArray(returnFiber, currentFirstFiber, newChild);
     }
+
+    return null;
   }
 
   return reconcileChildFibers;
@@ -163,6 +166,7 @@ export const reconcileChildFibers = createChildReconciler(true);
 ```js
 import {
   // ...
+  HostText,
   HostComponent,
   IndeterminateComponent,
 } from "./ReactWorkTags";
@@ -209,7 +213,7 @@ export function createFiberFromElement(element) {
  * @returns {FiberNode} 新的文本类型的Fiber节点
  */
 export function createFiberFromText(content) {
-  return createFiber(HostComponent, content, null);
+  return createFiber(HostText, content, null);
 }
 ```
 

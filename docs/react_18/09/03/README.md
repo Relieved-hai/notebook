@@ -106,7 +106,7 @@ import { initialUpdateQueue } from "./ReactFiberClassUpdateQueue";
 /**
  * Fiber 根节点对象构造函数。
  *
- * @param {any} containerInfo - 容器信息。
+ * @param {any} containerInfo - 容器信息，如 div#root
  */
 function FiberRootNode(containerInfo) {
   this.containerInfo = containerInfo;

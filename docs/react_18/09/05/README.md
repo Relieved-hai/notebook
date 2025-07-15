@@ -35,7 +35,8 @@ function performConcurrentWorkOnRoot(root) {
 
   // finishedWork 正在展示的树（通常情况下，finishedWork 和页面基本一致的，当然它有一个时间差，可以忽略）
   // alternate 正在工作处理的树，处理完将会替换成工作树
-  root.finishedWork = root.current.alternate;
+  const finishedWork = root.current.alternate;
+  root.finishedWork = finishedWork;
 
   // 这步才是真正把处理好的信息，挂载到页面上
   // 三步骤的第三步（① beginWork ② completeWork ③ commitWork）
@@ -116,6 +117,7 @@ export function createWorkInProgess(current, pendingProps) {
     workInProgress.type = current.type;
     workInProgress.stateNode = current.stateNode;
     workInProgress.alternate = current;
+    current.alternate = workInProgress;
   } else {
     workInProgress.pendingProps = pendingProps;
     workInProgress.type = current.type;

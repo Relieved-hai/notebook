@@ -82,6 +82,10 @@ module.exports = [
       ["/react_18/09/05/", "scheduleUpdateOnFiber"],
       ["/react_18/09/06/", "beginWork"],
       ["/react_18/09/07/", "beginWork-mountChildFibers、reconcileChildFibers"],
+      ["/react_18/09/08/", "completeWork-1"],
+      ["/react_18/09/09/", "completeWork-2"],
+      ["/react_18/09/10/", "completeWork-3"],
+      ["/react_18/09/11/", "beginWork、completeWork 小结"],
     ],
   },
 ];
