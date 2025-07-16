@@ -68,7 +68,8 @@ module.exports = [
     collapsable: true,
     children: [
       ["/react_18/08/01/", "为什么需要 Fiber"],
-      ["/react_18/08/02/", "什么是 Fiber"],
+      ["/react_18/08/02/", "Fiber 是什么"],
+      ["/react_18/08/03/", "Fiber 双缓冲"],
     ],
   },
   {
@@ -86,6 +87,9 @@ module.exports = [
       ["/react_18/09/09/", "completeWork-2"],
       ["/react_18/09/10/", "completeWork-3"],
       ["/react_18/09/11/", "beginWork、completeWork 小结"],
+      ["/react_18/09/12/", "commitWork"],
+      ["/react_18/09/13/", "commitWork 小结"],
+      ["/react_18/09/14/", "FunctionComponent"],
     ],
   },
 ];

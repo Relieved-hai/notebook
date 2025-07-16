@@ -1,9 +1,16 @@
 Fiber 架构下，其转换过程是：**虚拟 DOM** -> **Fiber 树** -> **真实 DOM**，与之前版本多了一层 **Fiber 树**。
 
-- **虚拟 DOM** -> **Fiber 树**：是 `beginWork` 完成的
-- **Fiber 树** -> **真实 DOM**：是 `completeWork` 完成的
+简单来说，render 函数大致分为：
 
-真实 DOM 之后挂载到页面，就是 `commitWork`
+- **渲染阶段**
+  - **虚拟 DOM** -> **Fiber 树**：是 `beginWork` 完成的
+  - **Fiber 树** -> **真实 DOM**：是 `completeWork` 完成的
+- **提交阶段**
+  - **真实 DOM** -> **挂载**：是 `commitWork` 完成的
+
+<br/>
+
+React 执行任务可以中断、恢复都是基于 Fiber 架构的，将任务拆分成一个一个小任务，有序规律的进行。但仅仅是 **虚拟 DOM** -> **Fiber 树** -> **真实 DOM** 过程可以，当真实 DOM 挂载到页面这个过程是不可以中断的。也就是说渲染阶段可以中断恢复，提交阶段不可以。
 
 <br/>
 <br/>
