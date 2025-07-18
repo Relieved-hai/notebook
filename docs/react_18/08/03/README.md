@@ -22,10 +22,27 @@ const root = createRoot(document.getElementById("root"));
 root.render(<App />);
 ```
 
+<br/>
+<br/>
+
 **初始化 mount 时**，也就是 `createRoot` 执行时
 
 ![](./images/01.png)
 
+代码体现
+
+```js
+export function createFiberRoot(containerInfo) {
+  const root = new FiberRootNode(containerInfo);
+  const uninitializedFiber = createHostRootFiber();
+  root.current = uninitializedFiber;
+  uninitializedFiber.stateNode = root;
+  // ...
+  return root;
+}
+```
+
+<br/>
 <br/>
 
 **开始渲染**，也就是 `root.render` 执行时，会根据虚拟 DOM 生成对应的 Fiber 树，Fiber 树再生成对应真实 DOM 渲染，此时两颗树的身份互换，循环往复
