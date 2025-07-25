@@ -106,4 +106,42 @@ module.exports = [
       ["/react_18/10/08/", "执行事件"],
     ],
   },
+  {
+    title: "Fiber 架构-组件更新",
+    collapsable: true,
+    children: [
+      ["/react_18/11/01/", "diff"],
+      ["/react_18/11/02/", "单节点 diff"],
+      ["/react_18/11/03/", "多节点 diff-1"],
+      ["/react_18/11/04/", "多节点 diff-2"],
+      ["/react_18/11/05/", "多节点 diff-3"],
+    ],
+  },
+  {
+    title: "Fiber 架构-Hooks",
+    collapsable: true,
+    children: [
+      ["/react_18/12/01/", "Hooks"],
+      ["/react_18/12/02/", "useRedcuer-挂载-1"],
+      ["/react_18/12/03/", "useRedcuer-挂载-2"],
+      ["/react_18/12/04/", "useRedcuer-触发更新"],
+      ["/react_18/12/05/", "useRedcuer-更新渲染-1-1"],
+      ["/react_18/12/06/", "useRedcuer-更新渲染-1-2"],
+      ["/react_18/12/07/", "useRedcuer-更新渲染-2"],
+      ["/react_18/12/08/", "useRedcuer-更新渲染-3"],
+      ["/react_18/12/09/", "useState"],
+      ["/react_18/12/10/", "useEffect-挂载"],
+      ["/react_18/12/11/", "useEffect-更新-1"],
+      ["/react_18/12/12/", "useEffect-更新-2"],
+      ["/react_18/12/13/", "useLayoutEffect"],
+    ],
+  },
+  {
+    title: "Fiber 架构-Lane模型与优先级",
+    collapsable: true,
+    children: [
+      ["/react_18/13/01/", "二进制基础计算"],
+      ["/react_18/13/02/", "最小堆基础算法"],
+    ],
+  },
 ];

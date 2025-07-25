@@ -81,11 +81,11 @@ function createChildReconciler(shouldTrackSideEffects) {
    * 将新创建的元素转换为fiber
    *
    * @param {Fiber} returnFiber - 新的父Fiber
-   * @param {Fiber} currentFirstFiber - 老fiber第一个子fiber
+   * @param {Fiber} currentFirstChild - 老fiber第一个子fiber
    * @param {object} element - 新的子虚拟DOM元素
    * @return {Fiber} created - 返回新创建的Fiber
    */
-  function reconcileSingleElement(returnFiber, currentFirstFiber, element) {
+  function reconcileSingleElement(returnFiber, currentFirstChild, element) {
     const created = createFiberFromElement(element);
     created.return = returnFiber;
     return created;
