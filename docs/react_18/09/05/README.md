@@ -1,7 +1,7 @@
 ### packages/react-reconciler/src/ReactFiberWorkLoop.js
 
 ```js
-import { scheduleCallback } from "scheduler";
+import { scheduleCallback } from "../../scheduler";
 import { createWorkInProgess } from "./ReactFiber";
 
 // （工作进行中）‌指当前正在构建或更新的 Fiber 树
@@ -83,13 +83,23 @@ function performUnitOfWork(unitOfWork) {
 <br/>
 <br/>
 
-### packages/scheduler/index.js
+### packages/scheduler/src/forks/Scheduler.js
 
 ```js
 export function scheduleCallback(callback) {
   // 先模拟
   requestIdleCallback(callback);
 }
+```
+
+<br/>
+<br/>
+<br/>
+
+### packages/scheduler/index.js
+
+```js
+export { scheduleCallback } from "./src/forks/Scheduler";
 ```
 
 <br/>

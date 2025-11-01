@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+</body>
+
+<script>
+  const componentInstance = {
+    state: null,
+    _pendingState: null,
+    _stateList: [],
+
+    render() {
+      console.log('reconciling...');
+    },
+
+    setState(partialState) {
+      this._stateList.push(partialState);
+
+      if (this._stateList.length === 1) {
+        queueMicrotask(() => {
+          if (this.state !== null) {
+            this._stateList.unshift(this.state);
+          }
+
+          const finalState = this._stateList.reduceRight((prev, curr) => {
+            return Object.assign(curr, prev);
+          }, {})
+
+          this._pendingState = finalState;
+
+          console.log('reconciliation start...')
+
+          this.render();
+
+          console.log('reconciliation end...')
+
+          this.state = this._pendingState;
+          this._pendingState = null;
+          this._stateList.length = 0;
+        });
+      }
+    }
+  }
+
+  // componentInstance.state = { count: 1 };
+  // componentInstance.setState({ count: componentInstance.state.count + 1 });
+  //
+  // // 能拿到更新后的state值吗？
+  // // 打印结果：state: 1,所以答案是：不能。
+  // console.log('state1:', componentInstance.state);
+  //
+  // // 能拿到更新后的state值吗？
+  // // 打印结果：state: 2,所以答案是：能。
+  // setTimeout(() => {
+  //   console.log('state2:', componentInstance.state);
+  // }, 0);
+
+
+  componentInstance.state = { count: 1 };
+  componentInstance.setState({ count: componentInstance.state.count + 1 });
+  componentInstance.setState({ count: componentInstance.state.count + 1 });
+  componentInstance.setState({ count: componentInstance.state.count + 1 });
+
+  // output: state: 2,证明是批量更新
+  // setTimeout(() => {
+  //   console.log('state:', componentInstance.state);
+  // }, 0);
+</script>
+</html>

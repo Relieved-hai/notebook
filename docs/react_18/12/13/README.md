@@ -115,7 +115,7 @@ export const LayoutMask = Update;
 ### packages/react-reconciler/src/ReactFiberWorkLoop.js
 
 ```diff
-import { scheduleCallback } from "scheduler";
+import { scheduleCallback } from "../../scheduler";
 import { createWorkInProgess } from "./ReactFiber";
 import { beginWork } from "./ReactFiberBeginWork";
 import { completeWork } from "./ReactFiberCompleteWork";

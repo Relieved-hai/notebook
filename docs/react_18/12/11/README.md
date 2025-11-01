@@ -1,7 +1,7 @@
 ### packages/react-reconciler/src/ReactFiberHooks.js
 
 ```diff
-import { scheduleCallback } from "scheduler";
+import { scheduleCallback } from "../../scheduler";
 import { createWorkInProgess } from "./ReactFiber";
 import { beginWork } from "./ReactFiberBeginWork";
 import { completeWork } from "./ReactFiberCompleteWork";
