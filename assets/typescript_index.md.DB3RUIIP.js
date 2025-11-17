@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./chunks/framework.D0XSyabR.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"typescript/index.md","filePath":"typescript/index.md","lastUpdated":null}'),r={name:"typescript/index.md"};function n(s,c,p,i,o,d){return a(),t("div")}const m=e(r,[["render",n]]);export{l as __pageData,m as default};
